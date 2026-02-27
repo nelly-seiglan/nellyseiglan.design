@@ -603,6 +603,16 @@
       font-size: 1.125rem;
     }
 
+    .news-list a.news-link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+    .news-list a.news-link:hover {
+      color: var(--accent-sky);
+    }
+
     .experience-list {
       list-style: none;
       margin: 0;
@@ -1702,10 +1712,9 @@
       <div class="news-block">
         <h2 class="news-title">News</h2>
         <ul class="news-list">
-          <li><span class="news-arrow">→</span> <strong>Lead Product Designer</strong> since 4+ years</li>
-          <li><span class="news-arrow">→</span> <strong>Designing</strong> AI-native products at Hexa</li>
-          <li><span class="news-arrow">→</span> <strong>Writing</strong> about AI & Design on Re:Design</li>
-          <li><span class="news-arrow">→</span> <strong>Speaker</strong> at AI Product Day 2026</li>
+          <li><span class="news-arrow">→</span> Speaker at <a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener noreferrer" class="news-link">AI Product Day 2026 (march 23rd)</a></li>
+          <li><span class="news-arrow">→</span> Writing about AI & Design on <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener noreferrer" class="news-link">Re:Design</a></li>
+          <li><span class="news-arrow">→</span> Designing AI-native products at <a href="https://www.hexa.com/" target="_blank" rel="noopener noreferrer" class="news-link">Hexa</a></li>
         </ul>
       </div>
       <div class="background-block">
