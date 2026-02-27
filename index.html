@@ -1244,7 +1244,7 @@
     ════════════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {
       .container {
-        padding: 0 40px;
+        padding: 0 16px;
       }
 
       nav {
@@ -1367,43 +1367,136 @@
         padding: 7px 14px;
       }
 
+      .newsletter-section {
+        padding: 64px 0 80px;
+      }
+
       .newsletter-section .container {
-        padding: 0 40px;
+        padding: 0 16px;
       }
 
       .newsletter-card {
-        padding: 48px 24px;
+        padding: 40px 24px;
+        border-radius: 24px;
+      }
+
+      .newsletter-card h2 {
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        margin-bottom: 14px;
+      }
+
+      .newsletter-card p {
+        font-size: 1.0625rem;
+      }
+
+      .newsletter-cta {
+        padding: 14px 28px;
+        font-size: 1rem;
       }
 
       .newsletter-form {
         flex-direction: column;
       }
 
+      .about-section {
+        padding: 64px 0 80px;
+      }
+
       .about-section .container {
-        padding: 0 40px;
+        padding: 0 16px;
       }
 
       .about-card {
-        padding: 40px 24px;
+        padding: 36px 20px;
+        border-radius: 24px;
       }
 
       .about-grid {
         grid-template-columns: 1fr;
-        gap: 48px;
+        gap: 32px;
+      }
+
+      .about-content h2 {
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        margin-bottom: 16px;
+      }
+
+      .about-content p {
+        font-size: 1.0625rem;
+      }
+
+      .skills {
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .skill {
+        font-size: 0.9375rem;
+        padding: 9px 16px;
       }
 
       footer {
-        padding: 40px 24px 48px;
+        padding: 32px 20px 40px;
       }
 
       .footer-content {
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
         text-align: center;
       }
 
       .footer-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .newsletter-section {
+        padding: 48px 0 56px;
+      }
+
+      .newsletter-section .container {
+        padding: 0 16px;
+      }
+
+      .newsletter-card {
+        padding: 32px 20px;
+        border-radius: 20px;
+      }
+
+      .about-section {
+        padding: 48px 0 56px;
+      }
+
+      .about-section .container {
+        padding: 0 16px;
+      }
+
+      .about-card {
+        padding: 28px 16px;
+        border-radius: 20px;
+      }
+
+      .about-grid {
         gap: 24px;
+      }
+
+      footer {
+        padding: 28px 16px 36px;
+      }
+
+      .footer-left {
+        font-size: 0.9375rem;
+      }
+
+      .footer-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-links a {
+        font-size: 0.9375rem;
       }
     }
 
