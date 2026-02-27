@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolecto — Nelly Seiglan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/inner-pages.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-links">
+      <a href="index.html#home">Home</a>
+      <div class="nav-dropdown" id="nav-projects-dropdown">
+        <button type="button" class="nav-dropdown-trigger active" id="nav-projects-trigger" aria-expanded="false" aria-haspopup="true">
+          Projects
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="index.html#projects" role="menuitem">All projects</a>
+          <a href="verso.html" role="menuitem">Verso</a>
+          <a href="rose.html" role="menuitem">Rose</a>
+          <a href="kolecto.html" role="menuitem">Kolecto</a>
+          <a href="milleis.html" role="menuitem">Milleis</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+    </div>
+    <button type="button" class="nav-contact-btn" id="nav-contact-toggle">Contact</button>
+  </nav>
+
+  <aside class="contact-popover" id="contact-popover" aria-hidden="true">
+    <div class="contact-popover-title">Contact</div>
+    <a href="mailto:hello@nellyseiglan.com">hello@nellyseiglan.com</a>
+    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </aside>
+
+  <main class="container container--project">
+    <h1>Kolecto</h1>
+    <div class="project-meta">
+      Financial management for SMBs — case study coming soon.
+    </div>
+    <div class="hero-visual">
+      <video class="project-video" autoplay muted loop playsinline>
+        <source src="assets/kolecto-2.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="project-visual">
+      <video class="project-video" autoplay muted loop playsinline>
+        <source src="assets/kolecto.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <section class="content-block">
+      <h2>Context</h2>
+      <p>Ajoutez ici le contexte de Kolecto, le type de clients, et la problématique que vous adressez.</p>
+    </section>
+    <section class="content-block">
+      <h2>Approach</h2>
+      <p>Section pour raconter votre démarche de design, les flows clés et les décisions produit majeures.</p>
+    </section>
+    <section class="content-block">
+      <h2>Impact</h2>
+      <p>Espace réservé pour les résultats, chiffres d’adoption, ou feedbacks utilisateurs significatifs.</p>
+    </section>
+  </main>
+
+  <!-- Video lightbox (player au clic) -->
+  <div id="video-lightbox" class="video-lightbox" aria-hidden="true">
+    <div class="video-lightbox-content">
+      <button type="button" class="video-lightbox-close" id="video-lightbox-close" aria-label="Fermer">×</button>
+      <video class="video-lightbox-player" id="video-lightbox-player" controls loop playsinline></video>
+    </div>
+  </div>
+
+  <script>
+    const projectsDropdown = document.getElementById('nav-projects-dropdown');
+    const projectsTrigger = document.getElementById('nav-projects-trigger');
+    if (projectsTrigger && projectsDropdown) {
+      projectsTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        projectsDropdown.classList.toggle('open');
+        projectsTrigger.setAttribute('aria-expanded', projectsDropdown.classList.contains('open'));
+      });
+      document.addEventListener('click', () => {
+        projectsDropdown.classList.remove('open');
+        projectsTrigger.setAttribute('aria-expanded', 'false');
+      });
+      projectsDropdown.querySelector('.nav-dropdown-menu')?.addEventListener('click', (e) => e.stopPropagation());
+    }
+    const contactToggle = document.getElementById('nav-contact-toggle');
+    const contactPopover = document.getElementById('contact-popover');
+    if (contactToggle && contactPopover) {
+      const closeContact = (e) => {
+        if (!contactPopover.classList.contains('is-visible')) return;
+        if (e && (e.target === contactToggle || contactToggle.contains(e.target))) return;
+        if (e && contactPopover.contains(e.target)) return;
+        contactPopover.classList.remove('is-visible');
+        contactPopover.setAttribute('aria-hidden', 'true');
+      };
+      contactToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = !contactPopover.classList.contains('is-visible');
+        contactPopover.classList.toggle('is-visible', open);
+        contactPopover.setAttribute('aria-hidden', !open);
+      });
+      document.addEventListener('click', closeContact);
+      window.addEventListener('blur', closeContact);
+    }
+
+    // Video lightbox: au clic sur la vidéo, ouvrir en grand
+    (function () {
+      const lightbox = document.getElementById('video-lightbox');
+      const player = document.getElementById('video-lightbox-player');
+      const closeBtn = document.getElementById('video-lightbox-close');
+      if (!lightbox || !player) return;
+
+      const openLightbox = (sourceUrl) => {
+        player.src = sourceUrl;
+        player.muted = false;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        player.play().catch(() => {});
+      };
+      const closeLightbox = () => {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        player.pause();
+        player.removeAttribute('src');
+      };
+
+      document.querySelectorAll('.hero-visual, .project-visual').forEach((container) => {
+        const source = container.querySelector('.project-video source');
+        if (!source) return;
+        const src = source.getAttribute('src') || source.src;
+        if (!src) return;
+        container.addEventListener('click', () => openLightbox(src));
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    })();
+  </script>
+</body>
+</html>

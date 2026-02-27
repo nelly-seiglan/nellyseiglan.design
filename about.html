@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nelly Seiglan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/inner-pages.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-links">
+      <a href="index.html#home">Home</a>
+      <div class="nav-dropdown" id="nav-projects-dropdown">
+        <button type="button" class="nav-dropdown-trigger" id="nav-projects-trigger" aria-expanded="false" aria-haspopup="true">
+          Projects
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="index.html#projects" role="menuitem">All projects</a>
+          <a href="verso.html" role="menuitem">Verso</a>
+          <a href="rose.html" role="menuitem">Rose</a>
+          <a href="kolecto.html" role="menuitem">Kolecto</a>
+          <a href="milleis.html" role="menuitem">Milleis</a>
+        </div>
+      </div>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <button type="button" class="nav-contact-btn" id="nav-contact-toggle">Contact</button>
+  </nav>
+
+  <aside class="contact-popover" id="contact-popover" aria-hidden="true">
+    <div class="contact-popover-title">Contact</div>
+    <a href="mailto:hello@nellyseiglan.com">hello@nellyseiglan.com</a>
+    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </aside>
+
+  <main class="container">
+    <div class="intro-label">About</div>
+    <h1 class="about-title">Nelly Seiglan</h1>
+    <div class="columns">
+      <div class="body-text">
+        <p>Hi, I’m Nelly — a product designer focused on AI-native products and thoughtful, resilient design systems.</p>
+        <p>Over the past 4+ years, I’ve helped startups and scale-ups launch and refine products from 0 → 1, working closely with founders, product, and engineering teams.</p>
+        <p>This page est un canevas que vous pourrez enrichir avec votre parcours, vos valeurs, et votre façon de travailler avec les équipes produit.</p>
+      </div>
+      <aside class="highlight-card">
+        <div class="highlight-title">Selected focus</div>
+        <ul class="list">
+          <li>AI-native product design</li>
+          <li>Design systems & UI kits</li>
+          <li>Research & discovery</li>
+          <li>Prototyping & motion</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const projectsDropdown = document.getElementById('nav-projects-dropdown');
+    const projectsTrigger = document.getElementById('nav-projects-trigger');
+    if (projectsTrigger && projectsDropdown) {
+      projectsTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        projectsDropdown.classList.toggle('open');
+        projectsTrigger.setAttribute('aria-expanded', projectsDropdown.classList.contains('open'));
+      });
+      document.addEventListener('click', () => {
+        projectsDropdown.classList.remove('open');
+        projectsTrigger.setAttribute('aria-expanded', 'false');
+      });
+      projectsDropdown.querySelector('.nav-dropdown-menu')?.addEventListener('click', (e) => e.stopPropagation());
+    }
+    const contactToggle = document.getElementById('nav-contact-toggle');
+    const contactPopover = document.getElementById('contact-popover');
+    if (contactToggle && contactPopover) {
+      const closeContact = (e) => {
+        if (!contactPopover.classList.contains('is-visible')) return;
+        if (e && (e.target === contactToggle || contactToggle.contains(e.target))) return;
+        if (e && contactPopover.contains(e.target)) return;
+        contactPopover.classList.remove('is-visible');
+        contactPopover.setAttribute('aria-hidden', 'true');
+      };
+      contactToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = !contactPopover.classList.contains('is-visible');
+        contactPopover.classList.toggle('is-visible', open);
+        contactPopover.setAttribute('aria-hidden', !open);
+      });
+      document.addEventListener('click', closeContact);
+      window.addEventListener('blur', closeContact);
+    }
+  </script>
+</body>
+</html>
