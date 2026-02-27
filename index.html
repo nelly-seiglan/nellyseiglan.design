@@ -1271,11 +1271,13 @@
         border-radius: 20px;
       }
 
-      .project-card-media {
+      .project-card:nth-child(odd) .project-card-media,
+      .project-card:nth-child(even) .project-card-media {
         order: 1;
       }
 
-      .project-card .project-info {
+      .project-card:nth-child(odd) .project-info,
+      .project-card:nth-child(even) .project-info {
         order: 2;
       }
 
