@@ -304,6 +304,12 @@
       text-decoration: underline;
     }
 
+    /* Contact suppressed for now */
+    .nav-contact-btn,
+    .contact-popover {
+      display: none !important;
+    }
+
     /* ════════════════════════════════════════════════════════════════
        CONTAINER SYSTEM — full width, 40px marges
     ════════════════════════════════════════════════════════════════ */
@@ -611,11 +617,11 @@
 
     .experience-logo {
       flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
       overflow: hidden;
-      background: #262626;
+      background: rgba(255, 255, 255, 0.06);
       position: relative;
     }
 
@@ -623,7 +629,8 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 6px;
+      padding: 5px;
+      box-sizing: border-box;
     }
 
     .experience-logo .logo-fallback {
@@ -635,11 +642,25 @@
       font-size: 1rem;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.5);
-      line-height: 40px;
+      line-height: 1;
     }
 
     .experience-logo .logo-fallback.show {
       display: flex;
+    }
+
+    .experience-logo--white {
+      background: #ffffff;
+    }
+    .experience-logo--white .logo-fallback {
+      color: #1a1a1a;
+    }
+
+    .experience-logo--black {
+      background: #000000;
+    }
+    .experience-logo--black .logo-fallback {
+      color: #ffffff;
     }
 
     .experience-text {
@@ -661,7 +682,6 @@
       color: rgba(255, 255, 255, 0.65);
       line-height: 1.4;
     }
-
 
     @media (max-width: 900px) {
       .news-section {
@@ -685,12 +705,17 @@
       }
 
       .experience-logo {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
+      }
+
+      .experience-logo img {
+        padding: 4px;
       }
 
       .experience-logo .logo-fallback {
-        line-height: 32px;
+        line-height: 1;
+        font-size: 0.875rem;
       }
     }
 
@@ -929,6 +954,21 @@
 
     .project-cta span {
       font-size: inherit;
+    }
+
+    .project-website-link {
+      display: inline-block;
+      font-family: 'Urbanist', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      padding: 8px 0;
+      transition: color 0.2s ease;
+    }
+
+    .project-website-link:hover {
+      color: var(--accent-sky);
     }
 
     /* ════════════════════════════════════════════════════════════════
@@ -1458,20 +1498,8 @@
   <nav>
     <div class="nav-links">
       <a href="index.html#home" class="active">Home</a>
-      <div class="nav-dropdown" id="nav-projects-dropdown">
-        <button type="button" class="nav-dropdown-trigger" id="nav-projects-trigger" aria-expanded="false" aria-haspopup="true">
-          Projects
-          <span class="chevron" aria-hidden="true"></span>
-        </button>
-        <div class="nav-dropdown-menu" role="menu">
-          <a href="index.html#projects" role="menuitem">All projects</a>
-          <a href="verso.html" role="menuitem">Verso</a>
-          <a href="rose.html" role="menuitem">Rose</a>
-          <a href="kolecto.html" role="menuitem">Kolecto</a>
-          <a href="milleis.html" role="menuitem">Milleis</a>
-        </div>
-      </div>
-      <a href="about.html">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#news-hero">About</a>
     </div>
     <button type="button" class="nav-contact-btn" id="nav-contact-toggle">Contact</button>
   </nav>
@@ -1528,7 +1556,7 @@
         <ul class="experience-list">
           <li class="experience-item">
             <div class="experience-logo">
-              <img src="https://logo.clearbit.com/hexa.ai" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
+              <img src="https://logos-api.apistemic.com/domain:hexa.com" alt="Hexa" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
               <span class="logo-fallback">H</span>
             </div>
             <div class="experience-text">
@@ -1537,8 +1565,8 @@
             </div>
           </li>
           <li class="experience-item">
-            <div class="experience-logo">
-              <img src="https://logo.clearbit.com/kolecto.com" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
+            <div class="experience-logo experience-logo--white">
+              <img src="https://logos-api.apistemic.com/domain:kolecto.fr" alt="Kolecto" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
               <span class="logo-fallback">K</span>
             </div>
             <div class="experience-text">
@@ -1547,8 +1575,8 @@
             </div>
           </li>
           <li class="experience-item">
-            <div class="experience-logo">
-              <img src="https://logo.clearbit.com/theodo.com" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
+            <div class="experience-logo experience-logo--white">
+              <img src="https://logos-api.apistemic.com/domain:theodo.com" alt="Theodo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
               <span class="logo-fallback">T</span>
             </div>
             <div class="experience-text">
@@ -1557,8 +1585,8 @@
             </div>
           </li>
           <li class="experience-item">
-            <div class="experience-logo">
-              <img src="https://logo.clearbit.com/ddb.com" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
+            <div class="experience-logo experience-logo--black">
+              <img src="https://logos-api.apistemic.com/domain:ddb.com" alt="DDB" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show')">
               <span class="logo-fallback">D</span>
             </div>
             <div class="experience-text">
@@ -1598,9 +1626,7 @@
           </div>
           <p class="key-figure">350+ participants · 24-72h turnaround</p>
           <div class="project-actions">
-            <a href="verso.html" class="project-cta">
-              <span>Voir le projet</span>
-            </a>
+            <a href="https://www.askverso.ai/" target="_blank" rel="noopener noreferrer" class="project-website-link">Visit website</a>
           </div>
         </div>
       </div>
@@ -1625,9 +1651,7 @@
             <span class="tag">AI</span>
           </div>
           <div class="project-actions">
-            <a href="rose.html" class="project-cta">
-              <span>Voir le projet</span>
-            </a>
+            <a href="https://userose.ai/" target="_blank" rel="noopener noreferrer" class="project-website-link">Visit website</a>
           </div>
         </div>
       </div>
@@ -1652,9 +1676,7 @@
             <span class="tag">B2B</span>
           </div>
           <div class="project-actions">
-            <a href="kolecto.html" class="project-cta">
-              <span>Voir le projet</span>
-            </a>
+            <a href="https://www.kolecto.fr/" target="_blank" rel="noopener noreferrer" class="project-website-link">Visit website</a>
           </div>
         </div>
       </div>
@@ -1677,9 +1699,7 @@
             <span class="tag">Premium</span>
           </div>
           <div class="project-actions">
-            <a href="milleis.html" class="project-cta">
-              <span>Voir le projet</span>
-            </a>
+            <a href="https://www.milleis.fr/" target="_blank" rel="noopener noreferrer" class="project-website-link">Visit website</a>
           </div>
         </div>
       </div>
@@ -1731,20 +1751,14 @@
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav .nav-links a');
     const nav = document.querySelector('nav');
-    const projectsTrigger = document.getElementById('nav-projects-trigger');
 
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             navLinks.forEach((link) => link.classList.remove('active'));
-            if (projectsTrigger) projectsTrigger.classList.remove('active');
-            if (entry.target.id === 'projects' && projectsTrigger) {
-              projectsTrigger.classList.add('active');
-            } else {
-              const activeLink = document.querySelector(`nav .nav-links a[href="#${entry.target.id}"], nav .nav-links a[href="index.html#${entry.target.id}"]`);
-              if (activeLink) activeLink.classList.add('active');
-            }
+            const activeLink = document.querySelector(`nav .nav-links a[href="#${entry.target.id}"], nav .nav-links a[href="index.html#${entry.target.id}"]`);
+            if (activeLink) activeLink.classList.add('active');
           }
         });
       },
@@ -1752,21 +1766,6 @@
     );
 
     sections.forEach((section) => sectionObserver.observe(section));
-
-    // Projects dropdown toggle
-    const projectsDropdown = document.getElementById('nav-projects-dropdown');
-    if (projectsTrigger && projectsDropdown) {
-      projectsTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        projectsDropdown.classList.toggle('open');
-        projectsTrigger.setAttribute('aria-expanded', projectsDropdown.classList.contains('open'));
-      });
-      document.addEventListener('click', () => {
-        projectsDropdown.classList.remove('open');
-        projectsTrigger.setAttribute('aria-expanded', 'false');
-      });
-      projectsDropdown.querySelector('.nav-dropdown-menu')?.addEventListener('click', (e) => e.stopPropagation());
-    }
 
     // Glass nav state on scroll
     const updateNavState = () => {

@@ -13,20 +13,8 @@
   <nav>
     <div class="nav-links">
       <a href="index.html#home">Home</a>
-      <div class="nav-dropdown" id="nav-projects-dropdown">
-        <button type="button" class="nav-dropdown-trigger" id="nav-projects-trigger" aria-expanded="false" aria-haspopup="true">
-          Projects
-          <span class="chevron" aria-hidden="true"></span>
-        </button>
-        <div class="nav-dropdown-menu" role="menu">
-          <a href="index.html#projects" role="menuitem">All projects</a>
-          <a href="verso.html" role="menuitem">Verso</a>
-          <a href="rose.html" role="menuitem">Rose</a>
-          <a href="kolecto.html" role="menuitem">Kolecto</a>
-          <a href="milleis.html" role="menuitem">Milleis</a>
-        </div>
-      </div>
-      <a href="about.html" class="active">About</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#news-hero">About</a>
     </div>
     <button type="button" class="nav-contact-btn" id="nav-contact-toggle">Contact</button>
   </nav>
@@ -59,20 +47,6 @@
   </main>
 
   <script>
-    const projectsDropdown = document.getElementById('nav-projects-dropdown');
-    const projectsTrigger = document.getElementById('nav-projects-trigger');
-    if (projectsTrigger && projectsDropdown) {
-      projectsTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        projectsDropdown.classList.toggle('open');
-        projectsTrigger.setAttribute('aria-expanded', projectsDropdown.classList.contains('open'));
-      });
-      document.addEventListener('click', () => {
-        projectsDropdown.classList.remove('open');
-        projectsTrigger.setAttribute('aria-expanded', 'false');
-      });
-      projectsDropdown.querySelector('.nav-dropdown-menu')?.addEventListener('click', (e) => e.stopPropagation());
-    }
     const contactToggle = document.getElementById('nav-contact-toggle');
     const contactPopover = document.getElementById('contact-popover');
     if (contactToggle && contactPopover) {
