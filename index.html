@@ -457,28 +457,33 @@
 
     @media (max-width: 768px) {
       .hero {
-        padding: 120px 40px 80px;
+        padding: 110px 20px 56px;
       }
 
       .hero-scroll-wrap {
-        margin-top: 40px;
+        margin-top: 32px;
       }
 
       .hero-intro {
-        margin-bottom: 36px;
+        margin-bottom: 24px;
+        gap: 14px;
       }
 
       .hero-avatar {
-        width: 64px;
-        height: 64px;
+        width: 56px;
+        height: 56px;
       }
 
       .hero-name {
-        font-size: 28px;
+        font-size: 24px;
       }
 
       .hero-headline {
-        font-size: clamp(1.75rem, 6vw, 2.5rem);
+        font-size: clamp(1.625rem, 7vw, 2.25rem);
+      }
+
+      .hero-nowrap {
+        white-space: normal;
       }
     }
 
@@ -685,18 +690,19 @@
 
     @media (max-width: 900px) {
       .news-section {
-        padding: 48px 40px 80px;
+        padding: 40px 20px 64px;
       }
 
       .news-inner {
-        padding: 48px 0 80px;
+        padding: 40px 0 64px;
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 24px;
       }
 
       .news-block,
       .background-block {
-        padding: 40px 32px;
+        padding: 36px 28px;
+        border-radius: 24px;
       }
 
       .news-title,
@@ -715,6 +721,50 @@
 
       .experience-logo .logo-fallback {
         line-height: 1;
+        font-size: 0.875rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .news-section {
+        padding: 32px 16px 48px;
+      }
+
+      .news-inner {
+        padding: 28px 0 48px;
+        gap: 16px;
+      }
+
+      .news-block,
+      .background-block {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      .news-title,
+      .news-background-title {
+        font-size: 22px;
+        margin-bottom: 16px;
+      }
+
+      .news-list {
+        gap: 12px;
+      }
+
+      .news-list li {
+        font-size: 1rem;
+        gap: 10px;
+      }
+
+      .experience-list {
+        gap: 16px;
+      }
+
+      .experience-role {
+        font-size: 0.9375rem;
+      }
+
+      .experience-meta {
         font-size: 0.875rem;
       }
     }
@@ -1198,14 +1248,19 @@
       }
 
       nav {
-        gap: 12px;
-        padding: 10px 20px;
+        gap: 8px;
+        padding: 10px 16px;
         min-width: 0;
-        max-width: calc(100vw - 48px);
+        max-width: calc(100vw - 32px);
+      }
+
+      nav.nav-scrolled {
+        min-width: 0;
+        max-width: calc(100vw - 32px);
       }
 
       .nav-links {
-        gap: 16px;
+        gap: 4px;
       }
 
       nav a {
