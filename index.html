@@ -377,30 +377,6 @@
       margin-bottom: 48px;
     }
 
-    /* ── Release note ── */
-    .hero-release {
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .hero-release-main {
-      font-size: 0.6875rem;
-      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
-      letter-spacing: 0.04em;
-      color: rgba(255, 255, 255, 0.28);
-      line-height: 1;
-    }
-
-    .hero-release-date {
-      font-size: 0.6875rem;
-      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
-      letter-spacing: 0.04em;
-      color: rgba(255, 255, 255, 0.18);
-      line-height: 1;
-    }
-
     .hero-scroll-wrap {
       margin-top: 56px;
     }
@@ -789,11 +765,6 @@
 
       .hero-headline {
         font-size: clamp(1.75rem, 8vw, 2rem);
-      }
-
-      .hero-release-main,
-      .hero-release-date {
-        font-size: 0.5625rem;
       }
 
       .news-section {
@@ -1365,21 +1336,27 @@
       font-weight: 500;
     }
 
-    .footer-links {
+    .footer-release {
       display: flex;
-      gap: 32px;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
     }
 
-    .footer-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
+    .footer-release-main {
+      font-size: 0.6875rem;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.28);
+      line-height: 1;
     }
 
-    .footer-links a:hover {
-      color: var(--text-primary);
+    .footer-release-date {
+      font-size: 0.6875rem;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.18);
+      line-height: 1;
     }
 
     /* ════════════════════════════════════════════════════════════════
@@ -1583,8 +1560,8 @@
         text-align: center;
       }
 
-      .footer-links {
-        gap: 20px;
+      .footer-release {
+        align-items: center;
       }
     }
 
@@ -1627,14 +1604,9 @@
         font-size: 0.9375rem;
       }
 
-      .footer-links {
-        gap: 16px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .footer-links a {
-        font-size: 0.9375rem;
+      .footer-release-main,
+      .footer-release-date {
+        font-size: 0.5625rem;
       }
     }
 
@@ -1828,10 +1800,6 @@
         <span class="hero-name">Nelly Seiglan</span>
       </div>
       <p class="hero-headline">Lead Product Designer.<br><span class="hero-highlight">Building</span> AI-native products<br><span class="hero-nowrap">people <span class="hero-highlight">trust & love</span>.</span></p>
-      <div class="hero-release" aria-label="Site metadata">
-        <span class="hero-release-main">v0.4 &middot; Built with Cursor &times; Claude &middot; Continuously shipping</span>
-        <span class="hero-release-date" id="hero-commit-date">Last commit: &mdash;</span>
-      </div>
       <div class="hero-scroll-wrap">
         <a href="#news-hero" class="hero-scroll-hint" id="hero-scroll-btn" aria-label="Scroll to discover">
           <span class="hero-scroll-arrow" aria-hidden="true">↓</span>
@@ -2058,10 +2026,9 @@
   <footer>
     <div class="footer-content">
       <span class="footer-left">© 2026 Nelly Seiglan</span>
-      <div class="footer-links">
-        <a href="#">LinkedIn</a>
-        <a href="#">Twitter</a>
-        <a href="#">Dribbble</a>
+      <div class="footer-release" aria-label="Site metadata">
+        <span class="footer-release-main">v0.4 &middot; Built with Cursor &times; Claude &middot; Continuously shipping</span>
+        <span class="footer-release-date" id="footer-commit-date">&mdash;</span>
       </div>
     </div>
   </footer>
@@ -2235,18 +2202,32 @@
       window.addEventListener('blur', () => closeContact());
     }
 
-    // Fetch latest GitHub commit date for release note
+    // Fetch latest GitHub commit date for footer release note
     (function () {
-      const el = document.getElementById('hero-commit-date');
+      const el = document.getElementById('footer-commit-date');
       if (!el) return;
+
+      function timeAgo(date) {
+        const s = Math.floor((Date.now() - date.getTime()) / 1000);
+        if (s < 60) return 'just now';
+        const m = Math.floor(s / 60);
+        if (m < 60) return m + (m === 1 ? ' minute ago' : ' minutes ago');
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + (h === 1 ? ' hour ago' : ' hours ago');
+        const d = Math.floor(h / 24);
+        if (d < 30) return d + (d === 1 ? ' day ago' : ' days ago');
+        const mo = Math.floor(d / 30);
+        if (mo < 12) return mo + (mo === 1 ? ' month ago' : ' months ago');
+        const y = Math.floor(mo / 12);
+        return y + (y === 1 ? ' year ago' : ' years ago');
+      }
+
       fetch('https://api.github.com/repos/nelly-seiglan/nellyseiglan.design/commits?per_page=1')
         .then(function (r) { return r.json(); })
         .then(function (data) {
           const raw = data[0] && data[0].commit && (data[0].commit.committer.date || data[0].commit.author.date);
           if (!raw) throw new Error('no date');
-          const d = new Date(raw);
-          const formatted = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-          el.textContent = 'Last commit: ' + formatted;
+          el.textContent = 'Last commit ' + timeAgo(new Date(raw));
         })
         .catch(function () {
           el.textContent = 'Recently updated';
