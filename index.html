@@ -377,6 +377,30 @@
       margin-bottom: 48px;
     }
 
+    /* ── Release note ── */
+    .hero-release {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hero-release-main {
+      font-size: 0.6875rem;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.28);
+      line-height: 1;
+    }
+
+    .hero-release-date {
+      font-size: 0.6875rem;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, 'Courier New', monospace;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.18);
+      line-height: 1;
+    }
+
     .hero-scroll-wrap {
       margin-top: 56px;
     }
@@ -765,6 +789,11 @@
 
       .hero-headline {
         font-size: clamp(1.75rem, 8vw, 2rem);
+      }
+
+      .hero-release-main,
+      .hero-release-date {
+        font-size: 0.5625rem;
       }
 
       .news-section {
@@ -1799,6 +1828,10 @@
         <span class="hero-name">Nelly Seiglan</span>
       </div>
       <p class="hero-headline">Lead Product Designer.<br><span class="hero-highlight">Building</span> AI-native products<br><span class="hero-nowrap">people <span class="hero-highlight">trust & love</span>.</span></p>
+      <div class="hero-release" aria-label="Site metadata">
+        <span class="hero-release-main">v0.4 &middot; Built with Cursor &times; Claude &middot; Continuously shipping</span>
+        <span class="hero-release-date" id="hero-commit-date">Last commit: &mdash;</span>
+      </div>
       <div class="hero-scroll-wrap">
         <a href="#news-hero" class="hero-scroll-hint" id="hero-scroll-btn" aria-label="Scroll to discover">
           <span class="hero-scroll-arrow" aria-hidden="true">↓</span>
@@ -2201,6 +2234,24 @@
       document.addEventListener('click', closeContact);
       window.addEventListener('blur', () => closeContact());
     }
+
+    // Fetch latest GitHub commit date for release note
+    (function () {
+      const el = document.getElementById('hero-commit-date');
+      if (!el) return;
+      fetch('https://api.github.com/repos/nelly-seiglan/nellyseiglan.design/commits?per_page=1')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          const raw = data[0] && data[0].commit && (data[0].commit.committer.date || data[0].commit.author.date);
+          if (!raw) throw new Error('no date');
+          const d = new Date(raw);
+          const formatted = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+          el.textContent = 'Last commit: ' + formatted;
+        })
+        .catch(function () {
+          el.textContent = 'Recently updated';
+        });
+    })();
 
     // Video lightbox: au clic sur une vidéo projet, ouvrir en grand
     (function () {
