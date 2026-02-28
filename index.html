@@ -332,11 +332,11 @@
       overflow: visible;
     }
 
-    .hero-halo {
-      position: absolute;
-      z-index: 0;
-      left: var(--hero-halo-x, 50%);
-      top: var(--hero-halo-y, 50%);
+    .page-halo {
+      position: fixed;
+      z-index: 1;
+      left: var(--halo-x, 50vw);
+      top: var(--halo-y, 50vh);
       width: 100vmax;
       max-width: 1600px;
       height: 100vmax;
@@ -353,10 +353,6 @@
       );
       opacity: 0;
       transition: opacity 0.4s ease;
-    }
-
-    .hero:hover .hero-halo {
-      opacity: 1;
     }
 
     .hero .hero-container {
@@ -1739,6 +1735,9 @@
 </head>
 <body>
 
+  <!-- Global cursor halo — position: fixed, follows mouse across entire page -->
+  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
+
   <!-- ════════════════════════════════════════════════════════════════
        NAVIGATION
   ════════════════════════════════════════════════════════════════ -->
@@ -1761,7 +1760,6 @@
        HERO
   ════════════════════════════════════════════════════════════════ -->
   <section id="home" class="hero">
-    <div class="hero-halo" id="hero-halo" aria-hidden="true"></div>
     <div class="hero-container">
       <div class="hero-intro">
         <img class="hero-avatar" src="assets/portrait.png" alt="Portrait de Nelly Seiglan">
@@ -2090,17 +2088,19 @@
       revealTargets.forEach((el) => revealObserver.observe(el));
     }
 
-    // Halo bleuté au survol du hero (suit le curseur)
+    // Global cursor halo — position: fixed, tracks across entire page
     (function () {
-      const hero = document.getElementById('home');
-      if (!hero) return;
+      const halo = document.getElementById('page-halo');
+      if (!halo) return;
 
-      hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        hero.style.setProperty('--hero-halo-x', x + 'px');
-        hero.style.setProperty('--hero-halo-y', y + 'px');
+      document.addEventListener('mousemove', (e) => {
+        halo.style.setProperty('--halo-x', e.clientX + 'px');
+        halo.style.setProperty('--halo-y', e.clientY + 'px');
+        halo.style.opacity = '1';
+      });
+
+      document.addEventListener('mouseleave', () => {
+        halo.style.opacity = '0';
       });
     })();
 
