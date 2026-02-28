@@ -1156,87 +1156,33 @@
     }
 
     .newsletter-card h2 {
-      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-      font-weight: 700;
+      font-size: 40px;
+      font-weight: 600;
       letter-spacing: -0.02em;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .newsletter-card p {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      max-width: 520px;
-      margin: 0 auto 24px;
-      line-height: 1.6;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 440px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
     }
-
 
     .newsletter-cta {
-      display: inline-block;
-      padding: 18px 36px;
-      font-size: 1.125rem;
-      font-weight: 600;
-      font-family: 'Urbanist', sans-serif;
-      background: var(--accent-sky);
-      color: #0A0A0A;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
       text-decoration: none;
-      transition: background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+      transition: color 0.2s ease;
     }
 
-
-    .newsletter-form {
-      display: flex;
-      gap: 12px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .newsletter-form input {
-      flex: 1;
-      padding: 18px 26px;
-      font-size: 1.125rem;
-      font-family: 'Urbanist', sans-serif;
-      background: var(--surface-card);
-      border: 1px solid var(--border-light);
-      border-radius: 100px;
-      outline: none;
-      transition: all 0.2s ease;
-      color: var(--text-primary);
-    }
-
-    .newsletter-form input:focus {
-      border-color: rgba(248, 250, 252, 0.9);
-      box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.35);
-    }
-
-    .newsletter-form input::placeholder {
-      color: var(--text-tertiary);
-    }
-
-    .btn {
-      padding: 18px 36px;
-      font-size: 1.125rem;
-      font-weight: 600;
-      font-family: 'Urbanist', sans-serif;
-      background: var(--accent-sky);
-      color: #0A0A0A;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      white-space: nowrap;
-      box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.12),
-        0 8px 24px rgba(0, 0, 0, 0.08);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.16),
-        0 12px 32px rgba(0, 0, 0, 0.12);
+    .newsletter-cta:hover {
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .btn:active {
@@ -1496,21 +1442,12 @@
       }
 
       .newsletter-card h2 {
-        font-size: clamp(1.75rem, 6vw, 2.25rem);
-        margin-bottom: 14px;
+        font-size: 28px;
+        margin-bottom: 12px;
       }
 
       .newsletter-card p {
-        font-size: 1.0625rem;
-      }
-
-      .newsletter-cta {
-        padding: 14px 28px;
-        font-size: 1rem;
-      }
-
-      .newsletter-form {
-        flex-direction: column;
+        font-size: 0.9375rem;
       }
 
       .about-section {
@@ -2011,11 +1948,12 @@
   <section id="newsletter" class="newsletter-section">
     <div class="container">
       <div class="newsletter-card">
-        <h2>Newsletter</h2>
-        <p>
-          Re:Design — des idées et réflexions pour améliorer les produits à l'ère de l'IA.
-        </p>
-        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener noreferrer" class="newsletter-cta">S'abonner à la newsletter</a>
+        <h2>Re:Design</h2>
+        <p>Ideas and perspectives on designing products in the age of AI. Published on Substack.</p>
+        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener noreferrer" class="newsletter-cta">
+          <span aria-hidden="true">↗&#xFE0E;</span>
+          <span>Read on Substack</span>
+        </a>
       </div>
     </div>
   </section>
