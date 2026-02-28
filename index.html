@@ -2070,20 +2070,57 @@
       revealTargets.forEach((el) => revealObserver.observe(el));
     }
 
-    // Global cursor halo — position: fixed, tracks across entire page
+    // Global halo — cursor-follow on desktop, scroll-drift on mobile
     (function () {
       const halo = document.getElementById('page-halo');
       if (!halo) return;
 
-      document.addEventListener('mousemove', (e) => {
-        halo.style.setProperty('--halo-x', e.clientX + 'px');
-        halo.style.setProperty('--halo-y', e.clientY + 'px');
-        halo.style.opacity = '1';
-      });
+      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      document.addEventListener('mouseleave', () => {
-        halo.style.opacity = '0';
-      });
+      if (!isTouch) {
+        // Desktop: follow cursor
+        document.addEventListener('mousemove', (e) => {
+          halo.style.setProperty('--halo-x', e.clientX + 'px');
+          halo.style.setProperty('--halo-y', e.clientY + 'px');
+          halo.style.opacity = '1';
+        });
+        document.addEventListener('mouseleave', () => {
+          halo.style.opacity = '0';
+        });
+        return;
+      }
+
+      // Mobile: visible immediately, drifts on scroll
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      halo.style.setProperty('--halo-x', (vw * 0.5) + 'px');
+      halo.style.setProperty('--halo-y', (vh * 0.38) + 'px');
+      halo.style.opacity = '1';
+
+      if (reducedMotion) return; // visible but static
+
+      var ticking = false;
+
+      function updateHalo() {
+        var scrollY = window.scrollY;
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+        // X: slow sine oscillation across full page scroll (~one cycle per 3700px)
+        var x = vw * 0.5 + Math.sin(scrollY / 600) * vw * 0.07;
+        // Y: gently drifts upward with scroll, clamped to stay in view
+        var y = Math.max(vh * 0.15, vh * 0.38 - scrollY * 0.018);
+        halo.style.setProperty('--halo-x', x + 'px');
+        halo.style.setProperty('--halo-y', y + 'px');
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(updateHalo);
+          ticking = true;
+        }
+      }, { passive: true });
     })();
 
     // Scroll accéléré au clic sur "scroll to discover"
