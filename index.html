@@ -2218,13 +2218,16 @@
         });
     })();
 
-    // Video lightbox: au clic sur une vidéo projet, ouvrir en grand
+    // Video: custom lightbox on desktop, native fullscreen on mobile
     (function () {
       const lightbox = document.getElementById('video-lightbox');
       const player = document.getElementById('video-lightbox-player');
       const closeBtn = document.getElementById('video-lightbox-close');
       if (!lightbox || !player) return;
 
+      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+      // Desktop only: custom lightbox
       const openLightbox = (sourceUrl) => {
         player.src = sourceUrl;
         player.muted = false;
@@ -2240,15 +2243,40 @@
       };
 
       document.querySelectorAll('.animation-container').forEach((container) => {
-        const video = container.querySelector('.project-video source');
-        if (!video || !video.src) return;
+        const inlineVideo = container.querySelector('.project-video');
+        const source = inlineVideo && inlineVideo.querySelector('source');
+        if (!source || !source.src) return;
         container.setAttribute('data-has-video', 'true');
-        container.addEventListener('click', () => openLightbox(video.src));
+
+        if (isTouch) {
+          // Mobile: one tap → native fullscreen on the already-playing preview video
+          container.addEventListener('click', () => {
+            inlineVideo.muted = false;
+            if (inlineVideo.webkitEnterFullscreen) {
+              inlineVideo.webkitEnterFullscreen(); // iOS Safari
+            } else if (inlineVideo.requestFullscreen) {
+              inlineVideo.requestFullscreen().catch(() => {}); // Android / others
+            }
+          });
+
+          // Re-mute and restore preview loop when fullscreen exits
+          inlineVideo.addEventListener('webkitendfullscreen', () => {
+            inlineVideo.muted = true;
+          });
+          inlineVideo.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) inlineVideo.muted = true;
+          });
+        } else {
+          container.addEventListener('click', () => openLightbox(source.src));
+        }
       });
 
-      if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+      // Desktop lightbox controls
+      if (!isTouch) {
+        if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+      }
     })();
   </script>
 
