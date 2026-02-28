@@ -869,6 +869,12 @@
 
     .animation-container::after {
       content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0);
+      transition: background 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .animation-container .project-video {
@@ -876,10 +882,19 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
     }
 
     .animation-container[data-has-video] {
       cursor: pointer;
+    }
+
+    .animation-container[data-has-video]:hover::after {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .animation-container[data-has-video]:hover .project-video {
+      transform: scale(1.03);
     }
 
     .project-info {
