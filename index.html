@@ -332,9 +332,14 @@
       overflow: visible;
     }
 
+    .page-content {
+      position: relative;
+      z-index: 1;
+    }
+
     .page-halo {
       position: fixed;
-      z-index: 4;
+      z-index: 0;
       left: var(--halo-x, 50vw);
       top: var(--halo-y, 50vh);
       width: 100vmax;
@@ -489,7 +494,6 @@
     ════════════════════════════════════════════════════════════════ */
     .news-section {
       padding: 48px 40px 100px;
-      background: #171717;
     }
 
     .news-inner {
@@ -810,7 +814,6 @@
        PROJECT CARDS (SEPARATED WITH RADIUS)
     ════════════════════════════════════════════════════════════════ */
     .projects-section {
-      background: #171717;
       padding: 0 40px;
     }
 
@@ -1783,6 +1786,9 @@
     <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </aside>
 
+  <!-- Page content wrapper: z-index 1, sits above the halo layer (z-index 0) -->
+  <div class="page-content">
+
   <!-- ════════════════════════════════════════════════════════════════
        HERO
   ════════════════════════════════════════════════════════════════ -->
@@ -2013,14 +2019,6 @@
     </div>
   </section>
 
-  <!-- Video lightbox (player au clic) -->
-  <div id="video-lightbox" class="video-lightbox" aria-hidden="true">
-    <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="video-lightbox-close" aria-label="Fermer">×</button>
-      <video class="video-lightbox-player" id="video-lightbox-player" controls loop playsinline></video>
-    </div>
-  </div>
-
   <!-- ════════════════════════════════════════════════════════════════
        FOOTER
   ════════════════════════════════════════════════════════════════ -->
@@ -2034,6 +2032,16 @@
       </div>
     </div>
   </footer>
+
+  </div><!-- /.page-content -->
+
+  <!-- Video lightbox — outside page-content so z-index 2000 is root-level -->
+  <div id="video-lightbox" class="video-lightbox" aria-hidden="true">
+    <div class="video-lightbox-content">
+      <button type="button" class="video-lightbox-close" id="video-lightbox-close" aria-label="Fermer">×</button>
+      <video class="video-lightbox-player" id="video-lightbox-player" controls loop playsinline></video>
+    </div>
+  </div>
 
   <!-- ════════════════════════════════════════════════════════════════
        SCRIPTS
