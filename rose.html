@@ -1,117 +1,148 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rose — Nelly Seiglan</title>
+  <meta name="description" content="Rose — a conversational layer for complex B2B sites. Case study by Nelly Seiglan.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/inner-pages.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/case.css">
 </head>
-<body>
-  <nav>
+<body data-bg="haze" data-grain="on" data-motion="subtle">
+
+  <div class="curtain" id="curtain"><span class="curtain-mark">Nelly Seiglan</span></div>
+  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
+  <canvas id="haze-canvas" aria-hidden="true"></canvas>
+  <div class="bg-aurora" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-brand" data-cursor="">NS</a>
     <div class="nav-links">
       <a href="index.html#home">Home</a>
-      <a href="index.html#projects">Projects</a>
-      <a href="index.html#news-hero">About</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-trigger active" aria-haspopup="true" aria-expanded="false">Projects <span class="chev">▼</span></button>
+        <div class="nav-dd-menu" role="menu">
+          <a href="verso.html" role="menuitem">Verso <span class="ix">01</span></a>
+          <a href="rose.html" role="menuitem">Rose <span class="ix">02</span></a>
+          <a href="kolecto.html" role="menuitem">Kolecto <span class="ix">03</span></a>
+          <a href="milleis.html" role="menuitem">Milleis <span class="ix">04</span></a>
+          <a href="index.html#work" class="nav-dd-all" role="menuitem">All projects ↓</a>
+        </div>
+      </div>
+      <a href="index.html#about">About</a>
     </div>
-    <button type="button" class="nav-contact-btn" id="nav-contact-toggle">Contact</button>
+    <a href="index.html#contact" class="nav-cta" data-cursor="say hi">Get in touch</a>
   </nav>
 
-  <aside class="contact-popover" id="contact-popover" aria-hidden="true">
-    <div class="contact-popover-title">Contact</div>
-    <a href="mailto:hello@nellyseiglan.com">hello@nellyseiglan.com</a>
-    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-  </aside>
+  <main class="page">
+    <section class="case-hero">
+      <div class="shell">
+        <a href="index.html#work" class="back">← All work</a>
+        <div class="case-index r">02 — Founding Designer</div>
+        <h1 class="case-title r">Rose</h1>
+        <p class="case-sum r r-d1">A conversational layer that drops into complex B2B websites and drives measurable engagement and conversion.</p>
+        <div class="meta-strip r r-d2">
+          <div><div class="k">Role</div><div class="v">Founding Designer</div></div>
+          <div><div class="k">Year</div><div class="v">2025 — present</div></div>
+          <div><div class="k">Platform</div><div class="v">Web</div></div>
+          <div><div class="k">Focus</div><div class="v">Conversion UX</div></div>
+        </div>
+      </div>
+    </section>
 
-  <main class="container container--project">
-    <h1>Rose</h1>
-    <div class="project-meta">
-      Smart product discovery platform — case study coming soon.
-    </div>
-    <div class="hero-visual">
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="assets/rose.mp4" type="video/mp4">
-      </video>
-    </div>
+    <section class="case-media">
+      <div class="shell">
+        <div class="case-frame r" data-video="assets/rose.mp4" data-cursor="play">
+          <video autoplay muted loop playsinline preload="metadata"><source src="assets/rose.mp4" type="video/mp4"></video>
+          <span class="play-hint">▶ play</span>
+        </div>
+      </div>
+    </section>
 
-    <section class="content-block">
-      <h2>Context</h2>
-      <p>Vous pourrez détailler ici le contexte du projet, le rôle et les enjeux pour le produit.</p>
+    <section class="block">
+      <div class="shell"><div class="read r">
+        <span class="kicker"><span class="dot"></span>Context</span>
+        <h2>Complex B2B sites lose visitors before they ever convert.</h2>
+        <p class="placeholder">[ Describe the problem: where visitors drop off, why a conversational layer, the business goal, and the constraints of embedding into existing sites. ]</p>
+      </div></div>
     </section>
-    <section class="content-block">
-      <h2>Approach</h2>
-      <p>Espace pour expliquer la démarche de design, la collaboration avec l’équipe et les explorations UX/UI.</p>
+
+    <section class="block">
+      <div class="shell"><div class="read r">
+        <span class="kicker"><span class="dot"></span>My role</span>
+        <h2>What I owned.</h2>
+        <ul>
+          <li>Conversation flows — guiding visitors to the right answer fast.</li>
+          <li>Embedded widget design — fitting into any complex site without friction.</li>
+          <li>Conversion UX — turning conversations into measurable outcomes.</li>
+        </ul>
+        <p class="placeholder" style="margin-top:18px;">[ Who you worked with, team setup, how you partnered with engineering and growth. ]</p>
+      </div></div>
     </section>
-    <section class="content-block">
-      <h2>Impact</h2>
-      <p>Réservez cette section pour les résultats, learnings et ce que vous referiez différemment.</p>
+
+    <section class="block">
+      <div class="shell"><div class="read r">
+        <span class="kicker"><span class="dot"></span>Approach</span>
+        <h2>Designing trust into an embedded conversation.</h2>
+        <p class="placeholder">[ Your process: research, key insights, design bets, iterations, trade-offs. ]</p>
+        <div class="shots">
+          <div class="shot">Drop a screen / flow</div>
+          <div class="shot">Drop a screen / flow</div>
+        </div>
+      </div></div>
     </section>
+
+    <section class="metric-hi r">
+      <div class="shell">
+        <div class="big"><span class="accent" data-to="10" data-suffix="%">0%</span></div>
+        <div class="cap">of visitors convert through Rose.</div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="shell"><div class="read r">
+        <span class="kicker"><span class="dot"></span>Impact</span>
+        <h2>A conversational layer that pays for itself.</h2>
+        <p class="placeholder">[ Results, what it unlocked, learnings, and what's next. ]</p>
+        <p style="margin-top:22px;"><a href="https://userose.ai/" target="_blank" rel="noopener" class="web-link" data-cursor="visit">Visit userose.ai ↗</a></p>
+      </div></div>
+    </section>
+
+    <section class="next">
+      <div class="shell">
+        <a href="kolecto.html" data-cursor="case study">
+          <span><span class="lab">Next project</span><span class="nm">Kolecto</span></span>
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="shell">
+        <div class="footer-row">
+          <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-cursor="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-cursor="read"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+            <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-cursor="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+          </div>
+          <div class="footer-meta">v2.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <!-- Video lightbox (player au clic) -->
-  <div id="video-lightbox" class="video-lightbox" aria-hidden="true">
+  <div id="lightbox" class="video-lightbox" aria-hidden="true">
     <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="video-lightbox-close" aria-label="Fermer">×</button>
-      <video class="video-lightbox-player" id="video-lightbox-player" controls loop playsinline></video>
+      <button type="button" class="video-lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+      <video class="video-lightbox-player" id="lightbox-video" controls loop playsinline></video>
     </div>
   </div>
 
-  <script>
-    const contactToggle = document.getElementById('nav-contact-toggle');
-    const contactPopover = document.getElementById('contact-popover');
-    if (contactToggle && contactPopover) {
-      const closeContact = (e) => {
-        if (!contactPopover.classList.contains('is-visible')) return;
-        if (e && (e.target === contactToggle || contactToggle.contains(e.target))) return;
-        if (e && contactPopover.contains(e.target)) return;
-        contactPopover.classList.remove('is-visible');
-        contactPopover.setAttribute('aria-hidden', 'true');
-      };
-      contactToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const open = !contactPopover.classList.contains('is-visible');
-        contactPopover.classList.toggle('is-visible', open);
-        contactPopover.setAttribute('aria-hidden', !open);
-      });
-      document.addEventListener('click', closeContact);
-      window.addEventListener('blur', closeContact);
-    }
-
-    // Video lightbox: au clic sur la vidéo, ouvrir en grand
-    (function () {
-      const lightbox = document.getElementById('video-lightbox');
-      const player = document.getElementById('video-lightbox-player');
-      const closeBtn = document.getElementById('video-lightbox-close');
-      if (!lightbox || !player) return;
-
-      const openLightbox = (sourceUrl) => {
-        player.src = sourceUrl;
-        player.muted = false;
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden', 'false');
-        player.play().catch(() => {});
-      };
-      const closeLightbox = () => {
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        player.pause();
-        player.removeAttribute('src');
-      };
-
-      document.querySelectorAll('.hero-visual, .project-visual').forEach((container) => {
-        const source = container.querySelector('.project-video source');
-        if (!source) return;
-        const src = source.getAttribute('src') || source.src;
-        if (!src) return;
-        container.addEventListener('click', () => openLightbox(src));
-      });
-
-      if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
-    })();
-  </script>
+  <script src="assets/app.js"></script>
 </body>
 </html>

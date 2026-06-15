@@ -1,0 +1,88 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   CASE-STUDY LAYOUT — loads on top of styles.css (shares all v3 tokens,
+   nav, halo, water-haze, curtain, buttons, reveal, lightbox, footer).
+   This file only adds the case-page-specific layout.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* — back link — */
+.back {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--t3); margin-bottom: 40px; transition: color 0.25s var(--ease), gap 0.25s var(--ease);
+}
+.back:hover { color: var(--t1); gap: 13px; }
+
+/* — case hero — */
+.case-hero { padding: 168px 0 64px; }
+.case-index { font-family: var(--mono); font-size: 0.72rem; color: var(--t3); letter-spacing: 0.08em; margin-bottom: 22px; }
+.case-title {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(2.8rem, 8vw, 5.4rem); letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 26px;
+}
+.case-sum { font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--t2); line-height: 1.45; max-width: 32ch; }
+
+.meta-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 54px; padding-top: 30px; border-top: 1px solid var(--line); }
+.meta-strip .k { font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t4); margin-bottom: 9px; }
+.meta-strip .v { font-size: 1rem; color: var(--t1); font-weight: 600; }
+@media (max-width: 680px) { .meta-strip { grid-template-columns: 1fr 1fr; gap: 22px; } }
+
+/* — big media frame — */
+.case-media { padding: 32px 0 84px; }
+.case-frame {
+  position: relative; border-radius: var(--r-media); overflow: hidden;
+  border: 1px solid var(--line); background: var(--bg-2); aspect-ratio: 16/10; cursor: pointer;
+}
+.case-frame video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
+.case-frame:hover video { transform: scale(1.03); }
+.case-frame .play-hint {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85); background: rgba(0,0,0,0.4); padding: 6px 11px; border-radius: var(--r-chip);
+  backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.3s var(--ease);
+}
+.case-frame:hover .play-hint { opacity: 1; }
+
+/* — content blocks — */
+.block { padding: 56px 0; border-top: 1px solid var(--line); }
+.block .read { max-width: 720px; }
+.block .kicker { margin-bottom: 22px; }
+.block h2 {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px;
+}
+.block p { font-size: 1.08rem; color: var(--t2); line-height: 1.7; margin-bottom: 18px; }
+.block p:last-child { margin-bottom: 0; }
+.block .placeholder { color: var(--t4); font-style: italic; }
+.block ul { list-style: none; margin: 6px 0 0; }
+.block ul li { position: relative; padding-left: 24px; font-size: 1.06rem; color: var(--t2); line-height: 1.6; margin-bottom: 14px; }
+.block ul li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.block .web-link { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-bright); }
+
+/* — placeholder visuals grid — */
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+.shot {
+  aspect-ratio: 4/3; border-radius: var(--r-media); border: 1px dashed var(--line-strong); background: var(--surface);
+  display: grid; place-items: center; padding: 16px; text-align: center;
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--t4);
+}
+@media (max-width: 640px) { .shots { grid-template-columns: 1fr; } }
+
+/* — metric highlight — */
+.metric-hi { padding: 76px 0; border-top: 1px solid var(--line); text-align: center; }
+.metric-hi .big {
+  font-family: var(--serif); font-weight: 700; font-size: clamp(3.2rem, 9vw, 6rem);
+  letter-spacing: -0.04em; line-height: 0.92; color: var(--t1); font-variant-numeric: tabular-nums;
+}
+.metric-hi .big .accent { color: var(--accent-bright); }
+.metric-hi .cap { font-size: 1rem; color: var(--t3); margin-top: 18px; }
+
+/* — next project — */
+.next { border-top: 1px solid var(--line); }
+.next a {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 46px 0; transition: padding 0.3s var(--ease);
+}
+.next a:hover { padding-left: 12px; }
+.next .lab { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--t4); margin-bottom: 12px; display: block; }
+.next .nm { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 4.4vw, 3rem); letter-spacing: -0.035em; color: var(--t1); }
+.next .arr { font-size: 1.6rem; color: var(--accent-bright); }

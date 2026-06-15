@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+
+# Large local video sources (keep out of the repo — GitHub rejects >100MB)
+*.mov
+
+# Local design explorations (not deployed)
+home-refined.html
+home-wow.html
