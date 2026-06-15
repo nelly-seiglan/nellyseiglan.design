@@ -397,6 +397,8 @@ body[data-hero="refined"] .hero.in .hero-refined-portrait { opacity: 1; transfor
 .talk h3 { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; margin-bottom: 7px; letter-spacing: -0.02em; }
 .talk p { font-size: 0.96rem; color: var(--t3); }
 .talk .at { color: var(--t2); }
+.talk .at-link { border-bottom: 1px solid var(--accent-line); transition: color 0.2s, border-color 0.2s; }
+.talk .at-link:hover { color: var(--accent-bright); border-color: var(--accent); }
 @media (max-width: 820px) { .talks-grid { grid-template-columns: 1fr; } .talk-photo, .talk-photo img { min-height: 320px; } }
 
 /* ═══ PROJECTS ═══ */
