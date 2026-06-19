@@ -86,3 +86,60 @@
 .next .lab { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--t4); margin-bottom: 12px; display: block; }
 .next .nm { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 4.4vw, 3rem); letter-spacing: -0.035em; color: var(--t1); }
 .next .arr { font-size: 1.6rem; color: var(--accent-bright); }
+
+/* — phone mockups (real app screens in device frames) — */
+.screens .read { margin-bottom: 40px; }
+.phones { position: relative; display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; padding: 10px 0 4px; }
+.phones::before { content: ''; position: absolute; inset: -8% 6% 4%; z-index: 0; pointer-events: none;
+  background: radial-gradient(58% 58% at 50% 42%, var(--accent-soft), transparent 70%); filter: blur(44px); }
+.phone { position: relative; z-index: 1; width: 244px; aspect-ratio: 1125 / 2436; border-radius: 38px; padding: 9px;
+  background: linear-gradient(155deg, #1c1d21 0%, #0e0f12 100%); border: 1px solid var(--line-strong);
+  box-shadow: 0 54px 100px -40px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(255,255,255,0.03); }
+.phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 30px; display: block; }
+.phone.lift { margin-bottom: 38px; }
+@media (max-width: 760px) { .phones { gap: 16px; } .phone { width: 168px; border-radius: 28px; padding: 7px; } .phone img { border-radius: 22px; } .phone.lift { margin-bottom: 22px; } }
+@media (max-width: 430px) { .phone { width: 140px; } }
+
+/* ── scannable case components ─────────────────────────────── */
+/* at a glance: challenge / role / outcome */
+.glance { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.glance > div { padding: 30px 32px; }
+.glance > div + div { border-left: 1px solid var(--line); }
+.glance .k { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--t4); margin-bottom: 12px; }
+.glance .v { font-size: 1.04rem; color: var(--t1); line-height: 1.45; }
+@media (max-width: 760px) { .glance { grid-template-columns: 1fr; } .glance > div { padding: 24px 0; } .glance > div + div { border-left: none; border-top: 1px solid var(--line); } }
+
+/* the bet: two universes */
+.universes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.uni { position: relative; overflow: hidden; border-radius: var(--r-card); border: 1px solid var(--line); padding: 38px 34px; min-height: 280px; display: flex; flex-direction: column; justify-content: flex-end; }
+.uni .tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
+.uni h3 { font-family: var(--serif); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; margin-bottom: 10px; }
+.uni p { font-size: 0.98rem; line-height: 1.5; max-width: 32ch; }
+.uni--day { background: linear-gradient(158deg, #efe8da 0%, #e2d7c2 100%); }
+.uni--day .tag { color: #91805f; } .uni--day h3 { color: #2b2317; } .uni--day p { color: #5b4f3c; }
+.uni--invest { background: linear-gradient(158deg, #15171c 0%, #0c0d11 100%); }
+.uni--invest .tag { color: var(--accent-bright); } .uni--invest h3 { color: #fff; } .uni--invest p { color: var(--t2); }
+.uni--invest::before { content: ''; position: absolute; top: -28%; right: -18%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft), transparent 66%); filter: blur(34px); }
+@media (max-width: 680px) { .universes { grid-template-columns: 1fr; } .uni { min-height: 220px; } }
+
+/* craft artifact (e.g. navigation map on a light board) */
+.artifact { border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--line-strong); background: #f3f4f1; padding: 18px; }
+.artifact img { width: 100%; display: block; border-radius: 6px; }
+.artifact-cap { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-top: 14px; }
+
+/* pull line (stakeholder / management beat) */
+.pull { font-family: var(--serif); font-weight: 400; font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1.35; letter-spacing: -0.02em; color: var(--t1); max-width: 24ch; }
+.pull .accent { color: var(--accent-bright); }
+
+/* process steps */
+.steps { display: flex; flex-wrap: wrap; gap: 10px; }
+.step { display: inline-flex; align-items: baseline; gap: 9px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--t2); border: 1px solid var(--line); border-radius: 100px; padding: 10px 16px; }
+.step .n { color: var(--accent-bright); }
+
+/* impact stat (left-aligned, not the centered template) */
+.impact-row { display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+.impact-row .stat { font-family: var(--serif); font-weight: 700; font-size: clamp(3rem, 7vw, 5rem); letter-spacing: -0.04em; line-height: 0.9; color: var(--t1); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.impact-row .stat .accent { color: var(--accent-bright); }
+.impact-row .stat .from { color: var(--t4); }
+.impact-row .impact-text { flex: 1; min-width: 280px; }
+.impact-row .impact-text p { font-size: 1.08rem; color: var(--t2); line-height: 1.6; margin-bottom: 16px; }
