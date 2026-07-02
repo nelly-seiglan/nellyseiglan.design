@@ -234,7 +234,7 @@
 
   /* ───────── LAZY VIDEO PLAY/PAUSE (perf: only play what's on screen) ───────── */
   (function () {
-    var vids = document.querySelectorAll('.project-media video, .case-media video');
+    var vids = document.querySelectorAll('.project-media video, .case-frame video');
     if (!vids.length || !('IntersectionObserver' in window)) return;
     var vo = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -247,6 +247,33 @@
     // pause the water-haze canvas work when the tab is hidden
     document.addEventListener('visibilitychange', function () {
       vids.forEach(function (v) { if (document.hidden) v.pause(); });
+    });
+  })();
+
+  /* ───────── WALKTHROUGH (auto-playing screen demo) ───────── */
+  (function () {
+    document.querySelectorAll('.walkthrough').forEach(function (wt) {
+      var scr = [].slice.call(wt.querySelectorAll('.wt-screen'));
+      if (scr.length < 2) return;
+      var dots = [].slice.call(wt.querySelectorAll('.wt-dot'));
+      var cap = wt.querySelector('.wt-cap');
+      var i = 0, timer = null;
+      function show(n) {
+        scr[i].classList.remove('is-active'); if (dots[i]) dots[i].classList.remove('on');
+        i = n;
+        scr[i].classList.add('is-active'); if (dots[i]) dots[i].classList.add('on');
+        if (cap) cap.textContent = scr[i].getAttribute('data-label') || '';
+      }
+      show(0);
+      if (reduce) return; // static, first screen shown
+      function start() { if (!timer) timer = setInterval(function () { show((i + 1) % scr.length); }, 2800); }
+      function stop() { clearInterval(timer); timer = null; }
+      wt.addEventListener('mouseenter', stop);
+      wt.addEventListener('mouseleave', start);
+      dots.forEach(function (d, idx) { d.addEventListener('click', function () { stop(); show(idx); start(); }); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(); else stop(); }); }, { threshold: 0.25 }).observe(wt);
+      } else { start(); }
     });
   })();
 })();
