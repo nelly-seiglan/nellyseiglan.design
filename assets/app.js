@@ -275,5 +275,52 @@
         new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(); else stop(); }); }, { threshold: 0.25 }).observe(wt);
       } else { start(); }
     });
+
+    /* ───────── PROTO SHOWCASE (Rose): a floating glass window over a breathing
+       accent halo. Live screens cross-dissolve with a slow cinematic settle, the
+       address bar rewrites per screen, and the halo drifts a touch for parallax.
+       Plays on its own, pauses on hover so you can click into the live app.
+       Iframes lazy-boot on view, rendered at a fixed 1280px width, scaled to fill. */
+    document.querySelectorAll('.proto-showcase').forEach(function (ps) {
+      var viewport = ps.querySelector('.ps-viewport');
+      var slides = [].slice.call(ps.querySelectorAll('.ps-slide'));
+      var frames = [].slice.call(ps.querySelectorAll('.ps-screen'));
+      var glow = ps.querySelector('.ps-glow');
+      var urlEl = ps.querySelector('.wt-bar .u');
+      var n = slides.length;
+      if (!n) return;
+      var idx = 0, dir = 1, timer = null, seen = false;
+      var autoMs = parseInt(ps.getAttribute('data-auto'), 10) || 0;
+
+      function boot(f) { if (f && f.dataset.src && !f.getAttribute('src')) f.setAttribute('src', f.dataset.src); }
+      function fit() { var w = viewport.clientWidth; if (w) ps.style.setProperty('--ps-scale', (w / 1280).toFixed(4)); }
+      function go(to) {
+        idx = (to + n) % n;
+        slides.forEach(function (s, k) { s.classList.toggle('is-active', k === idx); });
+        if (urlEl && frames[idx].dataset.url) urlEl.textContent = frames[idx].dataset.url;
+        if (glow) glow.style.transform = 'translateX(' + ((idx - (n - 1) / 2) * 7) + '%)'; // subtle parallax
+        if (seen) { boot(frames[idx]); boot(frames[(idx + 1) % n]); } // current + preload next
+      }
+      function start() { if (autoMs && !timer && !reduce) timer = setInterval(function () {
+        if (idx >= n - 1) dir = -1; else if (idx <= 0) dir = 1; // ping-pong, no jarring rewind
+        go(idx + dir);
+      }, autoMs); }
+      function stop() { clearInterval(timer); timer = null; }
+
+      fit();
+      if ('ResizeObserver' in window) { new ResizeObserver(fit).observe(viewport); }
+      else { window.addEventListener('resize', fit, { passive: true }); }
+
+      ps.addEventListener('mouseenter', stop);   // let people read / click into the live app
+      ps.addEventListener('mouseleave', start);
+
+      go(0);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { es.forEach(function (e) {
+          if (e.isIntersecting) { if (!seen) { seen = true; boot(frames[0]); boot(frames[1]); } start(); }
+          else stop();
+        }); }, { threshold: 0.25 }).observe(ps);
+      } else { seen = true; boot(frames[0]); boot(frames[1]); start(); }
+    });
   })();
 })();
