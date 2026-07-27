@@ -1,251 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verso · Nelly Seiglan</title>
-  <meta name="description" content="Verso, building the consumer OS for the age of AI: run studies, group them, and find what your customers really think. Case study by Nelly Seiglan, Founding Designer.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/case.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verso · Nelly Seiglan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{background:#FCFBF4;color:#1A1A1A;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-family:'Inter',sans-serif;letter-spacing:-0.011em;}
+  a{color:inherit;text-decoration:none;}
+  a.tlink{color:#1A1A1A;box-shadow:inset 0 -2px 0 oklch(94.5% 0.129 101.54);transition:box-shadow .25s;}
+  a.tlink:hover{box-shadow:inset 0 -10px 0 oklch(94.5% 0.129 101.54);}
+  img,video{display:block;max-width:100%;}
+  ::selection{background:oklch(94.5% 0.129 101.54);color:#1A1A1A;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  @keyframes nudge{0%,100%{transform:translateY(-3px);}50%{transform:translateY(4px);}}
+  [data-dd]:hover [data-dd-menu],[data-dd]:focus-within [data-dd-menu]{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important;}
+  [data-dd]:hover [data-chev],[data-dd]:focus-within [data-chev]{transform:rotate(180deg);}
+  @keyframes slidein{from{opacity:0;transform:translateX(70px);}to{opacity:1;transform:none;}}
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  [data-reveal]{animation:rise .85s cubic-bezier(.22,1,.36,1) both;}
+  [data-slide]{animation:slidein .9s cubic-bezier(.22,1,.36,1) both;}
+  @supports (animation-timeline: view()){[data-reveal],[data-slide]{animation-timeline:view();animation-range:entry 0% cover 20%;}}
+  @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
+  @media (hover:none){[data-cursor]{display:none!important;}}
+  @media (max-width:900px){[data-2col]{grid-template-columns:1fr!important;}[data-3col]{grid-template-columns:1fr!important;}[data-4col]{grid-template-columns:repeat(2,1fr)!important;}[data-hide-sm]{display:none!important;}}
+</style>
 </head>
-<body data-bg="haze" data-grain="on" data-motion="subtle">
+<body>
+<div data-root style="position:relative;--paper:#FCFBF4;--white:#FFFFFF;--cream:#FBF7E7;--butter-soft:#FAF8DC;--lime:oklch(94.5% 0.129 101.54);--ink:#1A1A1A;--ink2:rgba(26,26,26,.62);--ink3:rgba(26,26,26,.42);--hair:rgba(26,26,26,.09);--hair2:rgba(26,26,26,.16);--accent:#C9B6EF;--accent-soft:#F1ECFB;--shadow:0 16px 44px -28px rgba(26,26,26,.32);--shadow-sm:0 8px 24px -18px rgba(26,26,26,.28);--pill:100px;--sans:'Inter',sans-serif;--ease:cubic-bezier(.22,1,.36,1);font-family:var(--sans);">
 
-  <div class="curtain" id="curtain"><span class="curtain-mark">Nelly Seiglan</span></div>
-  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
-  <canvas id="haze-canvas" aria-hidden="true"></canvas>
-  <div class="bg-aurora" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
-  <div class="bg-grain" aria-hidden="true"></div>
+  <div data-progress aria-hidden="true" style="position:fixed;top:63px;left:0;height:2px;width:0;background:var(--lime);z-index:1100;transition:width .1s linear;"></div>
 
-  <nav class="nav">
-    <a href="index.html" class="nav-brand" data-cursor="">NS</a>
-    <div class="nav-links">
-      <a href="index.html#home">Home</a>
-      <div class="nav-dd">
-        <button type="button" class="nav-dd-trigger active" aria-haspopup="true" aria-expanded="false">Projects <span class="chev">▼</span></button>
-        <div class="nav-dd-menu" role="menu">
-          <a href="verso.html" role="menuitem">Verso <span class="ix">01</span></a>
-          <a href="rose.html" role="menuitem">Rose <span class="ix">02</span></a>
-          <a href="kolecto.html" role="menuitem">Kolecto <span class="ix">03</span></a>
-          <a href="milleis.html" role="menuitem">Milleis <span class="ix">04</span></a>
-          <a href="index.html#work" class="nav-dd-all" role="menuitem">All projects ↓</a>
+  <nav data-nav style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(252,251,244,.82);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--hair);transition:box-shadow .4s var(--ease);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:64px;">
+      <a href="index.html" data-hover style="font-size:16px;font-weight:600;letter-spacing:-.02em;">Nelly Seiglan</a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="index.html" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Home</a>
+        <div data-dd style="position:relative;">
+          <button type="button" data-dd-trigger data-hover style="display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--ink);background:var(--butter-soft);border:none;cursor:pointer;padding:9px 16px;border-radius:var(--pill);">Projects <svg data-chev width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .3s var(--ease);margin-top:1px;"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div data-dd-menu style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:242px;padding:8px;display:flex;flex-direction:column;gap:2px;background:var(--white);border:1px solid var(--hair);border-radius:20px;box-shadow:var(--shadow);visibility:hidden;pointer-events:none;">
+            <a href="verso.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:600;padding:11px 15px;border-radius:12px;background:var(--butter-soft);">Verso <span style="font-size:11px;color:var(--ink3);">01</span></a>
+            <a href="rose.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Rose <span style="font-size:11px;color:var(--ink3);">02</span></a>
+            <a href="kolecto.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Kolecto <span style="font-size:11px;color:var(--ink3);">03</span></a>
+            <a href="milleis.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Milleis <span style="font-size:11px;color:var(--ink3);">04</span></a>
+            <a href="index.html#work" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;color:var(--ink2);border-top:1px solid var(--hair);margin-top:4px;transition:background .2s;" style-hover="background:var(--butter-soft);">All projects <span style="font-size:11px;color:var(--ink3);">↓</span></a>
+          </div>
         </div>
+        <a href="index.html#about" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">About</a>
+        <a href="index.html#contact" data-hover data-magnet style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);margin-left:8px;">Get in touch <span>↗</span></a>
       </div>
-      <a href="index.html#about">About</a>
     </div>
-    <a href="index.html#contact" class="nav-cta" data-cursor="say hi">Get in touch</a>
   </nav>
 
-  <main class="page">
-
-    <section class="case-hero">
-      <div class="shell">
-        <h1 class="case-title r">Verso</h1>
-        <p class="case-sum r r-d1">Founding Designer building the consumer OS for the age of AI: one place to run studies, group them, and find what your customers really think.</p>
-        <div class="meta-strip r r-d2">
-          <div><div class="k">Role</div><div class="v">Founding Designer</div></div>
-          <div><div class="k">Timeline</div><div class="v">Since June 2025</div></div>
-          <div><div class="k">Scope</div><div class="v">Product · UX/UI · Design System</div></div>
-          <div><div class="k">Platform</div><div class="v">Mobile + Web</div></div>
-        </div>
+  <section style="padding:142px 0 44px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:26px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+        <span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">Case study 01 · AI Research</span>
+        <span style="flex:1;height:1px;background:var(--hair);"></span>
       </div>
-    </section>
-
-    <section class="case-media">
-      <div class="shell">
-        <div class="case-frame r" data-video="assets/verso.mp4" data-cursor="play">
-          <video autoplay muted loop playsinline preload="metadata"><source src="assets/verso.mp4" type="video/mp4"></video>
-          <span class="play-hint">▶ play</span>
-        </div>
+      <h1 data-reveal data-reveal-delay="80" style="font-weight:560;letter-spacing:-.035em;line-height:.98;font-size:clamp(3.2rem,9vw,7.4rem);margin-bottom:28px;">Verso</h1>
+      <p data-reveal data-reveal-delay="160" style="font-size:1.3rem;line-height:1.48;color:var(--ink2);max-width:62ch;margin-bottom:44px;">Founding Designer building the consumer OS for the age of AI: one place to run studies, group them, and find what your customers really think.</p>
+      <div data-reveal data-reveal-delay="240" data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);">
+        <div style="background:var(--paper);padding:22px 24px 22px 0;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Role</div><div style="font-size:1rem;font-weight:500;">Founding Designer</div></div>
+        <div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Timeline</div><div style="font-size:1rem;font-weight:500;">Since June 2025</div></div>
+        <div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Scope</div><div style="font-size:1rem;font-weight:500;">Product · UX/UI · Design System</div></div>
+        <div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Platform</div><div style="font-size:1rem;font-weight:500;">Mobile + Web</div></div>
       </div>
-    </section>
-
-    <section style="padding: 8px 0 76px;">
-      <div class="shell">
-        <div class="glance r">
-          <div><div class="k">Challenge</div><div class="v">Build the consumer OS for AI research, credible enough to earn trust on both sides: the end users and the insights managers.</div></div>
-          <div><div class="k">My role</div><div class="v">Founding Designer across the whole product: the mobile interviewer, the SaaS report platform, the chat, and the design system.</div></div>
-          <div><div class="k">Outcome</div><div class="v">500+ interviews across around fifteen studies for CAC 40 clients in telecom, banking, luxury and health, plus an AI-native design process built with the team.</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ CONTEXT ════════ -->
-    <section class="block" style="border-top:none; padding-top:8px;">
-      <div class="shell">
-        <div class="split">
-          <div class="read r">
-            <span class="kicker"><span class="dot"></span>Context</span>
-            <h2>One product, two surfaces.</h2>
-            <p>Verso is B2B2C. On one side, panel participants answer a mobile AI interview. On the other, managers and insights teams explore the results in a SaaS platform. Two audiences, two experiences, one product.</p>
-            <p>The craft was making each side feel right: <span class="accent" style="font-weight:600">a human interview</span> for participants, and <span class="accent" style="font-weight:600">evidence they can trust</span> for the teams reading the report.</p>
-          </div>
-          <div class="audiences r r-d1">
-            <div class="aud">
-              <div class="who">Panel participants</div>
-              <div class="desc">On mobile, answering an AI-led interview. It has to feel human, guided and effortless.</div>
-              <span class="need">surface · mobile interviewer</span>
-            </div>
-            <div class="aud">
-              <div class="who">Managers &amp; insights teams</div>
-              <div class="desc">On a SaaS platform, digging into what the studies say. They need evidence, depth, and answers they can trust.</div>
-              <span class="need">surface · web platform</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ PILLAR 01 · THE INTERVIEWER ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 38px;">
-          <span class="kicker"><span class="dot"></span>01 · The interviewer · mobile</span>
-          <h2>An AI that interviews like the best researcher.</h2>
-          <p>That meant working the prompt, but mostly understanding what makes a good interview. It's the product in the video above.</p>
-        </div>
-        <div class="depth r r-d1">
-          <div class="tier t1">
-            <div class="lvl">Onboarding</div>
-            <div class="what">We explain first</div>
-            <div class="ex">We take the time to show people how it works, so no one starts the interview cold.</div>
-          </div>
-          <div class="tier t2">
-            <div class="lvl">Voice</div>
-            <div class="what">Active listening</div>
-            <div class="ex">The interview is spoken, and the orb reacts as you talk, so you can see you are being heard.</div>
-          </div>
-          <div class="tier t3">
-            <div class="lvl">Follow-ups</div>
-            <div class="what">Relevant and contextual</div>
-            <div class="ex">The AI picks up on what each person just said and asks the follow-up that fits.</div>
-          </div>
-          <div class="tier t4">
-            <div class="lvl">Guidance</div>
-            <div class="what">Reassuring throughout</div>
-            <div class="ex">A progress bar and clear cues, so people always know where they are and what is left.</div>
-          </div>
-        </div>
-        <p style="margin-top:32px;"><a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener" class="web-link" data-cursor="read">Watch my talk on Verso ↗</a></p>
-      </div>
-    </section>
-
-    <!-- ════════ PILLAR 02 · THE REPORT PLATFORM ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>02 · The report platform · the biggest piece</span>
-          <h2>An insights platform built on evidence.</h2>
-          <p>The biggest part of Verso was client-facing. For managers and insights teams, I designed a platform that matches how insights work: <span class="accent" style="font-weight:600">every claim backed by evidence</span>. That meant an interface dense with text, kept readable and accessible.</p>
-          <p>I put media at the heart, audio and video of real participants, to keep the human present, and worked the report structure and layout so it feels rich but stays clean.</p>
-        </div>
-        <div class="walkthrough r r-d1">
-          <div class="wt-bar"><i></i><i></i><i></i><span class="u">app.askverso.ai</span></div>
-          <div class="wt-stage">
-            <img class="wt-screen is-active" src="assets/verso-home.jpg" data-label="Home · ask across every study" alt="Verso home, welcome to the research assistant with a search across every study and recent studies" fetchpriority="high">
-            <img class="wt-screen" src="assets/verso-report.jpg" data-label="The report · executive summary" alt="Verso study report with an executive summary of the Gen Z study" loading="lazy" decoding="async">
-            <img class="wt-screen" src="assets/verso-findings.jpg" data-label="Findings · backed by participant video" alt="Verso findings, each learning backed by participant video clips" loading="lazy" decoding="async">
-            <img class="wt-screen" src="assets/verso-finding.jpg" data-label="A finding up close · verbatims and video" alt="Verso finding detail with verbatims and a participant video player" loading="lazy" decoding="async">
-          </div>
-          <div class="wt-foot">
-            <div class="wt-dots">
-              <button type="button" class="wt-dot on" aria-label="Home"></button>
-              <button type="button" class="wt-dot" aria-label="Report"></button>
-              <button type="button" class="wt-dot" aria-label="Findings"></button>
-              <button type="button" class="wt-dot" aria-label="Finding detail"></button>
-            </div>
-            <span class="wt-cap"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ PILLAR 03 · CONSUMER OS / CHAT ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>03 · Consumer OS · the chat</span>
-          <h2>Ask across studies, get a sourced answer.</h2>
-          <p>Last year I worked on the consumer OS, with chat as an integral part of the experience. People ask questions across one or several studies. The challenge: give back an answer that stays as clear as possible, and as sourced and scientific as the research behind it.</p>
-        </div>
-        <div class="walkthrough r r-d1">
-          <div class="wt-bar"><i></i><i></i><i></i><span class="u">app.askverso.ai/chat</span></div>
-          <div class="wt-stage">
-            <img class="wt-screen is-active" src="assets/verso-chat-welcome.jpg" data-label="Ask anything across the study" alt="Verso research assistant welcome screen with a prompt to ask across the study" loading="lazy" decoding="async">
-            <img class="wt-screen" src="assets/verso-chat.jpg" data-label="A sourced answer, with citations" alt="Verso chat answer with inline citations pointing back to the interviews" loading="lazy" decoding="async">
-          </div>
-          <div class="wt-foot">
-            <div class="wt-dots">
-              <button type="button" class="wt-dot on" aria-label="Ask"></button>
-              <button type="button" class="wt-dot" aria-label="Sourced answer"></button>
-            </div>
-            <span class="wt-cap"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ DESIGN SYSTEM + AI PROCESS ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>Design system · AI-native process</span>
-          <h2>A design system LLMs can read.</h2>
-          <p>One system across both surfaces, mobile and web. I built it to be readable by LLMs, so I can design directly in production, with prototyping plugged straight into Verso's design system. Setting up that process changed how the team ships.</p>
-        </div>
-        <div class="case-frame r r-d1" data-video="assets/verso-ds.mp4" data-cursor="play" style="aspect-ratio: 16 / 9;">
-          <video autoplay muted loop playsinline preload="none"><source src="assets/verso-ds.mp4" type="video/mp4"></video>
-          <span class="play-hint">▶ play</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;"><span class="kicker"><span class="dot"></span>Impact</span></div>
-        <div class="impact-row r">
-          <div class="stat"><span class="accent" data-to="500" data-suffix="+">0+</span></div>
-          <div class="impact-text">
-            <p>Interviews run through Verso, across around fifteen studies for major CAC 40 clients, from telecom and banking to luxury and health.</p>
-            <p>Alongside, an AI-native design process now part of how the team ships.</p>
-            <a href="https://www.askverso.ai/" target="_blank" rel="noopener" class="web-link" data-cursor="visit">Visit askverso.ai ↗</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="next">
-      <div class="shell">
-        <a href="rose.html" data-cursor="case study">
-          <span><span class="lab">Next project</span><span class="nm">Rose</span></span>
-          <span class="arr">→</span>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="shell">
-        <div class="footer-row">
-          <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
-          <div class="footer-social">
-            <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-cursor="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-cursor="read"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"></path></svg></a>
-            <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-cursor="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a>
-          </div>
-          <div class="footer-meta">v2.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <div id="lightbox" class="video-lightbox" aria-hidden="true">
-    <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-      <video class="video-lightbox-player" id="lightbox-video" controls loop playsinline></video>
     </div>
-  </div>
+  </section>
 
-  <script src="assets/app.js"></script>
+  <section style="padding:16px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#c9b6ef,#b49ce8);overflow:hidden;padding:40px 44px;position:relative;">
+        <div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:1840/1006;background:#EDECEF;"><iframe src="verso-demo.html" title="Verso — live product demo" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div>
+        <span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Product walkthrough</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:52px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;">Challenge</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Build the consumer OS for AI research, credible enough to earn trust on both sides: the end users and the insights managers.</p></div>
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;">My role</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Founding Designer across the whole product: the mobile interviewer, the SaaS report platform, the chat, and the design system.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(26,26,26,.5);margin-bottom:12px;">Outcome</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink);">500+ interviews across around fifteen studies for CAC 40 clients in telecom, banking, luxury and health, plus an AI-native design process built with the team.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:64px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-2col style="display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start;">
+        <div data-reveal style="">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Context</span></div>
+          <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:20px;">One product, two surfaces.</h2>
+          <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:16px;">Verso is B2B2C. On one side, panel participants answer a mobile AI interview. On the other, managers and insights teams explore the results in a SaaS platform. Two audiences, two experiences, one product.</p>
+          <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);">The craft was making each side feel right: <strong style="color:var(--ink);font-weight:600;">a human interview</strong> for participants, and <strong style="color:var(--ink);font-weight:600;">evidence they can trust</strong> for the teams reading the report.</p>
+        </div>
+        <div data-reveal data-reveal-delay="100" style="display:grid;gap:14px;">
+          <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">Panel participants</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">On mobile, answering an AI-led interview. It has to feel human, guided and effortless.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Surface · mobile interviewer</span></div>
+          <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">Managers &amp; insights teams</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">On a SaaS platform, digging into what the studies say. They need evidence, depth, and answers they can trust.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Surface · web platform</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:36px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">01 · The interviewer · mobile</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">An AI that interviews like the best researcher.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);">That meant working the prompt, but mostly understanding what makes a good interview.</p>
+      </div>
+      <div data-reveal data-reveal-delay="80" data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;">
+        <div style="border-radius:20px;background:var(--accent-soft);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.45);margin-bottom:14px;">Onboarding</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">We explain first</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">We take the time to show people how it works, so no one starts the interview cold.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.45);margin-bottom:14px;">Voice</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">Active listening</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">The interview is spoken, and the orb reacts as you talk, so you can see you are being heard.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.45);margin-bottom:14px;">Follow-ups</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">Relevant and contextual</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">The AI picks up on what each person just said and asks the follow-up that fits.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.45);margin-bottom:14px;">Guidance</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">Reassuring throughout</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">A progress bar and clear cues, so people always know where they are and what is left.</p></div>
+      </div>
+      <div data-2col style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div data-reveal style="aspect-ratio:5/4;border-radius:22px;background:radial-gradient(120% 120% at 50% 40%,#f1ecfb,#e5daf6);overflow:hidden;position:relative;box-shadow:inset 0 0 0 1px rgba(26,26,26,.05);"><iframe src="verso-orb.html" title="Verso — AI voice orb" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe><span style="position:absolute;left:18px;bottom:15px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.8);border-radius:var(--pill);padding:6px 13px;pointer-events:none;">Voice · listening</span></div>
+        <div data-reveal data-reveal-delay="90" style="aspect-ratio:5/4;border-radius:22px;background:radial-gradient(120% 120% at 50% 40%,#f1ecfb,#e5daf6);display:flex;align-items:center;justify-content:center;padding:8%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(26,26,26,.05);">
+          <div style="width:100%;background:#fff;border-radius:18px;padding:22px 22px 20px;box-shadow:0 20px 44px -24px rgba(26,26,26,.35);">
+            <div style="height:5px;border-radius:99px;background:#ECECEC;overflow:hidden;margin-bottom:16px;"><div style="height:100%;width:34%;border-radius:99px;background:var(--ink);"></div></div>
+            <p style="font-size:.98rem;line-height:1.5;color:var(--ink);min-height:5.2em;"><span data-iv-stream></span><span style="display:inline-block;width:2px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite;"></span></p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:9px;background:var(--ink);color:var(--paper);border-radius:99px;padding:12px;margin-top:16px;font-weight:600;font-size:.92rem;">Répondre <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div data-reveal style="margin-top:26px;"><a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener" data-hover class="tlink" style="font-size:1rem;font-weight:600;">Watch my talk on Verso ↗</a></div>
+    </div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">02 · The report platform</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">An insights platform built on evidence.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">The biggest part of Verso was client-facing. For managers and insights teams, I designed a platform that matches how insights work: <strong style="color:var(--ink);font-weight:600;">every claim backed by evidence</strong>. That meant an interface dense with text, kept readable and accessible.</p>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);">I put media at the heart, audio and video of real participants, to keep the human present, and worked the report structure and layout so it feels rich but stays clean.</p>
+      </div>
+      <div data-reveal data-reveal-delay="80" data-wt style="border-radius:22px;background:linear-gradient(150deg,#e5daf6,#f1ecfb);padding:36px 40px 26px;">
+        <div style="position:relative;border-radius:14px;overflow:hidden;background:#EDECEF;aspect-ratio:16/10;box-shadow:0 26px 54px -26px rgba(26,26,26,.45);">
+          <img data-wt-screen data-wt-cap-text="Home · ask across every study" src="assets/verso-home.jpg" alt="Verso home with a search across every study" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:1;transition:opacity .6s var(--ease);">
+          <img data-wt-screen data-wt-cap-text="The report · executive summary" src="assets/verso-report.jpg" alt="Verso study report with an executive summary" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;">
+          <img data-wt-screen data-wt-cap-text="Findings · backed by participant video" src="assets/verso-findings.jpg" alt="Verso findings backed by participant video clips" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;">
+          <img data-wt-screen data-wt-cap-text="A finding up close · verbatims and video" src="assets/verso-finding.jpg" alt="Verso finding detail with verbatims and a participant video player" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:16px;">
+          <div style="display:flex;gap:7px;">
+            <button type="button" data-wt-dot data-hover style="width:26px;height:6px;border-radius:99px;border:none;cursor:pointer;background:var(--ink);padding:0;transition:background .3s,width .3s;"></button>
+            <button type="button" data-wt-dot data-hover style="width:14px;height:6px;border-radius:99px;border:none;cursor:pointer;background:rgba(26,26,26,.22);padding:0;transition:background .3s,width .3s;"></button>
+            <button type="button" data-wt-dot data-hover style="width:14px;height:6px;border-radius:99px;border:none;cursor:pointer;background:rgba(26,26,26,.22);padding:0;transition:background .3s,width .3s;"></button>
+            <button type="button" data-wt-dot data-hover style="width:14px;height:6px;border-radius:99px;border:none;cursor:pointer;background:rgba(26,26,26,.22);padding:0;transition:background .3s,width .3s;"></button>
+          </div>
+          <span data-wt-cap style="font-size:12px;font-weight:600;letter-spacing:.06em;color:rgba(26,26,26,.55);">Home · ask across every study</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">03 · Consumer OS · the chat</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">Ask across studies, get a sourced answer.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);">Last year I worked on the consumer OS, with chat as an integral part of the experience. People ask questions across one or several studies. The challenge: give back an answer that stays as clear as possible, and as sourced and scientific as the research behind it.</p>
+      </div>
+      <div data-2col style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#e5daf6,#f1ecfb);padding:30px;"><div style="border-radius:12px;overflow:hidden;box-shadow:0 20px 44px -24px rgba(26,26,26,.4);"><img src="assets/verso-chat-welcome.jpg" alt="Verso research assistant welcome screen" loading="lazy" style="width:100%;height:auto;"></div><div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:rgba(26,26,26,.55);margin-top:14px;">Ask anything across the study</div></div>
+        <div data-reveal data-reveal-delay="90" style="border-radius:22px;background:linear-gradient(150deg,#e5daf6,#f1ecfb);padding:30px;"><div style="border-radius:12px;overflow:hidden;box-shadow:0 20px 44px -24px rgba(26,26,26,.4);"><img src="assets/verso-chat.jpg" alt="Verso chat answer with inline citations" loading="lazy" style="width:100%;height:auto;"></div><div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:rgba(26,26,26,.55);margin-top:14px;">A sourced answer, with citations</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Design system · AI-native process</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">A design system LLMs can read.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);">One system across both surfaces, mobile and web. I built it to be readable by LLMs, so I can design directly in production, with prototyping plugged straight into Verso's design system. Setting up that process changed how the team ships.</p>
+      </div>
+      <div data-reveal data-reveal-delay="80" style="border-radius:22px;overflow:hidden;aspect-ratio:16/9;background:linear-gradient(150deg,#c9b6ef,#b49ce8);position:relative;"><iframe src="verso-ds.html" title="Verso — design system (animated)" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe><span style="position:absolute;left:20px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Design system</span></div>
+    </div>
+  </section>
+
+  <section style="padding:74px 0 20px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal data-2col style="border-top:1px solid var(--hair);padding-top:46px;display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start;">
+        <div>
+          <div style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;">Impact</div>
+          <div style="font-weight:600;font-size:clamp(3.4rem,7vw,5.6rem);letter-spacing:-.045em;line-height:.95;"><span data-count data-to="500" data-suffix="+">0+</span></div>
+          <div style="font-size:13px;color:var(--ink3);margin-top:10px;">interviews · CAC 40 clients</div>
+        </div>
+        <div>
+          <p style="font-size:1.14rem;line-height:1.55;color:var(--ink2);margin-bottom:14px;">Interviews run through Verso, across around fifteen studies for major CAC 40 clients, from telecom and banking to luxury and health.</p>
+          <p style="font-size:1.14rem;line-height:1.55;color:var(--ink2);margin-bottom:26px;">Alongside, an AI-native design process now part of how the team ships.</p>
+          <a href="https://www.askverso.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--white);border:1px solid var(--hair);padding:12px 22px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit askverso.ai ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:60px 0 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <a href="rose.html" data-hover data-label="case study" style="display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--hair);padding:44px 0 54px;transition:opacity .3s;" style-hover="opacity:.62;">
+        <span><span style="display:block;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;">Next project</span><span style="display:block;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;letter-spacing:-.04em;line-height:1;">Rose</span></span>
+        <span style="font-size:2rem;">→</span>
+      </a>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--hair);padding:34px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <span style="font-size:12.5px;color:var(--ink3);">© 2026 Nelly Seiglan · Lead Product Designer</span>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover aria-label="LinkedIn" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover aria-label="Substack" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+        <a href="mailto:nelly.sgn@gmail.com" data-hover aria-label="Email" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+      </div>
+    </div>
+  </footer>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll('[style-hover]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){el.setAttribute('data-sh-base',el.getAttribute('style')||'');el.setAttribute('style',(el.getAttribute('style')||'')+';'+el.getAttribute('style-hover'));});
+    el.addEventListener('mouseleave',function(){el.setAttribute('style',el.getAttribute('data-sh-base')||'');});
+  });
+
+
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target, d = +el.dataset.revealDelay || 0;
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+    const cio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        cio.unobserve(el);
+        const to = parseFloat(el.dataset.to) || 0, dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '';
+        const dur = 1500; let s = null;
+        const step = (t) => {
+          if (!s) s = t;
+          const p = Math.min((t - s) / dur, 1), e2 = 1 - Math.pow(1 - p, 3);
+          el.textContent = (to * e2).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + suf;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+
+    const wired = new WeakSet();
+    const scan = () => {
+      $$('[data-reveal]').forEach(el => io.observe(el));
+      $$('[data-count]').forEach(el => cio.observe(el));
+
+      $$('[data-wt]').forEach(wt => {
+        if (wired.has(wt)) return; wired.add(wt);
+        const screens = $$('[data-wt-screen]', wt), dots = $$('[data-wt-dot]', wt), cap = $('[data-wt-cap]', wt);
+        if (!screens.length) return;
+        let i = 0, timer = null;
+        const go = (n) => {
+          i = (n + screens.length) % screens.length;
+          screens.forEach((s, j) => { s.style.opacity = j === i ? '1' : '0'; });
+          dots.forEach((d, j) => {
+            d.style.background = j === i ? 'var(--ink)' : 'rgba(26,26,26,.22)';
+            d.style.width = j === i ? '26px' : '14px';
+          });
+          if (cap) cap.textContent = screens[i].dataset.wtCapText || '';
+        };
+        const play = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
+        dots.forEach((d, j) => d.addEventListener('click', () => { go(j); play(); }));
+        const vio = new IntersectionObserver((es) => {
+          es.forEach(e => { if (e.isIntersecting) play(); else clearInterval(timer); });
+        }, { threshold: 0.25 });
+        vio.observe(wt);
+        go(0);
+      });
+
+      const ivStream = $('[data-iv-stream]');
+      if (ivStream && !wired.has(ivStream)) {
+        wired.add(ivStream);
+        const Q = 'You mentioned that the seat looks super comfortable and that the backpack looks good. Is there anything in particular about its design or feature that stands out to you, either positively or negatively?';
+        let running = false;
+        const play = () => {
+          if (running) return; running = true;
+          let k = 0;
+          const type = () => {
+            ivStream.textContent = Q.slice(0, k); k++;
+            if (k <= Q.length) setTimeout(type, 28);
+            else setTimeout(() => { ivStream.textContent = ''; running = false; setTimeout(play, 600); }, 2600);
+          };
+          type();
+        };
+        const qio = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) play(); }); }, { threshold: 0.4 });
+        qio.observe(ivStream);
+      }
+
+      $$('[data-magnet]').forEach(el => {
+        if (wired.has(el)) return; wired.add(el);
+        el.style.transition = 'transform .3s cubic-bezier(.22,1,.36,1), background .25s ease';
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * 0.08 + 'px,' + (e.clientY - r.top - r.height / 2) * 0.12 + 'px)';
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+      });
+
+      const ring = $('[data-cursor]');
+      if (ring) {
+        $$('[data-hover]').forEach(el => {
+          if (wired.has(el)) return; wired.add(el);
+          el.addEventListener('mouseenter', () => {
+            const l = el.dataset.label || '';
+            ring.style.width = l ? '58px' : '30px';
+            ring.style.height = l ? '58px' : '30px';
+            ring.style.background = 'transparent';
+            ring.style.boxShadow = 'inset 0 0 0 1.5px rgba(26,26,26,.55)';
+            ring.textContent = l;
+          });
+          el.addEventListener('mouseleave', () => {
+            ring.style.width = '9px'; ring.style.height = '9px';
+            ring.style.background = 'var(--ink)'; ring.style.boxShadow = 'none'; ring.textContent = '';
+          });
+        });
+      }
+
+      const dd = $('[data-dd]');
+      if (dd && !wired.has(dd)) {
+        wired.add(dd);
+        const menu = $('[data-dd-menu]', dd), chev = $('[data-chev]', dd);
+        const open = () => { menu.style.opacity = '1'; menu.style.visibility = 'visible'; menu.style.pointerEvents = 'auto'; menu.style.transform = 'translateX(-50%) translateY(0)'; if (chev) chev.style.transform = 'rotate(180deg)'; };
+        const close = () => { menu.style.opacity = '0'; menu.style.visibility = 'hidden'; menu.style.pointerEvents = 'none'; menu.style.transform = 'translateX(-50%) translateY(-6px)'; if (chev) chev.style.transform = 'rotate(0)'; };
+        dd.addEventListener('mouseenter', open);
+        dd.addEventListener('mouseleave', close);
+      }
+    };
+
+    scan();
+    [250, 900, 2200].forEach(t => setTimeout(scan, t));
+
+    const ring = $('[data-cursor]');
+    if (ring && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      document.documentElement.style.cursor = 'none';
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+      const loop = () => {
+        rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
+        ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
+
+    const prog = $('[data-progress]'), nav = $('[data-nav]');
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog) prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      if (nav) nav.style.boxShadow = window.scrollY > 30 ? '0 14px 34px -24px rgba(26,26,26,.35)' : 'none';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+});
+</script>
 </body>
 </html>

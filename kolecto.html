@@ -1,164 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kolecto · Nelly Seiglan</title>
-  <meta name="description" content="Kolecto, a compliant, intuitive management tool for small-business owners, and the design team built to ship it. Case study by Nelly Seiglan.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/case.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kolecto · Nelly Seiglan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{background:#FCFBF4;color:#1A1A1A;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-family:'Inter',sans-serif;letter-spacing:-0.011em;}
+  a{color:inherit;text-decoration:none;}
+  a.tlink{color:#1A1A1A;box-shadow:inset 0 -2px 0 oklch(94.5% 0.129 101.54);transition:box-shadow .25s;}
+  a.tlink:hover{box-shadow:inset 0 -10px 0 oklch(94.5% 0.129 101.54);}
+  img,video{display:block;max-width:100%;}
+  ::selection{background:oklch(94.5% 0.129 101.54);color:#1A1A1A;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  @keyframes nudge{0%,100%{transform:translateY(-3px);}50%{transform:translateY(4px);}}
+  [data-dd]:hover [data-dd-menu],[data-dd]:focus-within [data-dd-menu]{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important;}
+  [data-dd]:hover [data-chev],[data-dd]:focus-within [data-chev]{transform:rotate(180deg);}
+  @keyframes slidein{from{opacity:0;transform:translateX(70px);}to{opacity:1;transform:none;}}
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  [data-reveal]{animation:rise .85s cubic-bezier(.22,1,.36,1) both;}
+  [data-slide]{animation:slidein .9s cubic-bezier(.22,1,.36,1) both;}
+  @supports (animation-timeline: view()){[data-reveal],[data-slide]{animation-timeline:view();animation-range:entry 0% cover 20%;}}
+  @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
+  @media (hover:none){[data-cursor]{display:none!important;}}
+  @media (max-width:900px){[data-2col]{grid-template-columns:1fr!important;}[data-3col]{grid-template-columns:1fr!important;}[data-4col]{grid-template-columns:repeat(2,1fr)!important;}[data-hide-sm]{display:none!important;}}
+</style>
 </head>
-<body data-bg="haze" data-grain="on" data-motion="subtle">
+<body>
+<div data-root style="position:relative;--paper:#FCFBF4;--white:#FFFFFF;--cream:#FBF7E7;--butter-soft:#FAF8DC;--lime:oklch(94.5% 0.129 101.54);--ink:#1A1A1A;--ink2:rgba(26,26,26,.62);--ink3:rgba(26,26,26,.42);--hair:rgba(26,26,26,.09);--hair2:rgba(26,26,26,.16);--accent:#F6B56A;--accent-soft:#FDEEDE;--shadow:0 16px 44px -28px rgba(26,26,26,.32);--shadow-sm:0 8px 24px -18px rgba(26,26,26,.28);--pill:100px;--sans:'Inter',sans-serif;--ease:cubic-bezier(.22,1,.36,1);font-family:var(--sans);">
 
-  <div class="curtain" id="curtain"><span class="curtain-mark">Nelly Seiglan</span></div>
-  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
-  <canvas id="haze-canvas" aria-hidden="true"></canvas>
-  <div class="bg-aurora" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
-  <div class="bg-grain" aria-hidden="true"></div>
+  <div data-progress aria-hidden="true" style="position:fixed;top:63px;left:0;height:2px;width:0;background:var(--lime);z-index:1100;transition:width .1s linear;"></div>
 
-  <nav class="nav">
-    <a href="index.html" class="nav-brand" data-cursor="">NS</a>
-    <div class="nav-links">
-      <a href="index.html#home">Home</a>
-      <div class="nav-dd">
-        <button type="button" class="nav-dd-trigger active" aria-haspopup="true" aria-expanded="false">Projects <span class="chev">▼</span></button>
-        <div class="nav-dd-menu" role="menu">
-          <a href="verso.html" role="menuitem">Verso <span class="ix">01</span></a>
-          <a href="rose.html" role="menuitem">Rose <span class="ix">02</span></a>
-          <a href="kolecto.html" role="menuitem">Kolecto <span class="ix">03</span></a>
-          <a href="milleis.html" role="menuitem">Milleis <span class="ix">04</span></a>
-          <a href="index.html#work" class="nav-dd-all" role="menuitem">All projects ↓</a>
+  <nav data-nav style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(252,251,244,.82);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--hair);transition:box-shadow .4s var(--ease);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:64px;">
+      <a href="index.html" data-hover style="font-size:16px;font-weight:600;letter-spacing:-.02em;">Nelly Seiglan</a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="index.html" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Home</a>
+        <div data-dd style="position:relative;">
+          <button type="button" data-dd-trigger data-hover style="display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--ink);background:var(--butter-soft);border:none;cursor:pointer;padding:9px 16px;border-radius:var(--pill);">Projects <svg data-chev width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .3s var(--ease);margin-top:1px;"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div data-dd-menu style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:242px;padding:8px;display:flex;flex-direction:column;gap:2px;background:var(--white);border:1px solid var(--hair);border-radius:20px;box-shadow:var(--shadow);visibility:hidden;pointer-events:none;">
+            <a href="verso.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Verso <span style="font-size:11px;color:var(--ink3);">01</span></a>
+            <a href="rose.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Rose <span style="font-size:11px;color:var(--ink3);">02</span></a>
+            <a href="kolecto.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:600;padding:11px 15px;border-radius:12px;background:var(--butter-soft);" >Kolecto <span style="font-size:11px;color:var(--ink3);">03</span></a>
+            <a href="milleis.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Milleis <span style="font-size:11px;color:var(--ink3);">04</span></a>
+            <a href="index.html#work" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;color:var(--ink2);border-top:1px solid var(--hair);margin-top:4px;transition:background .2s;" style-hover="background:var(--butter-soft);">All projects <span style="font-size:11px;color:var(--ink3);">↓</span></a>
+          </div>
         </div>
+        <a href="index.html#about" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">About</a>
+        <a href="index.html#contact" data-hover data-magnet style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);margin-left:8px;">Get in touch <span>↗</span></a>
       </div>
-      <a href="index.html#about">About</a>
     </div>
-    <a href="index.html#contact" class="nav-cta" data-cursor="say hi">Get in touch</a>
   </nav>
 
-  <main class="page">
-
-    <section class="case-hero">
-      <div class="shell">
-        <h1 class="case-title r">Kolecto</h1>
-        <p class="case-sum r r-d1">A compliant, complete, and intuitive management tool for the small-business owners who bank with Crédit Agricole.</p>
-        <div class="meta-strip r r-d2">
-          <div><div class="k">Role</div><div class="v">Lead PD → Manager</div></div>
-          <div><div class="k">Year</div><div class="v">2024 to 2025</div></div>
-          <div><div class="k">Team</div><div class="v">Built the design team</div></div>
-          <div><div class="k">Scope</div><div class="v">Discovery · Product · Management</div></div>
-        </div>
+  <section style="padding:142px 0 44px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:26px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+        <span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">Case study 03 · Fintech SaaS</span>
+        <span style="flex:1;height:1px;background:var(--hair);"></span>
       </div>
-    </section>
-
-    <section class="case-media">
-      <div class="shell">
-        <div class="case-frame r" data-video="assets/kolecto-2.mp4" data-cursor="play">
-          <video autoplay muted loop playsinline preload="metadata"><source src="assets/kolecto-2.mp4" type="video/mp4"></video>
-          <span class="play-hint">▶ play</span>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding: 8px 0 76px;">
-      <div class="shell">
-        <div class="glance r">
-          <div><div class="k">Challenge</div><div class="v">Make a compliant management tool genuinely intuitive for non-experts, and build the team to ship it.</div></div>
-          <div><div class="k">My role</div><div class="v">Lead Product Designer, then Design Manager: billing module, mobile app, and the design team.</div></div>
-          <div><div class="k">Outcome</div><div class="v">2,000+ subscriptions in the pilot, plus a design team built from scratch.</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="block" style="border-top:none; padding-top:8px;">
-      <div class="shell"><div class="read r">
-        <span class="kicker"><span class="dot"></span>Context</span>
-        <h2>A management tool for non-experts.</h2>
-        <p>Kolecto, a Crédit Agricole company, gives the leaders of small and mid-sized businesses a management tool that is compliant, complete, and genuinely intuitive, for people who are not finance experts. I joined as Lead Product Designer and grew into Design Manager.</p>
+      <h1 data-reveal data-reveal-delay="80" style="font-weight:560;letter-spacing:-.035em;line-height:.98;font-size:clamp(3.2rem,9vw,7.4rem);margin-bottom:28px;">Kolecto</h1>
+      <p data-reveal data-reveal-delay="160" style="font-size:1.3rem;line-height:1.48;color:var(--ink2);max-width:62ch;margin-bottom:44px;">A compliant, complete, and intuitive management tool for the small-business owners who bank with Crédit Agricole.</p>
+      <div data-reveal data-reveal-delay="240" data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);">
+        <div style="background:var(--paper);padding:22px 24px 22px 0;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Role</div><div style="font-size:1rem;font-weight:500;">Lead PD → Design Manager</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Year</div><div style="font-size:1rem;font-weight:500;">2024 to 2025</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Team</div><div style="font-size:1rem;font-weight:500;">Built the design team</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Scope</div><div style="font-size:1rem;font-weight:500;">Discovery · Product · Management</div></div>
       </div></div>
-    </section>
+  </section>
 
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>01 · Billing module</span>
-          <h2>Invoicing people can trust.</h2>
-          <p>I led the billing module end to end: user research with the businesses themselves, then the flows to fill in, preview, and check the compliance of an invoice.</p>
-        </div>
-        <figure class="product-shot r r-d1">
-          <img src="assets/kolecto-billing.png" alt="Kolecto billing module: filling in and checking the compliance of an invoice" loading="lazy">
-        </figure>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="shell"><div class="read r">
-        <span class="kicker"><span class="dot"></span>02 · Mobile app</span>
-        <h2>A remote control for billing.</h2>
-        <p>Then a mobile app, conceived as a remote control for billing: big, practical actions an owner can run straight from the field. I ran the discovery to prioritize features and shipped it with engineering. It's the app in the video above.</p>
+  <section style="padding:16px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#f6b56a,#f4d78a);overflow:hidden;padding:40px 44px;position:relative;">
+        <div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:1512/874;background:#ecebf3;"><iframe src="kolecto-demo.html" title="Kolecto — live product demo" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div>
+        <span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Product walkthrough</span>
       </div></div>
-    </section>
+  </section>
 
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>03 · Building the team</span>
-          <h2>A design team, hired from scratch.</h2>
-          <p>As Design Manager I built the design team: I owned the hiring plan, led around fifty interviews, and set up the onboarding so the team could ramp fast.</p>
+  <section style="padding:52px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;">Challenge</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Make a compliant management tool genuinely intuitive for non-experts, and build the team to ship it.</p></div>
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;">My role</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Lead Product Designer, then Design Manager: billing module, mobile app, and the design team.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:28px 26px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(26,26,26,.5);margin-bottom:12px;">Outcome</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink);">2,000+ subscriptions in the pilot, plus a design team built from scratch.</p></div>
+      </div></div>
+  </section>
+
+  <section style="padding:64px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-2col style="display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start;">
+        <div data-reveal style="">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Context</span></div>
+          <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:20px;">A management tool for non-experts.</h2>
+          <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:16px;">Kolecto, a Crédit Agricole company, gives the leaders of small and mid-sized businesses a management tool that is compliant, complete, and genuinely intuitive, for people who are not finance experts.</p><p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:16px;">I joined as Lead Product Designer and grew into Design Manager: <strong style="color:var(--ink);font-weight:600;">owning the product</strong> and then <strong style="color:var(--ink);font-weight:600;">owning the team that builds it</strong>.</p>
         </div>
-        <div class="hires r r-d1">
-          <div class="hire"><div class="n">~50</div><div class="role">Interviews led</div><span class="from">end-to-end hiring plan</span></div>
-          <div class="hire"><div class="n">1</div><div class="role">Senior designer</div><span class="from">joined from Doctolib</span></div>
-          <div class="hire"><div class="n">1</div><div class="role">Confirmed designer</div><span class="from">a strong mid-level hire</span></div>
+        <div data-reveal data-reveal-delay="100" style="display:grid;gap:14px;">
+          <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">Small-business owners</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">They are not accountants. Invoicing has to be fast, legible, and impossible to get legally wrong.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Users · web + mobile</span></div><div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">Crédit Agricole</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">A banking group with compliance non-negotiable, and a pilot to prove.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Stakeholders · the group</span></div>
         </div>
-      </div>
-    </section>
+      </div></div>
+  </section>
 
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;"><span class="kicker"><span class="dot"></span>Impact</span></div>
-        <div class="impact-row r">
-          <div class="stat"><span class="accent" data-to="2000" data-suffix="+">0+</span></div>
-          <div class="impact-text">
-            <p>More than 2,000 subscriptions during the pilot phase. The two designers I hired are still in role, building on what we set up.</p>
-            <a href="https://www.kolecto.fr/" target="_blank" rel="noopener" class="web-link" data-cursor="visit">Visit kolecto.fr ↗</a>
-          </div>
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">01 · Billing module</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">Invoicing people can trust.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">I led the billing module end to end: user research with the businesses themselves, then the flows to fill in, preview, and check the compliance of an invoice.</p>
+      </div>
+      <div data-reveal data-reveal-delay="80" style="border-radius:22px;background:linear-gradient(150deg,#fdeede,#fbe0c8);padding:44px 48px;">
+        <img src="assets/kolecto-billing.png" alt="Kolecto billing module: filling in and checking the compliance of an invoice" loading="lazy" style="width:100%;height:auto;border-radius:12px;box-shadow:0 26px 54px -26px rgba(120,72,20,.5);">
+      </div></div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">02 · Mobile app</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">A remote control for billing.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">Then a mobile app, conceived as a remote control for billing: big, practical actions an owner can run straight from the field. I ran the discovery to prioritize features and shipped it with engineering.</p>
+      </div>
+      <div data-4col style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        <div data-reveal data-reveal-delay="0" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#f6b56a,#f4d78a);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><img src="assets/kolecto-m01.png" alt="Kolecto mobile app screen" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);"></div><div data-reveal data-reveal-delay="70" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#ffe0bd,#fdeede);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><img src="assets/kolecto-m05.png" alt="Kolecto mobile app screen" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);"></div><div data-reveal data-reveal-delay="140" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#f6b56a,#f4d78a);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><img src="assets/kolecto-m06.png" alt="Kolecto mobile app screen" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);"></div><div data-reveal data-reveal-delay="210" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#ffe0bd,#fdeede);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><img src="assets/kolecto-m08.png" alt="Kolecto mobile app screen" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);"></div><div data-reveal data-reveal-delay="280" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#f6b56a,#f4d78a);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><img src="assets/kolecto-m10.png" alt="Kolecto mobile app screen" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);"></div>
+      </div></div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;max-width:70ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">03 · Building the team</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">A design team, hired from scratch.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">As Design Manager I built the design team: I owned the hiring plan, led around fifty interviews, and set up the onboarding so the team could ramp fast.</p>
+      </div>
+      <div data-reveal data-reveal-delay="80" data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border-radius:20px;background:var(--ink);color:var(--paper);padding:30px 28px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;"><div style="font-size:3rem;font-weight:600;letter-spacing:-.04em;line-height:1;">~50</div><div><div style="font-size:1.06rem;font-weight:600;margin-bottom:6px;">Interviews led</div><span style="font-size:12px;color:rgba(252,251,244,.55);">End-to-end hiring plan</span></div></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:30px 28px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;"><div style="font-size:3rem;font-weight:600;letter-spacing:-.04em;line-height:1;">1</div><div><div style="font-size:1.06rem;font-weight:600;margin-bottom:6px;">Senior designer</div><span style="font-size:12px;color:var(--ink3);">Joined from Doctolib</span></div></div>
+        <div style="border-radius:20px;background:var(--accent-soft);padding:30px 28px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;"><div style="font-size:3rem;font-weight:600;letter-spacing:-.04em;line-height:1;">1</div><div><div style="font-size:1.06rem;font-weight:600;margin-bottom:6px;">Confirmed designer</div><span style="font-size:12px;color:var(--ink3);">A strong mid-level hire</span></div></div>
+      </div></div>
+  </section>
+
+  <section style="padding:74px 0 20px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal data-2col style="border-top:1px solid var(--hair);padding-top:46px;display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start;">
+        <div>
+          <div style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;">Impact</div>
+          <div style="font-weight:600;font-size:clamp(3rem,6.4vw,5.2rem);letter-spacing:-.045em;line-height:.95;"><span data-count data-to="2000" data-suffix="+">0+</span></div>
+          <div style="font-size:13px;color:var(--ink3);margin-top:10px;">subscriptions in the pilot phase</div>
         </div>
-      </div>
-    </section>
-
-    <section class="next">
-      <div class="shell">
-        <a href="milleis.html" data-cursor="case study">
-          <span><span class="lab">Next project</span><span class="nm">Milleis</span></span>
-          <span class="arr">→</span>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="shell">
-        <div class="footer-row">
-          <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
-          <div class="footer-social">
-            <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-cursor="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-cursor="read"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"></path></svg></a>
-            <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-cursor="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a>
-          </div>
-          <div class="footer-meta">v2.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
+        <div>
+          <p style="font-size:1.14rem;line-height:1.55;color:var(--ink2);margin-bottom:14px;">More than 2,000 subscriptions during the pilot phase.</p><p style="font-size:1.14rem;line-height:1.55;color:var(--ink2);margin-bottom:14px;">The two designers I hired are still in role, building on what we set up.</p>
+          <a href="https://www.kolecto.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--white);border:1px solid var(--hair);padding:12px 22px;border-radius:var(--pill);margin-top:12px;transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit kolecto.fr ↗</a>
         </div>
-      </div>
-    </footer>
-  </main>
+      </div></div>
+  </section>
 
-  <div id="lightbox" class="video-lightbox" aria-hidden="true">
-    <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-      <video class="video-lightbox-player" id="lightbox-video" controls loop playsinline></video>
+  <section style="padding:60px 0 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><a href="milleis.html" data-hover data-label="case study" style="display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--hair);padding:44px 0 54px;transition:opacity .3s;" style-hover="opacity:.62;">
+        <span><span style="display:block;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;">Next project</span><span style="display:block;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;letter-spacing:-.04em;line-height:1;">Milleis</span></span>
+        <span style="font-size:2rem;">→</span>
+      </a></div>
+  </section>
+  <footer style="border-top:1px solid var(--hair);padding:34px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <span style="font-size:12.5px;color:var(--ink3);">© 2026 Nelly Seiglan · Lead Product Designer</span>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover aria-label="LinkedIn" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover aria-label="Substack" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+        <a href="mailto:nelly.sgn@gmail.com" data-hover aria-label="Email" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+      </div>
     </div>
-  </div>
+  </footer>
 
-  <script src="assets/app.js"></script>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll('[style-hover]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){el.setAttribute('data-sh-base',el.getAttribute('style')||'');el.setAttribute('style',(el.getAttribute('style')||'')+';'+el.getAttribute('style-hover'));});
+    el.addEventListener('mouseleave',function(){el.setAttribute('style',el.getAttribute('data-sh-base')||'');});
+  });
+
+
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target, d = +el.dataset.revealDelay || 0;
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+    const cio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        cio.unobserve(el);
+        const to = parseFloat(el.dataset.to) || 0, dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '';
+        const dur = 1500; let s = null;
+        const step = (t) => {
+          if (!s) s = t;
+          const p = Math.min((t - s) / dur, 1), e2 = 1 - Math.pow(1 - p, 3);
+          el.textContent = (to * e2).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + suf;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+
+    const wired = new WeakSet();
+    const scan = () => {
+      $$('[data-reveal]').forEach(el => io.observe(el));
+      $$('[data-count]').forEach(el => cio.observe(el));
+
+      $$('[data-wt]').forEach(wt => {
+        if (wired.has(wt)) return; wired.add(wt);
+        const screens = $$('[data-wt-screen]', wt), dots = $$('[data-wt-dot]', wt), cap = $('[data-wt-cap]', wt);
+        if (!screens.length) return;
+        let i = 0, timer = null;
+        const go = (n) => {
+          i = (n + screens.length) % screens.length;
+          screens.forEach((s, j) => { s.style.opacity = j === i ? '1' : '0'; });
+          dots.forEach((d, j) => {
+            d.style.background = j === i ? 'var(--ink)' : 'rgba(26,26,26,.22)';
+            d.style.width = j === i ? '26px' : '14px';
+          });
+          if (cap) cap.textContent = screens[i].dataset.wtCapText || '';
+        };
+        const play = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
+        dots.forEach((d, j) => d.addEventListener('click', () => { go(j); play(); }));
+        const vio = new IntersectionObserver((es) => {
+          es.forEach(e => { if (e.isIntersecting) play(); else clearInterval(timer); });
+        }, { threshold: 0.25 });
+        vio.observe(wt);
+        go(0);
+      });
+
+      const ivStream = $('[data-iv-stream]');
+      if (ivStream && !wired.has(ivStream)) {
+        wired.add(ivStream);
+        const Q = 'You mentioned that the seat looks super comfortable and that the backpack looks good. Is there anything in particular about its design or feature that stands out to you, either positively or negatively?';
+        let running = false;
+        const play = () => {
+          if (running) return; running = true;
+          let k = 0;
+          const type = () => {
+            ivStream.textContent = Q.slice(0, k); k++;
+            if (k <= Q.length) setTimeout(type, 28);
+            else setTimeout(() => { ivStream.textContent = ''; running = false; setTimeout(play, 600); }, 2600);
+          };
+          type();
+        };
+        const qio = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) play(); }); }, { threshold: 0.4 });
+        qio.observe(ivStream);
+      }
+
+      $$('[data-magnet]').forEach(el => {
+        if (wired.has(el)) return; wired.add(el);
+        el.style.transition = 'transform .3s cubic-bezier(.22,1,.36,1), background .25s ease';
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * 0.08 + 'px,' + (e.clientY - r.top - r.height / 2) * 0.12 + 'px)';
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+      });
+
+      const ring = $('[data-cursor]');
+      if (ring) {
+        $$('[data-hover]').forEach(el => {
+          if (wired.has(el)) return; wired.add(el);
+          el.addEventListener('mouseenter', () => {
+            const l = el.dataset.label || '';
+            ring.style.width = l ? '58px' : '30px';
+            ring.style.height = l ? '58px' : '30px';
+            ring.style.background = 'transparent';
+            ring.style.boxShadow = 'inset 0 0 0 1.5px rgba(26,26,26,.55)';
+            ring.textContent = l;
+          });
+          el.addEventListener('mouseleave', () => {
+            ring.style.width = '9px'; ring.style.height = '9px';
+            ring.style.background = 'var(--ink)'; ring.style.boxShadow = 'none'; ring.textContent = '';
+          });
+        });
+      }
+
+      const dd = $('[data-dd]');
+      if (dd && !wired.has(dd)) {
+        wired.add(dd);
+        const menu = $('[data-dd-menu]', dd), chev = $('[data-chev]', dd);
+        const open = () => { menu.style.opacity = '1'; menu.style.visibility = 'visible'; menu.style.pointerEvents = 'auto'; menu.style.transform = 'translateX(-50%) translateY(0)'; if (chev) chev.style.transform = 'rotate(180deg)'; };
+        const close = () => { menu.style.opacity = '0'; menu.style.visibility = 'hidden'; menu.style.pointerEvents = 'none'; menu.style.transform = 'translateX(-50%) translateY(-6px)'; if (chev) chev.style.transform = 'rotate(0)'; };
+        dd.addEventListener('mouseenter', open);
+        dd.addEventListener('mouseleave', close);
+      }
+    };
+
+    scan();
+    [250, 900, 2200].forEach(t => setTimeout(scan, t));
+
+    const ring = $('[data-cursor]');
+    if (ring && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      document.documentElement.style.cursor = 'none';
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+      const loop = () => {
+        rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
+        ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
+
+    const prog = $('[data-progress]'), nav = $('[data-nav]');
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog) prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      if (nav) nav.style.boxShadow = window.scrollY > 30 ? '0 14px 34px -24px rgba(26,26,26,.35)' : 'none';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+});
+</script>
 </body>
 </html>
