@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rose — Motion demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563eb;
+  --blue2:#2882e9;
+  --blue-soft:#bfdbfe;
+  --blue-tint:#eef4ff;
+  --ink:#0f1728;
+  --muted:#5b6577;
+  --paper:#fbfaf7;
+  --line:rgba(15,23,40,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow:hidden;color:var(--ink);
+  background:
+    radial-gradient(1200px 760px at 12% -12%, #e9eefc 0, transparent 55%),
+    radial-gradient(1100px 820px at 112% 118%, #e6ecff 0, transparent 52%),
+    #ecebf3;
+}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+
+/* floating browser window */
+#stage{position:relative;width:1440px;height:900px;flex:0 0 auto;transform-origin:center center;
+  border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:0 50px 130px -34px rgba(24,34,74,.5),0 12px 40px -18px rgba(24,34,74,.32),0 0 0 1px rgba(255,255,255,.7);
+}
+
+/* fake browser chrome */
+#chrome{position:absolute;top:0;left:0;right:0;height:44px;z-index:60;display:flex;align-items:center;gap:16px;
+  padding:0 18px;background:linear-gradient(#fdfdfe,#f3f4f8);border-bottom:1px solid var(--line)}
+#chrome .dots{display:flex;gap:8px}
+#chrome .dots i{width:11px;height:11px;border-radius:50%;display:block}
+#chrome .dots i:nth-child(1){background:#ff5f57}
+#chrome .dots i:nth-child(2){background:#febc2e}
+#chrome .dots i:nth-child(3){background:#28c840}
+#urlbar{flex:1;max-width:520px;margin:0 auto;height:28px;border-radius:8px;background:#fff;
+  border:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 12px;
+  font-size:12.5px;color:#7a8496;box-shadow:inset 0 1px 2px rgba(15,23,40,.04)}
+#urlbar svg{width:12px;height:12px;flex:0 0 auto;opacity:.7}
+#urlbar .u b{color:var(--ink);font-weight:600}
+#chrome .spacer{width:52px;flex:0 0 auto}
+
+/* screen (below chrome) */
+#screen{position:absolute;top:44px;left:0;right:0;bottom:0;overflow:hidden;background:var(--paper)}
+
+/* the scrolling page */
+#page{position:absolute;top:0;left:0;width:100%;will-change:transform;
+  transition:transform 1200ms cubic-bezier(.5,.05,.2,1)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 40px}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:22px 0 64px;
+  border-radius:0 0 34px 34px;overflow:hidden;color:#fff;
+  background:
+    radial-gradient(1200px 680px at 50% -18%, #6aa6f9 0, transparent 60%),
+    linear-gradient(180deg,#4a8bf4 0%, #2f78ef 55%, #2563eb 100%);}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.42) 1.3px, transparent 1.6px);
+  background-size:15px 15px;
+  -webkit-mask-image:radial-gradient(1000px 560px at 50% 42%, #000 0, transparent 78%);
+  mask-image:radial-gradient(1000px 560px at 50% 42%, #000 0, transparent 78%);
+  opacity:.55}
+.nav{position:relative;z-index:2;max-width:1120px;margin:0 auto;height:58px;padding:0 14px;
+  display:flex;align-items:center;gap:26px;background:rgba(255,255,255,.96);border-radius:16px;
+  box-shadow:0 10px 30px -14px rgba(20,40,90,.35)}
+.nav .brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink);font-size:17px;letter-spacing:.2px}
+.nav .brand .mark{width:22px;height:22px}
+.nav .links{display:flex;gap:22px;margin-left:8px}
+.nav .links a{color:#41495a;font-size:14px;font-weight:500;text-decoration:none}
+.nav .cta{margin-left:auto;background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;
+  padding:10px 16px;border-radius:11px;display:flex;align-items:center;gap:7px}
+.hero-inner{position:relative;z-index:2;text-align:center;padding-top:64px}
+.hero h1{font-size:66px;line-height:1.03;font-weight:700;letter-spacing:-1.6px;
+  text-shadow:0 2px 24px rgba(12,32,80,.18)}
+.hero p.sub{margin:20px auto 0;max-width:560px;font-size:17px;line-height:1.5;font-weight:500;color:rgba(255,255,255,.92)}
+.ask{margin:38px auto 0;max-width:620px;background:#fff;border-radius:20px;padding:20px 22px 18px;
+  box-shadow:0 30px 60px -26px rgba(16,30,80,.5);text-align:left}
+.ask .row{display:flex;align-items:center;gap:10px;color:#9aa3b2;font-size:16px}
+.ask .row .plus{margin-left:auto;color:#c3cad6;font-size:22px;font-weight:400}
+.ask .spark{color:var(--blue)}
+.ask .caret{display:inline-block;width:1.5px;height:19px;background:var(--blue);margin-left:1px;
+  animation:blink 1s steps(1) infinite;vertical-align:-3px}
+@keyframes blink{50%{opacity:0}}
+.chips{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 15px;font-size:13.5px;
+  font-weight:500;color:var(--ink);display:flex;align-items:center;gap:8px;box-shadow:0 6px 16px -10px rgba(16,30,80,.4)}
+.chip .spark{color:var(--blue)}
+.chip .arw{color:#aeb6c4}
+
+/* ---------- LOGOS ---------- */
+.logos{padding:52px 0 40px;text-align:center}
+.logos .lbl{font-size:12.5px;font-weight:600;letter-spacing:.4px;color:#9aa3b2;text-transform:none}
+.logos .row{display:flex;align-items:center;justify-content:center;gap:46px;margin-top:26px;flex-wrap:wrap}
+.logos .row span{font-size:22px;font-weight:700;color:#c4ccd8;letter-spacing:.3px}
+
+/* ---------- PRODUCT VIDEO ---------- */
+.videoblk{padding:6px 0 62px}
+.player{position:relative;max-width:960px;margin:0 auto;height:472px;border-radius:16px;overflow:hidden;
+  background:radial-gradient(120% 130% at 50% 8%, #0b1836 0, #05070f 62%, #020309 100%);
+  box-shadow:0 40px 80px -40px rgba(6,12,32,.7)}
+.player .stars{position:absolute;inset:0;
+  background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1px 1px at 40% 70%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1px 1px at 85% 60%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1px 1px at 60% 85%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1px 1px at 12% 78%,rgba(255,255,255,.4),transparent)}
+.player .globe{position:absolute;left:50%;top:46%;transform:translate(-92%,-50%);
+  width:230px;height:230px;border-radius:50%;
+  background:radial-gradient(38% 34% at 34% 30%, #6fb0ff 0, #2f6fd6 30%, #123a86 62%, #0a1f4d 100%);
+  box-shadow:0 0 60px 6px rgba(64,120,240,.35),inset -22px -14px 46px rgba(0,0,0,.55),
+    inset 14px 10px 30px rgba(150,200,255,.25);
+  animation:spin 26s linear infinite}
+.player .globe::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background-image:radial-gradient(rgba(180,220,255,.55) 1px,transparent 1.4px);background-size:11px 11px;
+  -webkit-mask-image:radial-gradient(60% 60% at 40% 34%,#000,transparent 72%);
+  mask-image:radial-gradient(60% 60% at 40% 34%,#000,transparent 72%);opacity:.5}
+@keyframes spin{to{background-position:220px 0}}
+.player .word{position:absolute;left:50%;top:46%;transform:translate(6%,-50%);
+  color:#fff;font-weight:700;font-size:52px;letter-spacing:4px}
+.player .bar{position:absolute;left:0;right:0;bottom:0;height:42px;display:flex;align-items:center;gap:12px;
+  padding:0 16px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.55));color:rgba(255,255,255,.85)}
+.player .bar .play{width:16px;height:16px}
+.player .bar .track{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.25);position:relative}
+.player .bar .track i{position:absolute;left:0;top:0;bottom:0;width:8%;background:#fff;border-radius:3px}
+.player .bar .t{font-size:11px;font-variant-numeric:tabular-nums}
+.player .bar .vim{font-size:12px;font-weight:700;font-style:italic;opacity:.8}
+
+/* ---------- COMPARISON ---------- */
+.compare{padding:8px 0 74px}
+.compare .grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;
+  gap:34px 90px}
+.compare .item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;
+  opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.compare .item.in{opacity:1;transform:none}
+.compare .badge{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.compare .badge svg{width:22px;height:22px;stroke-width:2.6}
+.compare .no .badge{background:var(--ink);color:#fff}
+.compare .yes .badge{background:var(--blue);color:#fff}
+.compare .item .txt{font-size:19px;font-weight:600;letter-spacing:-.2px}
+
+/* ---------- AGENT SECTIONS ---------- */
+.agent{padding:30px 0}
+.agent .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;
+  padding:44px 46px;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center;
+  box-shadow:0 30px 70px -46px rgba(20,30,70,.4)}
+.agent .icon{width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.agent h2{font-size:34px;font-weight:700;letter-spacing:-.8px}
+.agent .desc{margin-top:14px;font-size:16px;line-height:1.55;color:var(--muted);max-width:400px}
+.agent .qchips{margin-top:26px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.agent .qchip{border:1px solid var(--line);border-radius:12px;padding:11px 15px;font-size:13.5px;
+  font-weight:500;display:flex;align-items:center;gap:9px;color:var(--ink)}
+.agent .qchip .spark{color:var(--blue)}
+.agent .qchip .arw{margin-left:6px;color:#aeb6c4}
+
+/* embedded chat card */
+.embed{background:#f7f9ff;border:1px solid #e2e9fb;border-radius:18px;padding:20px;min-height:300px;
+  display:flex;flex-direction:column;gap:12px}
+.embed .head{display:flex;align-items:center;justify-content:space-between;color:#9aa3b2}
+.embed .head .mark{width:18px;height:18px}
+.embed .msgs{flex:1;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5}
+.embed .foot{background:#fff;border:1px solid #e2e9fb;border-radius:12px;padding:12px 14px;
+  display:flex;align-items:center;gap:9px;color:#9aa3b2;font-size:14px}
+.embed .foot .arw{margin-left:auto;color:#aeb6c4}
+
+/* chat message primitives (shared) */
+.umsg{align-self:flex-end;background:#e5edff;color:#25324a;border-radius:14px;padding:9px 14px;
+  font-size:14px;font-weight:500;max-width:82%}
+.amsg{align-self:flex-start;max-width:96%}
+.amsg p{margin:0 0 10px}.amsg p:last-child{margin:0}
+.amsg strong{font-weight:700}
+.status{align-self:flex-start;color:#9aa3b2;font-size:14px;font-style:italic}
+.sugg-lbl{align-self:flex-start;color:#8a93a4;font-size:12.5px;font-weight:600;margin-top:4px}
+.sugg{align-self:stretch;display:flex;flex-wrap:wrap;gap:9px}
+.sugg .s{border:1px solid #dfe4ee;background:#eef1f7;border-radius:10px;padding:8px 13px;font-size:13px;
+  font-weight:500;color:#2a3446}
+.sugg .s.hot{background:#e5edff;border-color:#c9d8ff}
+.streaming::after{content:"";display:inline-block;width:7px;height:15px;background:var(--blue);
+  margin-left:2px;vertical-align:-2px;animation:blink 1s steps(1) infinite;border-radius:1px}
+
+/* flow diagram (nurturing) */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0}
+.flow .node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;
+  font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px -16px rgba(20,30,70,.5);
+  opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.flow .node.in{opacity:1;transform:none}
+.flow .node .ic{width:26px;height:26px;border-radius:7px;background:#eef2fb;display:flex;
+  align-items:center;justify-content:center;color:var(--blue)}
+.flow .node small{display:block;color:#9aa3b2;font-size:11px}
+.flow .node b{font-weight:600}
+.flow .pill{background:var(--ink);color:#fff;border-radius:999px;padding:7px 16px;font-size:12.5px;font-weight:600}
+.flow .conn{width:2px;height:24px;background:#d5dbe6;transform:scaleY(0);transform-origin:top;
+  transition:transform .4s}
+.flow .conn.in{transform:scaleY(1)}
+.flow .email{width:100%;max-width:340px;background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:16px;box-shadow:0 10px 30px -18px rgba(20,30,70,.5)}
+.flow .email .to{font-size:12.5px;color:#41495a;display:flex;gap:8px;align-items:center;
+  padding-bottom:10px;border-bottom:1px solid var(--line)}
+.flow .email .to b{color:var(--ink)}
+.flow .email .subj{font-size:12.5px;color:#8a93a4;padding-top:10px}
+.flow .email .subj .ln{height:8px;border-radius:4px;background:#eef1f7;margin-top:9px}
+.flow .email .subj .ln.w1{width:88%}.flow .email .subj .ln.w2{width:64%}
+
+/* ---------- FLOATING CHAT SHEET ---------- */
+#sheet{position:absolute;left:60px;right:60px;bottom:0;height:82%;z-index:45;
+  background:linear-gradient(180deg,#fbfcff,#f4f7ff);border-radius:20px 20px 0 0;
+  box-shadow:0 -30px 80px -30px rgba(20,30,70,.4),0 0 0 1px rgba(20,40,90,.05);
+  display:flex;flex-direction:column;transform:translateY(102%);
+  transition:transform .7s cubic-bezier(.4,.02,.2,1)}
+#sheet.open{transform:translateY(0)}
+#sheet .shead{display:flex;align-items:center;justify-content:flex-end;padding:14px 20px 4px;color:#9aa3b2}
+#sheet .shead .x{width:20px;height:20px;cursor:default}
+#sheet .smsgs{flex:1;overflow:hidden;padding:8px 40px 6px;display:flex;flex-direction:column;gap:14px}
+#sheet .sfoot{padding:14px 30px 20px}
+#sheet .sfoot .book{display:inline-flex;align-items:center;gap:7px;background:var(--blue);color:#fff;
+  font-size:13px;font-weight:600;padding:8px 15px;border-radius:11px;margin-bottom:12px;
+  opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+#sheet .sfoot .book.in{opacity:1;transform:none}
+#sheet .sfoot .inp{background:#eaf0fe;border:1px solid #d7e2fb;border-radius:14px;padding:14px 16px;
+  display:flex;align-items:center;gap:10px;color:#8a93a4;font-size:14px}
+#sheet .sfoot .inp .spark{color:var(--blue)}
+#sheet .sfoot .inp .send{margin-left:auto;color:#aeb6c4}
+#sheet .sfoot .note{text-align:center;font-size:11px;color:#b0b7c4;margin-top:10px}
+#sheet .smsgs .amsg p{font-size:15px;line-height:1.55;color:#2a3446}
+
+/* ---------- CURSOR ---------- */
+#cursor{position:absolute;left:0;top:0;z-index:55;pointer-events:none;opacity:0;
+  transition:left .95s cubic-bezier(.45,.05,.2,1),top .95s cubic-bezier(.45,.05,.2,1),opacity .35s;
+  filter:drop-shadow(0 5px 8px rgba(20,30,80,.4))}
+#cursor.show{opacity:1}
+#cursor .arw{width:28px;height:28px;display:block}
+#cursor .rip{position:absolute;left:4px;top:3px;width:18px;height:18px;border-radius:50%;
+  background:rgba(37,99,235,.5);transform:scale(0);opacity:0}
+#cursor.click .rip{animation:rip .6s ease-out}
+@keyframes rip{0%{transform:scale(0);opacity:.75}100%{transform:scale(5.5);opacity:0}}
+#cursor.press .arw{transform:scale(.82);transition:transform .12s}
+
+/* ---------- CAPTION + CONTROLLER ---------- */
+#cap{position:fixed;left:22px;bottom:24px;z-index:80;background:rgba(15,20,45,.85);backdrop-filter:blur(12px);
+  color:#fff;font-size:13px;padding:10px 15px;border-radius:13px;max-width:290px;line-height:1.45;
+  box-shadow:0 12px 34px rgba(16,24,60,.32);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+#cap.on{opacity:1;transform:translateY(0)}
+#cap b{color:#a9c6ff;font-weight:600}
+@media (max-width:760px){#cap{display:none}}
+#ctl{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:6px;
+  background:rgba(15,20,45,.85);backdrop-filter:blur(12px);border-radius:999px;padding:7px 8px;
+  box-shadow:0 12px 34px rgba(16,24,60,.32);color:#fff;font-size:13px}
+#ctl button{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;border:none;background:none;cursor:pointer}
+#ctl button:hover{background:rgba(255,255,255,.14)}
+#ctl button svg{width:16px;height:16px}
+#ctl .steplabel{padding:0 10px;min-width:210px;text-align:center;font-weight:500;opacity:.95}
+#ctl .dots{display:flex;gap:5px;padding:0 6px}
+#ctl .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);transition:background .3s,width .3s}
+#ctl .dots i.on{background:#fff}
+#ctl .dots i.cur{width:16px;border-radius:3px;background:#7aa7ff}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <div id="chrome">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div id="urlbar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <span class="u"><b>rose.ai</b><span id="path"></span></span>
+    </div>
+    <span class="spacer"></span>
+  </div>
+
+  <div id="screen">
+    <div id="page">
+
+      <!-- HERO -->
+      <section class="hero" id="s-hero">
+        <nav class="nav">
+          <span class="brand">
+            <svg class="mark" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 21.9l.9-5.4L4.2 12.5l5.4-.8L12 2z"/></svg>
+            ROSE
+          </span>
+          <span class="links"><a>AI Agents</a><a>Command Center</a><a>Platform</a><a>Case Studies</a></span>
+          <span class="cta">Book a demo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </nav>
+        <div class="hero-inner">
+          <h1>Your autonomous<br>Inbound engine</h1>
+          <p class="sub">AI agents that work every website visit from engagement to conversion — so no buyer ever slips through.</p>
+          <div class="ask">
+            <div class="row">
+              <svg class="spark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>
+              <span id="heroType">Try Rose by asking anything here</span><span class="caret" id="heroCaret" style="display:none"></span>
+              <span class="plus">+</span>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip"><svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>What is Rose? <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="chip"><svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>Who are your clients? <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="chip"><svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>Can I try for free? <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGOS -->
+      <section class="logos" id="s-logos">
+        <div class="lbl">Trusted by leading B2B companies</div>
+        <div class="row">
+          <span>hexa</span><span>pennylane</span><span>ABTasty</span><span>skello</span><span>Hyperline</span><span>Crossbeam</span>
+        </div>
+      </section>
+
+      <!-- PRODUCT VIDEO -->
+      <section class="videoblk" id="s-video">
+        <div class="player">
+          <div class="stars"></div>
+          <div class="globe"></div>
+          <div class="word">ROSE</div>
+          <div class="bar">
+            <svg class="play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <div class="track"><i></i></div>
+            <span class="t">0:02</span>
+            <span class="vim">vimeo</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPARISON -->
+      <section class="compare" id="s-compare">
+        <div class="grid">
+          <div class="item no"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="txt">Browsing &amp; hunting for info</span></div>
+          <div class="item yes"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7"/></svg></span><span class="txt">Instant &amp; personalized answers</span></div>
+          <div class="item no"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="txt">Gated content &amp; form walls</span></div>
+          <div class="item yes"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7"/></svg></span><span class="txt">Value-first conversations</span></div>
+          <div class="item no"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="txt">Generic &amp; static nurturing</span></div>
+          <div class="item yes"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7"/></svg></span><span class="txt">Context-aware follow-up</span></div>
+        </div>
+      </section>
+
+      <!-- WEBSITE AGENT -->
+      <section class="agent" id="s-website">
+        <div class="wrap"><div class="card">
+          <div class="left">
+            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></div>
+            <h2>Website Agent</h2>
+            <p class="desc">Engages visitors contextually, answers questions 24/7, subtly pre-qualifies intent, captures emails naturally, and suggests demos at the perfect time.</p>
+            <div class="qchips">
+              <span class="qchip"><svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>How is it different from traditional chatbots? <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              <span class="qchip"><svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>What knowledge are you using for answers? <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+          </div>
+          <div class="embed">
+            <div class="head">
+              <svg class="mark" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 21.9l.9-5.4L4.2 12.5l5.4-.8L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </div>
+            <div class="msgs" id="webMsgs"></div>
+            <div class="foot"><svg class="spark" width="16" height="16" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>Ask us anything…<svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </div></div>
+      </section>
+
+      <!-- NURTURING AGENT -->
+      <section class="agent" id="s-nurture">
+        <div class="wrap"><div class="card">
+          <div class="left">
+            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div>
+            <h2>Nurturing Agent</h2>
+            <p class="desc">Follows up via email with relevant content, based on the intelligence gathered — conversation history, page views, and the identified company.</p>
+          </div>
+          <div class="flow" id="flow">
+            <div class="node" data-n="1"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/></svg></span><span><small>Website Agent</small><b>Email captured</b></span></div>
+            <div class="conn" data-c="1"></div>
+            <div class="pill node" data-n="2" style="box-shadow:none">Conversation Analysis</div>
+            <div class="conn" data-c="2"></div>
+            <div class="email node" data-n="3">
+              <div class="to"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>E-mail to: <b>john@clearhealth.com</b></div>
+              <div class="subj">Objet:<div class="ln w1"></div><div class="ln w2"></div></div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <div style="height:60px"></div>
+    </div><!-- /page -->
+
+    <!-- FLOATING CHAT SHEET -->
+    <div id="sheet">
+      <div class="shead"><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+      <div class="smsgs" id="sheetMsgs"></div>
+      <div class="sfoot">
+        <span class="book" id="bookBtn">Book a demo
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <div class="inp"><svg class="spark" width="16" height="16" viewBox="0 0 24 24" fill="var(--blue)"><path d="M12 2l1.6 5.4L19 9l-5.4 1.6L12 16l-1.6-5.4L5 9l5.4-1.6L12 2z"/></svg>What else can I help you with?<svg class="send" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></div>
+        <div class="note">Answers may be incomplete · AI Agent powered by ROSE</div>
+      </div>
+    </div>
+
+  </div><!-- /screen -->
+
+</div></div>
+
+<div id="cap"></div>
+<div id="ctl">
+  <button id="btnPlay" title="Play / Pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  <button id="btnPrev" title="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <span class="steplabel" id="stepLabel">1 / 7</span>
+  <div class="dots" id="dots"></div>
+  <button id="btnNext" title="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button id="btnRestart" title="Restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 10a8 8 0 0 0-14-4M4 14a8 8 0 0 0 14 4"/></svg></button>
+</div>
+
+<script>
+/* ---------- scale to fit ---------- */
+var stage=document.getElementById('stage');
+var STAGE_W=1440, STAGE_H=900;
+function fit(){
+  var pad=44, vw=window.innerWidth-pad, vh=window.innerHeight-pad-70;
+  var s=Math.min(vw/STAGE_W, vh/STAGE_H);
+  if(!isFinite(s)||s<=0) s=0.2;
+  stage.style.transform='scale('+Math.max(0.2,s)+')';
+}
+window.addEventListener('resize',fit); fit();
+
+/* ---------- refs ---------- */
+var page=document.getElementById('page');
+var screenEl=document.getElementById('screen');
+var sheet=document.getElementById('sheet');
+var sheetMsgs=document.getElementById('sheetMsgs');
+var webMsgs=document.getElementById('webMsgs');
+var bookBtn=document.getElementById('bookBtn');
+var pathEl=document.getElementById('path');
+var SCREEN_H=STAGE_H-44;
+
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)});}
+function offY(id){return document.getElementById(id).offsetTop;}
+
+/* ---------- cursor ---------- */
+var cursor=document.createElement('div');
+cursor.id='cursor';
+cursor.innerHTML='<svg class="arw" viewBox="0 0 24 24" fill="#fff" stroke="#1a2340" stroke-width="1.3" stroke-linejoin="round"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg><span class="rip"></span>';
+screenEl.appendChild(cursor);
+function moveCursor(x,y){cursor.style.left=x+'px';cursor.style.top=y+'px';}
+async function clickAt(x,y,hold){
+  moveCursor(x,y); await sleep(950);
+  cursor.classList.add('click','press'); await sleep(150); cursor.classList.remove('press');
+  setTimeout(function(){cursor.classList.remove('click')},600);
+  await sleep(hold||420);
+}
+
+/* ---------- caption + controller ---------- */
+var capEl=document.getElementById('cap');
+function cap(html){ if(!html){capEl.classList.remove('on');return;} capEl.innerHTML=html; capEl.classList.add('on'); }
+function updatePlay(){document.getElementById('btnPlay').innerHTML=playing
+  ?'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+  :'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';}
+
+var STEPS=[
+  {id:'s-hero',    y:0,   label:'Hero',              path:'',            cap:"Rose — <b>autonomous inbound engine</b>. Ask anything, right from the hero."},
+  {id:'s-logos',   label:'Social proof',             path:'/#trust',     cap:"Trusted by leading <b>B2B</b> teams."},
+  {id:'s-video',   label:'Product film',             path:'/#product',   cap:"The product film sets the vision."},
+  {id:'s-compare', label:'Old way vs Rose',          path:'/#why',       cap:"The old way vs the <b>Rose</b> way."},
+  {id:'chat',      label:'“Is Rose for me?”',        path:'/#assistant', cap:"The AI assistant answers, <b>streaming</b> in real time."},
+  {id:'s-website', label:'Website Agent',            path:'/agents/website', cap:"<b>Website Agent</b> — pre-qualifies & connects your stack."},
+  {id:'s-nurture', label:'Nurturing Agent',          path:'/agents/nurturing', cap:"<b>Nurturing Agent</b> — turns a captured email into follow-up."}
+];
+var idx=0, playing=false, token=0;
+
+function setControls(i){
+  document.getElementById('stepLabel').textContent=(i+1)+' / '+STEPS.length+' · '+STEPS[i].label;
+  pathEl.textContent=STEPS[i].path||'';
+  var d=document.getElementById('dots'); d.innerHTML='';
+  STEPS.forEach(function(_,k){var e=document.createElement('i'); if(k<i)e.className='on'; if(k===i)e.className='cur'; d.appendChild(e)});
+}
+function scrollTo(y,dur){ page.style.transition='transform '+(dur||1100)+'ms cubic-bezier(.5,.05,.2,1)'; page.style.transform='translateY('+(-y)+'px)'; }
+
+/* ---------- content builders ---------- */
+function parseRich(s){var out=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');return out;}
+function umsg(box,text){var d=document.createElement('div');d.className='umsg';d.textContent=text;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
+function statusMsg(box,text){var d=document.createElement('div');d.className='status';d.textContent=text;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
+
+/* stream an answer word-by-word into box; returns the .amsg element */
+async function streamAnswer(box,paras,guard){
+  var wrap=document.createElement('div');wrap.className='amsg streaming';box.appendChild(wrap);
+  for(var pi=0;pi<paras.length;pi++){
+    var p=document.createElement('p');wrap.appendChild(p);
+    var segs=paras[pi].split(/(\*\*.+?\*\*)/g).filter(Boolean);
+    for(var si=0;si<segs.length;si++){
+      var seg=segs[si], bold=/^\*\*.+\*\*$/.test(seg);
+      var clean=bold?seg.slice(2,-2):seg;
+      var words=clean.match(/\s*\S+\s*/g)||[clean];
+      for(var wi=0;wi<words.length;wi++){
+        if(guard&&!guard())return wrap;
+        var el=document.createElement(bold?'strong':'span');
+        el.textContent=words[wi];p.appendChild(el);
+        box.scrollTop=box.scrollHeight;
+        await sleep(22);
+      }
+    }
+  }
+  wrap.classList.remove('streaming');
+  return wrap;
+}
+function staticAnswer(box,paras){
+  var wrap=document.createElement('div');wrap.className='amsg';
+  paras.forEach(function(t){var p=document.createElement('p');p.innerHTML=parseRich(t);wrap.appendChild(p);});
+  box.appendChild(wrap);box.scrollTop=box.scrollHeight;return wrap;
+}
+function suggestions(box,label,items){
+  if(label){var l=document.createElement('div');l.className='sugg-lbl';l.textContent=label;box.appendChild(l);}
+  var s=document.createElement('div');s.className='sugg';
+  items.forEach(function(it){var b=document.createElement('span');b.className='s'+(it.hot?' hot':'');b.textContent=it.t;s.appendChild(b);});
+  box.appendChild(s);box.scrollTop=box.scrollHeight;return s;
+}
+
+/* ---------- copy ---------- */
+var ANS1=[
+  "Rose is designed for B2B companies with complex products or services — especially those in SaaS, professional services, or marketplaces. You need at least **2,000 monthly website visitors** for it to deliver measurable value.",
+  "It's not built for B2C, e-commerce, or retail. If your sales cycle is complex and you want to engage, qualify, and convert more website visitors, Rose is a strong fit.",
+  "👉 What industry are you in, and how much website traffic do you get? This helps me confirm if Rose is a good match for your needs."
+];
+var ANS2=[
+  "Rose is a good fit for startups if you have at least **2,000 monthly website visitors** — so with 2,500 visitors, you meet the minimum traffic requirement.",
+  "Startups use Rose to engage visitors, answer questions, and convert leads, especially if your product is complex and your sales cycle isn't simple.",
+  "You'll see measurable value, but optimal performance starts at 10,000+ visitors.",
+  "👉 What's your product or service? This helps me explain how Rose can address your specific sales challenges."
+];
+var WEB_A1=["Yes — Rose offers many native integrations. Which tools are critical for you today (CRM, analytics, or email), and what are you trying to connect them for?"];
+var WEB_A2=["Great — we have a native **Salesforce** integration. Leads, conversation context, and qualification signals sync automatically, so your team picks up right where the agent left off."];
+
+/* ---------- static seek (manual controls) ---------- */
+function clearDynamic(){
+  sheetMsgs.innerHTML='';webMsgs.innerHTML='';
+  sheet.classList.remove('open');bookBtn.classList.remove('in');
+  document.querySelectorAll('.compare .item').forEach(function(e){e.classList.remove('in')});
+  document.querySelectorAll('#flow .node,#flow .conn').forEach(function(e){e.classList.remove('in')});
+  cursor.classList.remove('show');
+  document.getElementById('heroType').textContent='Try Rose by asking anything here';
+  document.getElementById('heroCaret').style.display='none';
+}
+function seek(i){
+  clearDynamic();
+  var st=STEPS[i];
+  if(st.id==='chat'){
+    scrollTo(offY('s-video')+120,0);
+    umsg(sheetMsgs,'Is rose for me ?');staticAnswer(sheetMsgs,ANS1);
+    suggestions(sheetMsgs,'Suggested answers',[{t:'B2B SaaS, 10,000+ visitors'},{t:'Professional services, 3,000 visitors'},{t:'Startups, 2,500 visitors',hot:true},{t:'Marketplace, 15,000+ visitors'}]);
+    umsg(sheetMsgs,'Startups, 2,500 visitors');staticAnswer(sheetMsgs,ANS2);
+    bookBtn.classList.add('in');sheet.classList.add('open');
+    sheetMsgs.scrollTop=sheetMsgs.scrollHeight;
+  }else{
+    var y=offY(st.id);
+    if(st.id==='s-website'||st.id==='s-nurture') y=offY(st.id)+40;
+    scrollTo(Math.max(0,y-(st.id==='s-hero'?0:20)),0);
+    if(st.id==='s-compare'){document.querySelectorAll('.compare .item').forEach(function(e){e.classList.add('in')});}
+    if(st.id==='s-website'){staticAnswer(webMsgs,WEB_A1);suggestions(webMsgs,'Suggested answers',[{t:'Salesforce',hot:true},{t:'Hubspot'},{t:'Gmail'}]);umsg(webMsgs,'Salesforce');staticAnswer(webMsgs,WEB_A2);}
+    if(st.id==='s-nurture'){document.querySelectorAll('#flow .node,#flow .conn').forEach(function(e){e.classList.add('in')});}
+  }
+  setControls(i);idx=i;
+}
+
+/* ---------- autoplay tour ---------- */
+function pause(){ if(!playing)return; playing=false; token++; cursor.classList.remove('show'); updatePlay(); cap(''); }
+
+async function tour(){
+  var my=++token; playing=true; updatePlay();
+  var A=function(){return my===token && playing};
+
+  while(A()){
+    /* reset */
+    clearDynamic(); scrollTo(0,0); setControls(0); idx=0; cap(STEPS[0].cap);
+    await sleep(1400); if(!A())break;
+
+    /* hero: type into the ask box */
+    var ht=document.getElementById('heroType'), hc=document.getElementById('heroCaret');
+    ht.textContent='';hc.style.display='inline-block';
+    var q='Is Rose for me?';
+    for(var i=0;i<q.length;i++){ if(!A())break; ht.textContent+=q[i]; await sleep(55); }
+    await sleep(700); if(!A())break;
+    ht.textContent='Try Rose by asking anything here';hc.style.display='none';
+
+    /* 2 logos */
+    idx=1;setControls(1);cap(STEPS[1].cap);scrollTo(offY('s-logos')-30,1100);
+    await sleep(1900); if(!A())break;
+
+    /* 3 product film */
+    idx=2;setControls(2);cap(STEPS[2].cap);scrollTo(offY('s-video')-24,1100);
+    await sleep(2100); if(!A())break;
+
+    /* 4 comparison */
+    idx=3;setControls(3);cap(STEPS[3].cap);scrollTo(offY('s-compare')-30,1100);
+    await sleep(500); if(!A())break;
+    var items=document.querySelectorAll('.compare .item');
+    for(var c=0;c<items.length;c++){items[c].classList.add('in');await sleep(160);}
+    await sleep(1400); if(!A())break;
+
+    /* 5 chat sheet — Q1 */
+    idx=4;setControls(4);cap(STEPS[4].cap);
+    scrollTo(offY('s-video')+120,900); await sleep(500); if(!A())break;
+    sheet.classList.add('open'); await sleep(750); if(!A())break;
+    cursor.classList.add('show'); moveCursor(720,300);
+    umsg(sheetMsgs,'Is rose for me ?'); await sleep(500); if(!A())break;
+    var stt=statusMsg(sheetMsgs,'Planning next moves…'); await sleep(1100); if(!A())break;
+    stt.remove();
+    await streamAnswer(sheetMsgs,ANS1,A); if(!A())break;
+    await sleep(350);
+    var sg=suggestions(sheetMsgs,'Suggested answers',[{t:'B2B SaaS, 10,000+ visitors'},{t:'Professional services, 3,000 visitors'},{t:'Startups, 2,500 visitors',hot:true},{t:'Marketplace, 15,000+ visitors'}]);
+    bookBtn.classList.add('in');
+    await sleep(700); if(!A())break;
+
+    /* click a suggestion → Q2 */
+    var hot=sg.querySelector('.s.hot'), r=hot.getBoundingClientRect(), sr=screenEl.getBoundingClientRect(), sc=parseFloat(stage.style.transform.replace(/[^0-9.]/g,''))||1;
+    await clickAt((r.left-sr.left)/sc+40,(r.top-sr.top)/sc+16); if(!A())break;
+    cursor.classList.remove('show');
+    umsg(sheetMsgs,'Startups, 2,500 visitors'); await sleep(400); if(!A())break;
+    var stt2=statusMsg(sheetMsgs,'Processing context…'); await sleep(1000); if(!A())break;
+    stt2.remove();
+    await streamAnswer(sheetMsgs,ANS2,A); if(!A())break;
+    await sleep(1600); if(!A())break;
+    sheet.classList.remove('open'); await sleep(650); if(!A())break;
+
+    /* 6 website agent */
+    idx=5;setControls(5);cap(STEPS[5].cap);scrollTo(offY('s-website')+40,1100);
+    await sleep(1200); if(!A())break;
+    umsg(webMsgs,'Does it integrate with my existing tools?'); await sleep(600); if(!A())break;
+    await streamAnswer(webMsgs,WEB_A1,A); if(!A())break;
+    var wsg=suggestions(webMsgs,'Suggested answers',[{t:'Salesforce',hot:true},{t:'Hubspot'},{t:'Gmail'}]);
+    await sleep(650); if(!A())break;
+    cursor.classList.add('show');
+    var wr=wsg.querySelector('.s.hot').getBoundingClientRect(), wsr=screenEl.getBoundingClientRect(), wc=parseFloat(stage.style.transform.replace(/[^0-9.]/g,''))||1;
+    await clickAt((wr.left-wsr.left)/wc+34,(wr.top-wsr.top)/wc+14); if(!A())break;
+    cursor.classList.remove('show');
+    umsg(webMsgs,'Salesforce'); await sleep(400); if(!A())break;
+    await streamAnswer(webMsgs,WEB_A2,A); if(!A())break;
+    await sleep(1500); if(!A())break;
+
+    /* 7 nurturing agent */
+    idx=6;setControls(6);cap(STEPS[6].cap);scrollTo(offY('s-nurture')+40,1100);
+    await sleep(900); if(!A())break;
+    var nodes=document.querySelectorAll('#flow .node'), conns=document.querySelectorAll('#flow .conn');
+    nodes[0].classList.add('in'); await sleep(650); if(!A())break;
+    conns[0].classList.add('in'); await sleep(350);
+    nodes[1].classList.add('in'); await sleep(750); if(!A())break;
+    conns[1].classList.add('in'); await sleep(350);
+    nodes[2].classList.add('in'); await sleep(2600); if(!A())break;
+
+    /* breathe, then loop */
+    await sleep(1200); if(!A())break;
+  }
+}
+
+/* ---------- controls ---------- */
+document.getElementById('btnPlay').addEventListener('click',function(){ playing?pause():tour(); });
+document.getElementById('btnNext').addEventListener('click',function(){ pause(); seek(Math.min(STEPS.length-1,idx+1)); });
+document.getElementById('btnPrev').addEventListener('click',function(){ pause(); seek(Math.max(0,idx-1)); });
+document.getElementById('btnRestart').addEventListener('click',function(){ pause(); seek(0); });
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'){pause();seek(Math.min(STEPS.length-1,idx+1));}
+  if(e.key==='ArrowLeft'){pause();seek(Math.max(0,idx-1));}
+  if(e.key===' '){e.preventDefault();document.getElementById('btnPlay').click();}
+});
+document.addEventListener('click',function(e){
+  if(e.isTrusted && playing && !e.target.closest('#ctl')) pause();
+},true);
+
+/* ---------- start ---------- */
+setControls(0);
+if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ seek(0); updatePlay(); }
+else { tour(); }
+</script>
+</body>
+</html>

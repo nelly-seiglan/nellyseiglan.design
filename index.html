@@ -7,23 +7,10 @@
   <meta name="description" content="Nelly Seiglan, Lead Product Designer. Designing AI-native products people trust and love. Founding Designer at Hexa.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/refonte.css">
 </head>
-<body data-hero="expressive" data-motion="subtle" data-bg="haze" data-grain="on">
-
-  <!-- LOAD / TRANSITION CURTAIN -->
-  <div class="curtain" id="curtain"><span class="curtain-mark">Nelly Seiglan</span></div>
-
-  <!-- CURSOR HALO -->
-  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
-
-  <!-- BACKGROUND LAYERS -->
-  <canvas id="haze-canvas" aria-hidden="true"></canvas>
-  <div class="bg-aurora" aria-hidden="true">
-    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
-  </div>
-  <div class="bg-grain" aria-hidden="true"></div>
+<body>
 
   <!-- NAV -->
   <nav class="nav">
@@ -42,54 +29,165 @@
       </div>
       <a href="#about">About</a>
     </div>
-    <a href="#contact" class="nav-cta" data-cursor="say hi">Get in touch</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
   </nav>
 
-  <main class="page">
+  <main>
 
     <!-- ════════ HERO ════════ -->
     <section id="home" class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="shell">
         <div class="hero-grid">
           <div class="hero-copy">
+            <span class="label hero-eyebrow">Lead Product Designer · Paris</span>
             <h1 class="hero-headline">
-              <span class="reveal-line">Designing AI-native</span>
-              <span class="reveal-line">products people</span>
-              <span class="reveal-line"><em>trust</em> &amp; <em>love</em>.</span>
+              <span class="ln"><span>Designing</span></span>
+              <span class="ln"><span>AI-native</span></span>
+              <span class="ln"><span>products people</span></span>
+              <span class="ln"><span><em>trust</em> &amp; <em>love</em>.</span></span>
             </h1>
-            <p class="hero-sub">Lead Product Designer &amp; Founding Designer at Hexa. I take AI products from 0 → 1, shaping conversational interfaces, resilient design systems, and the teams that build them.</p>
+            <p class="hero-sub">Founding Designer at Hexa. I take AI products from 0 → 1, shaping conversational interfaces, resilient design systems, and the teams that build them.</p>
             <div class="hero-actions">
-              <a href="#work" class="btn btn-primary" data-cursor="explore">View selected work <span class="arrow">↗</span></a>
-              <a href="#contact" class="btn btn-ghost" data-cursor="say hi">Get in touch</a>
-            </div>
-            <!-- refined-only inline portrait -->
-            <div class="hero-refined-portrait">
-              <span class="mini"><img src="assets/portrait.png" alt="Nelly Seiglan"></span>
-              <span class="meta"><strong>Nelly Seiglan</strong>Paris · Designing at Hexa</span>
+              <a href="#work" class="btn btn-primary">View selected work <span class="arrow">↗</span></a>
+              <a href="#contact" class="btn btn-ghost">Get in touch</a>
             </div>
           </div>
           <div class="hero-portrait-wrap">
-            <div class="hero-portrait-glow"></div>
-            <div class="hero-portrait" data-cursor="">
+            <div class="hero-portrait">
               <img src="assets/hero.jpg" alt="Nelly Seiglan, Lead Product Designer">
+              <div class="hero-portrait-tag"><strong>Nelly Seiglan</strong><span>Paris · Designing at Hexa</span></div>
             </div>
           </div>
         </div>
       </div>
-      <a href="#about" class="hero-scroll" data-cursor="scroll"><span class="line"></span>scroll to explore</a>
+      <a href="#work" class="hero-scroll"><span class="line"></span>scroll to explore</a>
     </section>
 
-    <!-- ════════ ABOUT / NOW / BACKGROUND ════════ -->
-    <section id="about" class="section">
+    <!-- ════════ SELECTED WORK · animated gallery ════════ -->
+    <section id="work" class="section work">
       <div class="shell">
         <div class="section-head r">
           <div>
-            <span class="kicker"><span class="dot"></span>About</span>
-            <h2>Now and background, at a glance.</h2>
+            <span class="label">Selected work</span>
+            <h2>Four products,<br>designed <em>0 → 1</em>.</h2>
+          </div>
+          <a href="#contact" class="section-link">Work with me <span class="arrow">↗</span></a>
+        </div>
+
+        <div class="stages">
+
+          <!-- Verso -->
+          <article class="stage r" style="--hue: 252; --hue2: 284;">
+            <div class="stage-top">
+              <div class="stage-lead">
+                <div class="stage-index">01 · Founding Designer</div>
+                <h3 class="stage-name">Verso</h3>
+                <p class="stage-desc">An AI interviewer capable of replacing human-led qualitative research while preserving structure, nuance, and trust.</p>
+                <div class="stage-tags"><span class="tag">Conversational UX</span><span class="tag">AI Interaction</span><span class="tag">Admin Tooling</span></div>
+              </div>
+              <div class="stage-side">
+                <div class="stage-result"><span class="num" data-to="500" data-suffix="+">0+</span><span class="num-label">interviews conducted with the AI interviewer.</span></div>
+                <div class="stage-links">
+                  <a href="verso.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
+                  <a href="https://www.askverso.ai/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
+                </div>
+              </div>
+            </div>
+            <div class="stage-grid land">
+              <div class="shot full"><video autoplay muted loop playsinline preload="metadata"><source src="assets/verso.mp4" type="video/mp4"></video></div>
+              <div class="shot"><img src="assets/verso-home.jpg" alt="Verso home" loading="lazy"></div>
+              <div class="shot"><img src="assets/verso-report.jpg" alt="Verso study report" loading="lazy"></div>
+              <div class="shot"><img src="assets/verso-findings.jpg" alt="Verso findings" loading="lazy"></div>
+              <div class="shot"><img src="assets/verso-chat.jpg" alt="Verso sourced chat answer" loading="lazy"></div>
+            </div>
+          </article>
+
+          <!-- Rose -->
+          <article class="stage r" style="--hue: 300; --hue2: 328;">
+            <div class="stage-top">
+              <div class="stage-lead">
+                <div class="stage-index">02 · Founding Designer</div>
+                <h3 class="stage-name">Rose</h3>
+                <p class="stage-desc">A conversational layer that integrates into complex B2B websites and drives measurable engagement and conversion.</p>
+                <div class="stage-tags"><span class="tag">Conversation Flows</span><span class="tag">Embedded Widgets</span><span class="tag">Conversion UX</span></div>
+              </div>
+              <div class="stage-side">
+                <div class="stage-result"><span class="num" data-to="10" data-suffix="%">0%</span><span class="num-label">of visitors convert through Rose.</span></div>
+                <div class="stage-links">
+                  <a href="rose.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
+                  <a href="https://userose.ai/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
+                </div>
+              </div>
+            </div>
+            <div class="stage-grid land">
+              <div class="shot full"><video autoplay muted loop playsinline preload="none"><source src="assets/rose.mp4" type="video/mp4"></video></div>
+            </div>
+          </article>
+
+          <!-- Kolecto -->
+          <article class="stage r" style="--hue: 236; --hue2: 214;">
+            <div class="stage-top">
+              <div class="stage-lead">
+                <div class="stage-index">03 · Lead Designer · Design Manager</div>
+                <h3 class="stage-name">Kolecto</h3>
+                <p class="stage-desc">A sales module that balances financial complexity with everyday usability, while building a team able to scale with the product.</p>
+                <div class="stage-tags"><span class="tag">Complex Workflows</span><span class="tag">Modular Systems</span><span class="tag">Team Leadership</span></div>
+              </div>
+              <div class="stage-side">
+                <div class="stage-result"><span class="num" data-to="2" data-suffix="">0</span><span class="num-label">designers hired &amp; structured into a lasting team.</span></div>
+                <div class="stage-links">
+                  <a href="kolecto.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
+                  <a href="https://www.kolecto.fr/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
+                </div>
+              </div>
+            </div>
+            <div class="stage-grid land">
+              <div class="shot feat"><video autoplay muted loop playsinline preload="none"><source src="assets/kolecto-2.mp4" type="video/mp4"></video></div>
+              <div class="shot mini"><img src="assets/kolecto-billing.png" alt="Kolecto billing module" loading="lazy"></div>
+            </div>
+          </article>
+
+          <!-- Milleis -->
+          <article class="stage r" style="--hue: 250; --hue2: 276;">
+            <div class="stage-top">
+              <div class="stage-lead">
+                <div class="stage-index">04 · Lead Product Designer</div>
+                <h3 class="stage-name">Milleis</h3>
+                <p class="stage-desc">Rebuilding the app from everyday banking to full wealth management, clarity and usability meeting premium private-banking codes.</p>
+                <div class="stage-tags"><span class="tag">Product Redesign</span><span class="tag">Design System</span><span class="tag">Mobile UX</span></div>
+              </div>
+              <div class="stage-side">
+                <div class="stage-result"><span class="num" data-to="4.7" data-dec="1" data-suffix="★">0★</span><span class="num-label">App Store rating after launch, up from 2.7.</span></div>
+                <div class="stage-links">
+                  <a href="milleis.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
+                  <a href="https://www.milleis.fr/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
+                </div>
+              </div>
+            </div>
+            <div class="stage-grid port">
+              <div class="shot device"><img src="assets/milleis-home.png" alt="Milleis home" loading="lazy"></div>
+              <div class="shot device"><img src="assets/milleis-accounts.png" alt="Milleis accounts" loading="lazy"></div>
+              <div class="shot device"><img src="assets/milleis-portfolio.png" alt="Milleis portfolio" loading="lazy"></div>
+              <div class="shot device"><img src="assets/milleis-banker.png" alt="Milleis private banker" loading="lazy"></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ ABOUT ════════ -->
+    <section id="about" class="section tone-2">
+      <div class="shell">
+        <div class="section-head r">
+          <div>
+            <span class="label">About</span>
+            <h2>Now and background,<br>at a glance.</h2>
           </div>
         </div>
-        <div class="now-grid">
-          <div class="card r">
+        <div class="about-grid">
+          <div class="panel r">
             <h3>Now</h3>
             <ul class="now-list">
               <li><span class="yr">2026</span><span>Speaking on <strong>Emotional Design in AI experiences</strong> at <a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener">AI Product Day</a></span></li>
@@ -97,8 +195,8 @@
               <li><span class="yr">2025</span><span>Founding Designer, designing AI-native products at <a href="https://www.hexa.com/" target="_blank" rel="noopener">Hexa</a></span></li>
             </ul>
           </div>
-          <div class="card r r-d1">
-            <h3>Background <a class="lk" href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-cursor="LinkedIn">↗</a></h3>
+          <div class="panel r r-d1">
+            <h3>Background <a class="lk" href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener">↗</a></h3>
             <ul class="xp-list">
               <li class="xp"><span class="xp-logo">H</span><span class="xp-meta"><strong>Founding Designer</strong><span>Hexa · 2025 to present</span></span></li>
               <li class="xp"><span class="xp-logo">K</span><span class="xp-meta"><strong>Design Manager</strong><span>Kolecto · 2024 to 2025</span></span></li>
@@ -115,170 +213,52 @@
       <div class="shell">
         <div class="section-head r">
           <div>
-            <span class="kicker"><span class="dot"></span>Speaking</span>
-            <h2>On stage about AI &amp; design.</h2>
+            <span class="label">Speaking</span>
+            <h2>On stage about<br>AI &amp; design.</h2>
           </div>
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="section-link" data-cursor="LinkedIn">Follow along <span class="arrow">↗</span></a>
+          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="section-link">Follow along <span class="arrow">↗</span></a>
         </div>
         <div class="talks-grid">
-          <div class="talk-photo r" data-cursor="">
+          <div class="talk-photo r">
             <img src="assets/speaking-bw.jpg" alt="Nelly Seiglan speaking on stage"
                  onerror="this.style.display='none';this.parentNode.querySelector('.slot-fallback').style.display='flex';">
-            <div class="slot-fallback"><span>Add a black &amp; white photo<br>of you speaking →<br>assets/speaking-bw.jpg</span></div>
+            <div class="slot-fallback"><span>Add a black &amp; white photo of you speaking →<br>assets/speaking-bw.jpg</span></div>
           </div>
           <div class="talk-list">
             <article class="talk r r-d1">
-              <div class="talk-top">
-                <span class="talk-badge up">Upcoming</span>
-                <span class="talk-when">Sep 2026</span>
-              </div>
+              <div class="talk-top"><span class="talk-badge up">Upcoming</span><span class="talk-when">Sep 2026</span></div>
               <h3>Design Ops in the AI era</h3>
               <p>How design operations evolve when AI reshapes the way teams research, prototype, and ship.</p>
             </article>
             <article class="talk r r-d2">
-              <div class="talk-top">
-                <span class="talk-badge done">Round table</span>
-                <span class="talk-when">Jun 2026</span>
-              </div>
+              <div class="talk-top"><span class="talk-badge done">Round table</span><span class="talk-when">Jun 2026</span></div>
               <h3>When emotion becomes the design</h3>
-              <p>AI Experience Night round table, featured by <a href="https://www.le-ticket.fr/quand-la-conversation-devient-le-produit-lemotion-devient-le-design-nos-5-moments-forts-de-lai-experience-night/150458/" target="_blank" rel="noopener" class="at at-link">The Ticket</a>: when conversation becomes the product, emotion becomes the design.</p>
+              <p>AI Experience Night round table, featured by <a href="https://www.le-ticket.fr/quand-la-conversation-devient-le-produit-lemotion-devient-le-design-nos-5-moments-forts-de-lai-experience-night/150458/" target="_blank" rel="noopener" class="at-link">The Ticket</a>: when conversation becomes the product, emotion becomes the design.</p>
             </article>
             <article class="talk r r-d3">
-              <div class="talk-top">
-                <span class="talk-badge done">Talk</span>
-                <span class="talk-when">Mar 2026</span>
-              </div>
+              <div class="talk-top"><span class="talk-badge done">Talk</span><span class="talk-when">Mar 2026</span></div>
               <h3>Conversational design for AI products</h3>
-              <p>At <span class="at">AI Product Day</span>, making conversation the core of the product experience.</p>
+              <p>At AI Product Day, making conversation the core of the product experience.</p>
             </article>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ SELECTED WORK ════════ -->
-    <section id="work" class="section">
-      <div class="shell">
-        <div class="section-head r">
-          <div>
-            <span class="kicker"><span class="dot"></span>Selected work</span>
-            <h2>Four products I designed.</h2>
-          </div>
-        </div>
-        <div class="projects">
-
-          <!-- Verso -->
-          <article class="project r">
-            <div class="project-info">
-              <div class="project-index">01 · Founding Designer</div>
-              <h3 class="project-name">Verso</h3>
-              <p class="project-desc">An AI interviewer capable of replacing human-led qualitative research while preserving structure, nuance, and trust.</p>
-              <div class="project-tags"><span class="tag">Conversational UX</span><span class="tag">AI Interaction</span><span class="tag">Admin Tooling</span></div>
-              <div class="project-result">
-                <span class="num" data-to="500" data-suffix="+">0+</span>
-                <span class="num-label">interviews conducted using the AI interviewer.</span>
-              </div>
-              <div class="project-links">
-                <a href="verso.html" class="project-cta" data-cursor="case study">Read case study <span class="arrow">→</span></a>
-                <a href="https://www.askverso.ai/" target="_blank" rel="noopener" class="project-web">Visit ↗</a>
-              </div>
-            </div>
-            <div class="project-media" data-video="assets/verso.mp4" data-cursor="play">
-              <video autoplay muted loop playsinline preload="metadata"><source src="assets/verso.mp4" type="video/mp4"></video>
-              <span class="play-hint">▶ play</span>
-            </div>
-          </article>
-
-          <!-- Rose -->
-          <article class="project r">
-            <div class="project-info">
-              <div class="project-index">02 · Founding Designer</div>
-              <h3 class="project-name">Rose</h3>
-              <p class="project-desc">A conversational layer that integrates into complex B2B websites and drives measurable engagement and conversion.</p>
-              <div class="project-tags"><span class="tag">Conversation Flows</span><span class="tag">Embedded Widgets</span><span class="tag">Conversion UX</span></div>
-              <div class="project-result">
-                <span class="num" data-to="10" data-suffix="%">0%</span>
-                <span class="num-label">of visitors convert through Rose.</span>
-              </div>
-              <div class="project-links">
-                <a href="rose.html" class="project-cta" data-cursor="case study">Read case study <span class="arrow">→</span></a>
-                <a href="https://userose.ai/" target="_blank" rel="noopener" class="project-web">Visit ↗</a>
-              </div>
-            </div>
-            <div class="project-media" data-video="assets/rose.mp4" data-cursor="play">
-              <video autoplay muted loop playsinline preload="none"><source src="assets/rose.mp4" type="video/mp4"></video>
-              <span class="play-hint">▶ play</span>
-            </div>
-          </article>
-
-          <!-- Kolecto -->
-          <article class="project r">
-            <div class="project-info">
-              <div class="project-index">03 · Lead Designer · Design Manager</div>
-              <h3 class="project-name">Kolecto</h3>
-              <p class="project-desc">A sales module that balances financial complexity with everyday usability, while building a team able to scale with the product.</p>
-              <div class="project-tags"><span class="tag">Complex Workflows</span><span class="tag">Modular Systems</span><span class="tag">Team Leadership</span></div>
-              <div class="project-result">
-                <span class="num" data-to="2" data-suffix="">0</span>
-                <span class="num-label">designers hired &amp; structured into a lasting team.</span>
-              </div>
-              <div class="project-links">
-                <a href="kolecto.html" class="project-cta" data-cursor="case study">Read case study <span class="arrow">→</span></a>
-                <a href="https://www.kolecto.fr/" target="_blank" rel="noopener" class="project-web">Visit ↗</a>
-              </div>
-            </div>
-            <div class="project-media" data-video="assets/kolecto-2.mp4" data-cursor="play">
-              <video autoplay muted loop playsinline preload="none"><source src="assets/kolecto-2.mp4" type="video/mp4"></video>
-              <span class="play-hint">▶ play</span>
-            </div>
-          </article>
-
-          <!-- Milleis -->
-          <article class="project r">
-            <div class="project-info">
-              <div class="project-index">04 · Lead Product Designer</div>
-              <h3 class="project-name">Milleis</h3>
-              <p class="project-desc">Rebuilding the app from everyday banking to full wealth management, clarity and usability meeting premium private-banking codes.</p>
-              <div class="project-tags"><span class="tag">Product Redesign</span><span class="tag">Design System</span><span class="tag">Mobile UX</span></div>
-              <div class="project-result">
-                <span class="num" data-to="4.7" data-dec="1" data-suffix="★">0★</span>
-                <span class="num-label">App Store rating after launch, up from 2.7.</span>
-              </div>
-              <div class="project-links">
-                <a href="milleis.html" class="project-cta" data-cursor="case study">Read case study <span class="arrow">→</span></a>
-                <a href="https://www.milleis.fr/" target="_blank" rel="noopener" class="project-web">Visit ↗</a>
-              </div>
-            </div>
-            <div class="project-media" data-video="assets/milleis.mp4" data-cursor="play">
-              <video autoplay muted loop playsinline preload="none"><source src="assets/milleis.mp4" type="video/mp4"></video>
-              <span class="play-hint">▶ play</span>
-            </div>
-          </article>
-
         </div>
       </div>
     </section>
 
     <!-- ════════ WRITING ════════ -->
-    <section id="writing" class="section writing">
+    <section id="writing" class="section tone-2">
       <div class="shell">
         <div class="writing-card r">
           <div class="writing-intro">
-            <span class="kicker"><span class="dot"></span>Re:Design · Substack</span>
+            <span class="label">Re:Design · Substack</span>
             <h2>Writing about design in the age of AI.</h2>
             <p>Ideas, opinions, and field notes on building AI-native products, read by a growing community of designers and product people.</p>
-            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" class="btn btn-primary" data-cursor="read">Read on Substack <span class="arrow">↗</span></a>
+            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" class="btn btn-primary">Read on Substack <span class="arrow">↗</span></a>
           </div>
           <div class="writing-posts">
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-cursor="read">
-              <span class="ptitle">Designing trust into AI interfaces</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span>
-            </a>
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-cursor="read">
-              <span class="ptitle">What Design Ops becomes in the AI era</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span>
-            </a>
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-cursor="read">
-              <span class="ptitle">From 0 → 1 as a founding designer</span><span class="pmeta">NOTES</span><span class="arrow">↗</span>
-            </a>
+            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">Designing trust into AI interfaces</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span></a>
+            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">What Design Ops becomes in the AI era</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span></a>
+            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">From 0 → 1 as a founding designer</span><span class="pmeta">NOTES</span><span class="arrow">↗</span></a>
           </div>
         </div>
       </div>
@@ -287,10 +267,11 @@
     <!-- ════════ CONTACT ════════ -->
     <section id="contact" class="section contact">
       <div class="shell">
-        <span class="kicker"><span class="dot"></span>Get in touch</span>
+        <span class="label">Get in touch</span>
         <h2>Let's build something<br>people <em>trust &amp; love</em>.</h2>
         <div class="contact-actions">
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="btn btn-primary" data-cursor="LinkedIn">LinkedIn <span class="arrow">↗</span></a>
+          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn <span class="arrow">↗</span></a>
+          <a href="mailto:nelly.sgn@gmail.com" class="btn btn-ghost">Email me</a>
         </div>
       </div>
     </section>
@@ -303,23 +284,15 @@
       <div class="footer-row">
         <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
         <div class="footer-social">
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-cursor="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
-          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-cursor="read"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
-          <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-cursor="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+          <a href="mailto:nelly.sgn@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
         </div>
-        <div class="footer-meta">v2.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
+        <div class="footer-meta">v3.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
       </div>
     </div>
   </footer>
 
-  <!-- VIDEO LIGHTBOX -->
-  <div id="lightbox" class="video-lightbox" aria-hidden="true">
-    <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-      <video class="video-lightbox-player" id="lightbox-video" controls loop playsinline></video>
-    </div>
-  </div>
-
-  <script src="assets/app.js"></script>
+  <script src="assets/refonte.js"></script>
 </body>
 </html>
