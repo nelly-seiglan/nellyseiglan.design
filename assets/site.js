@@ -49,9 +49,28 @@ document.addEventListener('DOMContentLoaded', function () {
       requestAnimationFrame(step);
     };
     const cio = new IntersectionObserver((es) => {
-      es.forEach(e => { if (e.isIntersecting) { animate(e.target); cio.unobserve(e.target); } });
+      es.forEach(e => {
+        if (e.isIntersecting) { if (e.target.dataset.counting !== '1') { e.target.dataset.counting = '1'; animate(e.target); } }
+        else { e.target.dataset.counting = '0'; } // re-arm so it replays each time you arrive
+      });
     }, { threshold: 0.6 });
     $$('[data-count]').forEach(el => cio.observe(el));
+
+    // Restart looping demos (iframes + videos) from the top when the user (re)arrives,
+    // so the motion always plays fresh and never sits frozen mid-loop off-screen.
+    const dio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        const el = e.target;
+        if (e.isIntersecting) {
+          if (el.dataset.wasOut === '1') {
+            el.dataset.wasOut = '0';
+            if (el.tagName === 'IFRAME') { el.src = el.src; }
+            else if (el.tagName === 'VIDEO') { try { el.currentTime = 0; el.play().catch(() => {}); } catch (e2) {} }
+          }
+        } else { el.dataset.wasOut = '1'; }
+      });
+    }, { threshold: 0.25 });
+    $$('iframe, .stage-grid video, [data-video] video, section video').forEach(el => dio.observe(el));
 
     const amt = $('[data-mil-amount]'), segs = $$('[data-mil-seg]');
     if (amt) {
@@ -83,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // streaming interviewer question (Verso)
     const ivStream = $('[data-iv-stream]');
     if (ivStream) {
-      const Q = 'You mentioned that the seat looks super comfortable and that the backpack looks good. Is there anything in particular about its design or feature that stands out to you, either positively or negatively?';
+      const Q = 'You said the seat looks comfortable and the backpack looks good. What about the design stands out to you — good or bad?';
       let running = false;
       const play = () => {
         if (running) return; running = true;
@@ -102,13 +121,18 @@ document.addEventListener('DOMContentLoaded', function () {
       qio.observe(ivStream);
     }
 
-    // slide-in-from-right (Milleis screens)
+    // slide-in-from-right (Milleis screens) — replays each time you arrive on the section
+    $$('[data-slide]').forEach(el => { el.style.animation = 'none'; el.style.opacity = '0'; el.style.transform = 'translateX(70px)'; });
     const sio = new IntersectionObserver((es) => {
       es.forEach(e => {
+        const el = e.target, d = +el.dataset.revealDelay || 0;
         if (e.isIntersecting) {
-          const el = e.target, d = +el.dataset.revealDelay || 0;
+          el.style.transition = 'opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1)';
           setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
-          sio.unobserve(el);
+        } else {
+          el.style.transition = 'none';
+          el.style.opacity = '0';
+          el.style.transform = 'translateX(70px)';
         }
       });
     }, { threshold: 0.2 });

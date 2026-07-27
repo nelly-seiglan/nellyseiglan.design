@@ -13,7 +13,7 @@ body{
   overflow:hidden;color:var(--ink);background:transparent;
 }
 #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-#stage{position:relative;width:1512px;height:874px;flex:0 0 auto;transform-origin:center center;
+#stage{position:relative;width:1512px;height:826px;flex:0 0 auto;transform-origin:center center;
   border-radius:18px;overflow:hidden;background:#fff;
   box-shadow:0 26px 54px -26px rgba(34,26,90,.4),0 0 0 1px rgba(255,255,255,.7);
 }
@@ -21,9 +21,7 @@ body{
 #screen{position:absolute;inset:0;overflow:hidden;background:#fafafa}
 .frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s;z-index:1}
 .frame.active{opacity:1;visibility:visible;z-index:2}
-.frame img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#fff;
-  transform:scale(1.035);transition:transform 3.2s cubic-bezier(.2,.6,.2,1)}
-.frame.active img{transform:scale(1)}
+.frame img{width:100%;height:100%;object-fit:fill;display:block;background:#fff}
 #cursor{position:absolute;left:0;top:0;z-index:40;pointer-events:none;opacity:0;
   transition:left .95s cubic-bezier(.45,.05,.2,1),top .95s cubic-bezier(.45,.05,.2,1),opacity .35s;
   filter:drop-shadow(0 5px 8px rgba(20,16,60,.4))}
@@ -58,7 +56,7 @@ body{
 
 <script>
 var stage=document.getElementById('stage');
-var STAGE_W=1512, STAGE_H=874;
+var STAGE_W=1512, STAGE_H=826;
 function fit(){
   var vw=window.innerWidth, vh=window.innerHeight;
   var s=Math.min(vw/STAGE_W, vh/STAGE_H);
