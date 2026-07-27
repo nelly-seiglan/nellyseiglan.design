@@ -1,298 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nelly Seiglan · Lead Product Designer</title>
-  <meta name="description" content="Nelly Seiglan, Lead Product Designer. Designing AI-native products people trust and love. Founding Designer at Hexa.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/refonte.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nelly Seiglan · Lead Product Designer</title>
+<meta name="description" content="Nelly Seiglan, Lead Product Designer. Designing products people trust and love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{background:#FCFBF4;color:#1A1A1A;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;font-family:'Inter',sans-serif;letter-spacing:-0.011em;}
+  a{color:inherit;text-decoration:none;}
+  a.tlink{color:#1A1A1A;box-shadow:inset 0 -2px 0 #DCEE63;transition:box-shadow .25s,opacity .25s;}
+  a.tlink:hover{box-shadow:inset 0 -10px 0 #DCEE63;}
+  img,video{display:block;max-width:100%;}
+  ::selection{background:#DCEE63;color:#1A1A1A;}
+  @keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(0);}}
+  @keyframes tap{0%,58%,100%{transform:translateY(0);box-shadow:0 7px 0 0 #d9822a,0 22px 30px -14px rgba(120,72,20,.5)}68%,82%{transform:translateY(6px);box-shadow:0 1px 0 0 #d9822a,0 10px 18px -12px rgba(120,72,20,.5)}}
+  @keyframes tapcur{0%,58%,100%{transform:translate(-50%,-50%) scale(1);opacity:.9}64%{transform:translate(-50%,-50%) scale(.8);opacity:1}68%,82%{transform:translate(-50%,-46%) scale(.72);opacity:1}}
+  @keyframes tapicon{0%,56%,100%{transform:scale(1) translateY(0)}68%,82%{transform:scale(.9) translateY(3px)}}
+  @keyframes zoomloop{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
+  @keyframes nudge{0%,100%{transform:translateY(-3px);}50%{transform:translateY(4px);}}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes hl{0%,8%{background-size:0% 92%;}30%,72%{background-size:100% 92%;}94%,100%{background-size:0% 92%;}}
+  @keyframes lineup{from{transform:translateY(110%);}to{transform:none;}}
+  [data-dd]:hover [data-dd-menu],[data-dd]:focus-within [data-dd-menu]{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important;}
+  [data-dd]:hover [data-chev],[data-dd]:focus-within [data-chev]{transform:rotate(180deg);}
+  @keyframes slidein{from{opacity:0;transform:translateX(70px);}to{opacity:1;transform:none;}}
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  [data-reveal]{animation:rise .85s cubic-bezier(.22,1,.36,1) both;}
+  [data-slide]{animation:slidein .9s cubic-bezier(.22,1,.36,1) both;}
+  @supports (animation-timeline: view()){[data-reveal],[data-slide]{animation-timeline:view();animation-range:entry 0% cover 20%;}}
+  @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
+  @media (hover:none){[data-cursor]{display:none!important;}}
+  @media (max-width:900px){[data-hero-grid]{grid-template-columns:1fr!important;}[data-2col]{grid-template-columns:1fr!important;}[data-hide-sm]{display:none!important;}[data-phones]{grid-template-columns:repeat(3,1fr)!important;height:auto!important;}[data-g6]{grid-template-columns:repeat(2,1fr)!important;}[data-g12]>*{grid-column:span 6!important;}}
+</style>
 </head>
 <body>
+<div data-root style="position:relative;--paper:#FCFBF4;--white:#FFFFFF;--cream:#FBF7E7;--beige:#EFE6D2;--butter:#F4F1BE;--butter-soft:#FAF8DC;--lime:#DCEE63;--ink:#1A1A1A;--ink2:rgba(26,26,26,.62);--ink3:rgba(26,26,26,.42);--hair:rgba(26,26,26,.09);--hair2:rgba(26,26,26,.16);--shadow:0 16px 44px -28px rgba(26,26,26,.32);--shadow-sm:0 8px 24px -18px rgba(26,26,26,.28);--r:18px;--r-lg:26px;--pill:100px;--sans:'Inter',sans-serif;--ease:cubic-bezier(.22,1,.36,1);font-family:var(--sans);">
 
-  <!-- NAV -->
-  <nav class="nav">
-    <span class="nav-brand">NS</span>
-    <div class="nav-links">
-      <a href="#home" class="active">Home</a>
-      <div class="nav-dd">
-        <button type="button" class="nav-dd-trigger" aria-haspopup="true" aria-expanded="false">Projects <span class="chev">▼</span></button>
-        <div class="nav-dd-menu" role="menu">
-          <a href="verso.html" role="menuitem">Verso <span class="ix">01</span></a>
-          <a href="rose.html" role="menuitem">Rose <span class="ix">02</span></a>
-          <a href="kolecto.html" role="menuitem">Kolecto <span class="ix">03</span></a>
-          <a href="milleis.html" role="menuitem">Milleis <span class="ix">04</span></a>
-          <a href="#work" class="nav-dd-all" role="menuitem">All projects ↓</a>
+  <div data-progress aria-hidden="true" style="position:fixed;top:63px;left:0;height:2px;width:0;background:var(--lime);z-index:1100;transition:width .1s linear;"></div>
+
+  <!-- ============ NAV ============ -->
+  <nav data-nav style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(252,251,244,.82);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--hair);transition:box-shadow .4s var(--ease);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:64px;">
+      <a href="#home" data-hover style="font-size:16px;font-weight:600;letter-spacing:-.02em;">Nelly Seiglan</a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="#home" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Home</a>
+        <div data-dd style="position:relative;">
+          <button type="button" data-dd-trigger data-hover style="display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--ink2);background:none;border:none;cursor:pointer;padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Projects <svg data-chev width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .3s var(--ease);margin-top:1px;"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div data-dd-menu style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:242px;padding:8px;display:flex;flex-direction:column;gap:2px;background:var(--white);border:1px solid var(--hair);border-radius:20px;box-shadow:var(--shadow);visibility:hidden;pointer-events:none;">
+            <a href="Verso.dc.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Verso <span style="font-size:11px;color:var(--ink3);">01</span></a>
+            <a href="Rose.dc.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Rose <span style="font-size:11px;color:var(--ink3);">02</span></a>
+            <a href="Kolecto.dc.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Kolecto <span style="font-size:11px;color:var(--ink3);">03</span></a>
+            <a href="Milleis.dc.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Milleis <span style="font-size:11px;color:var(--ink3);">04</span></a>
+            <a href="#theodo" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;color:var(--ink2);border-top:1px solid var(--hair);margin-top:4px;transition:background .2s;" style-hover="background:var(--butter-soft);">Theodo · consultancy <span style="font-size:11px;color:var(--ink3);">05</span></a>
+          </div>
         </div>
+        <a href="#about" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">About</a>
+        <a href="#contact" data-hover data-magnet style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);margin-left:8px;">Get in touch <span>↗</span></a>
       </div>
-      <a href="#about">About</a>
     </div>
-    <a href="#contact" class="nav-cta">Get in touch</a>
   </nav>
 
-  <main>
-
-    <!-- ════════ HERO ════════ -->
-    <section id="home" class="hero">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <div class="shell">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <span class="label hero-eyebrow">Lead Product Designer · Paris</span>
-            <h1 class="hero-headline">
-              <span class="ln"><span>Designing</span></span>
-              <span class="ln"><span>AI-native</span></span>
-              <span class="ln"><span>products people</span></span>
-              <span class="ln"><span><em>trust</em> &amp; <em>love</em>.</span></span>
-            </h1>
-            <p class="hero-sub">Founding Designer at Hexa. I take AI products from 0 → 1, shaping conversational interfaces, resilient design systems, and the teams that build them.</p>
-            <div class="hero-actions">
-              <a href="#work" class="btn btn-primary">View selected work <span class="arrow">↗</span></a>
-              <a href="#contact" class="btn btn-ghost">Get in touch</a>
-            </div>
+  <!-- ============ HERO ============ -->
+  <section id="home" style="position:relative;padding:150px 0 70px;overflow:hidden;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;position:relative;">
+      <div style="display:grid;grid-template-columns:1.5fr .75fr;gap:56px;align-items:center;" data-hero-grid>
+        <div>
+          <div data-reveal data-reveal-delay="0" style="display:inline-flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 16px 8px 12px;margin-bottom:32px;box-shadow:var(--shadow-sm);">
+            <span style="width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(220,238,99,.35);animation:blink 2.6s var(--ease) infinite;"></span>
+            <span style="font-size:12.5px;font-weight:500;color:var(--ink2);">7 years experience · Lead Product Designer</span>
           </div>
-          <div class="hero-portrait-wrap">
-            <div class="hero-portrait">
-              <img src="assets/hero.jpg" alt="Nelly Seiglan, Lead Product Designer">
-              <div class="hero-portrait-tag"><strong>Nelly Seiglan</strong><span>Paris · Designing at Hexa</span></div>
+          <h1 style="font-weight:560;letter-spacing:-.03em;line-height:1.0;color:var(--ink);font-size:clamp(2.6rem,6vw,5.4rem);margin-bottom:34px;text-wrap:balance;">
+            <span style="display:block;overflow:hidden;padding-bottom:.08em;"><span data-line style="display:inline-block;animation:lineup 1s cubic-bezier(.22,1,.36,1) 0ms both;">Designing</span> <span data-line style="display:inline-block;animation:lineup 1s cubic-bezier(.22,1,.36,1) 80ms both;">products</span></span>
+            <span style="display:block;overflow:visible;padding-bottom:.08em;"><span data-line style="display:inline-block;animation:lineup 1s cubic-bezier(.22,1,.36,1) 160ms both;">people</span> <span data-line style="display:inline-block;animation:lineup 1s cubic-bezier(.22,1,.36,1) 240ms both;"><span data-hl style="background-image:linear-gradient(var(--lime),var(--lime));background-repeat:no-repeat;background-position:0 100%;background-size:0% 92%;border-radius:8px;padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone;animation:hl 5s var(--ease) infinite 1.2s;">trust &amp; love</span>.</span></span>
+          </h1>
+          <p data-reveal data-reveal-delay="480" style="font-size:1.18rem;color:var(--ink2);max-width:48ch;line-height:1.52;margin-bottom:36px;">Lead Product Designer with 7 years across AI, SaaS and mobile. I build products end to end: the interface, the design system, and the team that ships them.</p>
+          <div data-reveal data-reveal-delay="600" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px;">
+            <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">AI products</span>
+            <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">Design systems</span>
+            <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">Product strategy</span>
+            <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">Mobile &amp; SaaS</span>
+            <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">Team leadership</span>
+          </div>
+          <div data-reveal data-reveal-delay="720" style="">
+            <a href="#work" data-hover style="display:inline-flex;align-items:center;gap:15px;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--ink2);transition:color .25s;" style-hover="color:var(--ink);">
+              <span style="width:46px;height:46px;border-radius:50%;border:1px solid var(--hair2);background:var(--white);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);"><span style="font-size:17px;animation:nudge 1.9s var(--ease) infinite;">↓</span></span>
+              Scroll to discover
+            </a>
+          </div>
+        </div>
+        <div style="position:relative;" data-hide-sm>
+          <div data-reveal data-reveal-delay="300" style="position:relative;">
+            <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:24px;border:1px solid var(--hair);box-shadow:var(--shadow);">
+              <img src="assets/hero.jpg" alt="Nelly Seiglan, Lead Product Designer" style="width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);" style-hover="transform:scale(1.04)">
+            </div>
+            <div style="position:absolute;left:-16px;bottom:20px;background:var(--white);border-radius:16px;padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;">
+              <span style="width:32px;height:32px;border-radius:10px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:15px;">✦</span>
+              <span style="font-size:12px;line-height:1.3;"><strong style="display:block;font-weight:600;">Lead Product Designer</strong><span style="color:var(--ink3);">7 years experience</span></span>
             </div>
           </div>
         </div>
       </div>
-      <a href="#work" class="hero-scroll"><span class="line"></span>scroll to explore</a>
-    </section>
+    </div>
+  </section>
 
-    <!-- ════════ SELECTED WORK · animated gallery ════════ -->
-    <section id="work" class="section work">
-      <div class="shell">
-        <div class="section-head r">
+  <!-- ============ WORK ============ -->
+  <section id="work" style="padding:60px 0 40px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:34px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--lime);"></span>
+        <span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">Selected work</span>
+        <span style="flex:1;height:1px;background:var(--hair);"></span>
+      </div>
+
+      <!-- VERSO -->
+      <article id="verso" data-reveal style="padding:20px 0 10px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:30px;" data-2col>
           <div>
-            <span class="label">Selected work</span>
-            <h2>Four products,<br>designed <em>0 → 1</em>.</h2>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">01</span><h3 style="font-weight:600;font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.035em;line-height:1;">Verso</h3><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#cbb6ef;border-radius:var(--pill);padding:6px 13px;">AI Research</span></div>
+            <p style="font-size:1.06rem;color:var(--ink2);line-height:1.5;max-width:56ch;"><span style="font-weight:600;color:var(--ink);">Founding Designer.</span> An AI interviewer made to feel human: onboarding that explains, a voice that listens, follow-ups that earn trust.</p>
           </div>
-          <a href="#contact" class="section-link">Work with me <span class="arrow">↗</span></a>
+          <div style="text-align:right;white-space:nowrap;"><div style="font-weight:600;font-size:2.8rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="500" data-suffix="+">0+</span></div><div style="font-size:12px;color:var(--ink3);margin-top:4px;">interviews · CAC 40</div></div>
         </div>
-
-        <div class="stages">
-
-          <!-- Verso -->
-          <article class="stage r" style="--hue: 252; --hue2: 284;">
-            <div class="stage-top">
-              <div class="stage-lead">
-                <div class="stage-index">01 · Founding Designer</div>
-                <h3 class="stage-name">Verso</h3>
-                <p class="stage-desc">An AI interviewer capable of replacing human-led qualitative research while preserving structure, nuance, and trust.</p>
-                <div class="stage-tags"><span class="tag">Conversational UX</span><span class="tag">AI Interaction</span><span class="tag">Admin Tooling</span></div>
-              </div>
-              <div class="stage-side">
-                <div class="stage-result"><span class="num" data-to="500" data-suffix="+">0+</span><span class="num-label">interviews conducted with the AI interviewer.</span></div>
-                <div class="stage-links">
-                  <a href="verso.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
-                  <a href="https://www.askverso.ai/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
-                </div>
-              </div>
+        <div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#c9b6ef,#b49ce8);overflow:hidden;margin-bottom:16px;padding:40px 44px;position:relative;"><div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:1512/982;background:#EDECEF;"><iframe src="assets/verso-proto/motion.html" title="Verso — live product demo" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div><span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Product walkthrough</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" data-2col>
+          <div data-reveal style="aspect-ratio:5/4;border-radius:22px;background:radial-gradient(120% 120% at 50% 40%,#f1ecfb,#e5daf6);overflow:hidden;position:relative;box-shadow:inset 0 0 0 1px rgba(26,26,26,.05);"><iframe src="verso-orb.html" title="Verso — AI voice orb" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe><span style="position:absolute;left:18px;bottom:15px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.8);border-radius:var(--pill);padding:6px 13px;pointer-events:none;">Voice · listening</span></div>
+          <div data-reveal data-reveal-delay="90" style="aspect-ratio:5/4;border-radius:22px;background:radial-gradient(120% 120% at 50% 40%,#f1ecfb,#e5daf6);display:flex;align-items:center;justify-content:center;padding:8%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(26,26,26,.05);">
+            <div style="width:100%;background:#fff;border-radius:18px;padding:22px 22px 20px;box-shadow:0 20px 44px -24px rgba(26,26,26,.35);">
+              <div style="height:5px;border-radius:99px;background:#ECECEC;overflow:hidden;margin-bottom:16px;"><div style="height:100%;width:34%;border-radius:99px;background:var(--ink);"></div></div>
+              <p style="font-size:.98rem;line-height:1.5;color:var(--ink);min-height:5.2em;"><span data-iv-stream></span><span data-iv-caret style="display:inline-block;width:2px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite;"></span></p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:9px;background:var(--ink);color:var(--paper);border-radius:99px;padding:12px;margin-top:16px;font-weight:600;font-size:.92rem;">Répondre <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
             </div>
-            <div class="stage-grid land">
-              <div class="shot full"><video autoplay muted loop playsinline preload="metadata"><source src="assets/verso.mp4" type="video/mp4"></video></div>
-              <div class="shot"><img src="assets/verso-home.jpg" alt="Verso home" loading="lazy"></div>
-              <div class="shot"><img src="assets/verso-report.jpg" alt="Verso study report" loading="lazy"></div>
-              <div class="shot"><img src="assets/verso-findings.jpg" alt="Verso findings" loading="lazy"></div>
-              <div class="shot"><img src="assets/verso-chat.jpg" alt="Verso sourced chat answer" loading="lazy"></div>
-            </div>
-          </article>
-
-          <!-- Rose -->
-          <article class="stage r" style="--hue: 300; --hue2: 328;">
-            <div class="stage-top">
-              <div class="stage-lead">
-                <div class="stage-index">02 · Founding Designer</div>
-                <h3 class="stage-name">Rose</h3>
-                <p class="stage-desc">A conversational layer that integrates into complex B2B websites and drives measurable engagement and conversion.</p>
-                <div class="stage-tags"><span class="tag">Conversation Flows</span><span class="tag">Embedded Widgets</span><span class="tag">Conversion UX</span></div>
-              </div>
-              <div class="stage-side">
-                <div class="stage-result"><span class="num" data-to="10" data-suffix="%">0%</span><span class="num-label">of visitors convert through Rose.</span></div>
-                <div class="stage-links">
-                  <a href="rose.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
-                  <a href="https://userose.ai/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
-                </div>
-              </div>
-            </div>
-            <div class="stage-grid land">
-              <div class="shot full"><video autoplay muted loop playsinline preload="none"><source src="assets/rose.mp4" type="video/mp4"></video></div>
-            </div>
-          </article>
-
-          <!-- Kolecto -->
-          <article class="stage r" style="--hue: 236; --hue2: 214;">
-            <div class="stage-top">
-              <div class="stage-lead">
-                <div class="stage-index">03 · Lead Designer · Design Manager</div>
-                <h3 class="stage-name">Kolecto</h3>
-                <p class="stage-desc">A sales module that balances financial complexity with everyday usability, while building a team able to scale with the product.</p>
-                <div class="stage-tags"><span class="tag">Complex Workflows</span><span class="tag">Modular Systems</span><span class="tag">Team Leadership</span></div>
-              </div>
-              <div class="stage-side">
-                <div class="stage-result"><span class="num" data-to="2" data-suffix="">0</span><span class="num-label">designers hired &amp; structured into a lasting team.</span></div>
-                <div class="stage-links">
-                  <a href="kolecto.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
-                  <a href="https://www.kolecto.fr/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
-                </div>
-              </div>
-            </div>
-            <div class="stage-grid land">
-              <div class="shot feat"><video autoplay muted loop playsinline preload="none"><source src="assets/kolecto-2.mp4" type="video/mp4"></video></div>
-              <div class="shot mini"><img src="assets/kolecto-billing.png" alt="Kolecto billing module" loading="lazy"></div>
-            </div>
-          </article>
-
-          <!-- Milleis -->
-          <article class="stage r" style="--hue: 250; --hue2: 276;">
-            <div class="stage-top">
-              <div class="stage-lead">
-                <div class="stage-index">04 · Lead Product Designer</div>
-                <h3 class="stage-name">Milleis</h3>
-                <p class="stage-desc">Rebuilding the app from everyday banking to full wealth management, clarity and usability meeting premium private-banking codes.</p>
-                <div class="stage-tags"><span class="tag">Product Redesign</span><span class="tag">Design System</span><span class="tag">Mobile UX</span></div>
-              </div>
-              <div class="stage-side">
-                <div class="stage-result"><span class="num" data-to="4.7" data-dec="1" data-suffix="★">0★</span><span class="num-label">App Store rating after launch, up from 2.7.</span></div>
-                <div class="stage-links">
-                  <a href="milleis.html" class="stage-cta">Read case study <span class="arrow">→</span></a>
-                  <a href="https://www.milleis.fr/" target="_blank" rel="noopener" class="stage-web">Visit ↗</a>
-                </div>
-              </div>
-            </div>
-            <div class="stage-grid port">
-              <div class="shot device"><img src="assets/milleis-home.png" alt="Milleis home" loading="lazy"></div>
-              <div class="shot device"><img src="assets/milleis-accounts.png" alt="Milleis accounts" loading="lazy"></div>
-              <div class="shot device"><img src="assets/milleis-portfolio.png" alt="Milleis portfolio" loading="lazy"></div>
-              <div class="shot device"><img src="assets/milleis-banker.png" alt="Milleis private banker" loading="lazy"></div>
-            </div>
-          </article>
-
+          </div>
         </div>
-      </div>
-    </section>
+        <div data-reveal style="border-radius:22px;overflow:hidden;margin-bottom:16px;aspect-ratio:16/9;background:linear-gradient(150deg,#c9b6ef,#b49ce8);position:relative;"><iframe src="verso-ds.html" title="Verso — design system (animated)" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe><span style="position:absolute;left:20px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Design system</span></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="Verso.dc.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Verso case study →</a><a href="https://www.askverso.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+      </article>
 
-    <!-- ════════ ABOUT ════════ -->
-    <section id="about" class="section tone-2">
-      <div class="shell">
-        <div class="section-head r">
+      <!-- ROSE -->
+      <article id="rose" data-reveal style="border-top:1px solid var(--hair);padding:54px 0 10px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:30px;" data-2col>
           <div>
-            <span class="label">About</span>
-            <h2>Now and background,<br>at a glance.</h2>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">02</span><h3 style="font-weight:600;font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.035em;line-height:1;">Rose</h3><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#cfe0fb;border-radius:var(--pill);padding:6px 13px;">AI Assistant</span></div>
+            <p style="font-size:1.06rem;color:var(--ink2);line-height:1.5;max-width:56ch;"><span style="font-weight:600;color:var(--ink);">Founding Designer.</span> An embedded chat widget turned conversion engine, with guided flows tuned for complex B2B sites.</p>
           </div>
+          <div style="text-align:right;white-space:nowrap;"><div style="font-weight:600;font-size:2.8rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="10" data-suffix="%">0%</span></div><div style="font-size:12px;color:var(--ink3);margin-top:4px;">visitor conversion</div></div>
         </div>
-        <div class="about-grid">
-          <div class="panel r">
-            <h3>Now</h3>
-            <ul class="now-list">
-              <li><span class="yr">2026</span><span>Speaking on <strong>Emotional Design in AI experiences</strong> at <a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener">AI Product Day</a></span></li>
-              <li><span class="yr">2026</span><span>Writing <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener">Re:Design</a>, perspectives on designing in the age of AI</span></li>
-              <li><span class="yr">2025</span><span>Founding Designer, designing AI-native products at <a href="https://www.hexa.com/" target="_blank" rel="noopener">Hexa</a></span></li>
-            </ul>
-          </div>
-          <div class="panel r r-d1">
-            <h3>Background <a class="lk" href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener">↗</a></h3>
-            <ul class="xp-list">
-              <li class="xp"><span class="xp-logo">H</span><span class="xp-meta"><strong>Founding Designer</strong><span>Hexa · 2025 to present</span></span></li>
-              <li class="xp"><span class="xp-logo">K</span><span class="xp-meta"><strong>Design Manager</strong><span>Kolecto · 2024 to 2025</span></span></li>
-              <li class="xp"><span class="xp-logo">T</span><span class="xp-meta"><strong>Designer → Lead Designer</strong><span>Theodo · 2021 to 2024</span></span></li>
-              <li class="xp"><span class="xp-logo">D</span><span class="xp-meta"><strong>New Business</strong><span>DDB Paris · 2019 to 2021</span></span></li>
-            </ul>
-          </div>
+        <div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#efe6d2,#f6efdd);overflow:hidden;margin-bottom:16px;padding:40px 44px;position:relative;"><div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:16/9;background:#0b0b0d;"><video autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"><source src="assets/rose.mp4" type="video/mp4"></video></div><span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Conversion widget</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" data-2col>
+          <div data-reveal style="min-height:148px;border-radius:20px;background:var(--paper);border:1px solid var(--hair);display:flex;flex-direction:column;justify-content:center;padding:26px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">01 · Engage</span><span style="font-size:1.24rem;font-weight:600;letter-spacing:-.025em;">Greets in context</span></div>
+          <div data-reveal data-reveal-delay="90" style="min-height:148px;border-radius:20px;background:var(--beige);display:flex;flex-direction:column;justify-content:center;padding:26px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.55);margin-bottom:8px;">02 · Guide</span><span style="font-size:1.24rem;font-weight:600;letter-spacing:-.025em;">Guided conversation</span></div>
+          <div data-reveal data-reveal-delay="180" style="min-height:148px;border-radius:20px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:26px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(252,251,244,.55);margin-bottom:8px;">03 · Convert</span><span style="font-size:1.24rem;font-weight:600;letter-spacing:-.025em;">Intent into action</span></div>
         </div>
-      </div>
-    </section>
+        <div data-reveal style="border-radius:22px;background:var(--beige);overflow:hidden;margin-top:16px;padding:40px 44px;position:relative;"><div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.4);aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#e8ddc6 0 18px,#efe6d2 18px 36px);display:flex;align-items:center;justify-content:center;"><span style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--ink3);">Self-serve onboarding — visuel à venir</span></div><span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;pointer-events:none;">Onboarding funnel</span></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="Rose.dc.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Rose case study →</a><a href="https://userose.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+      </article>
 
-    <!-- ════════ TALKS ════════ -->
-    <section id="talks" class="section">
-      <div class="shell">
-        <div class="section-head r">
+      <!-- KOLECTO -->
+      <article id="kolecto" data-reveal style="border-top:1px solid var(--hair);padding:54px 0 10px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:30px;" data-2col>
           <div>
-            <span class="label">Speaking</span>
-            <h2>On stage about<br>AI &amp; design.</h2>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">03</span><h3 style="font-weight:600;font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.035em;line-height:1;">Kolecto</h3><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#f6b56a;border-radius:var(--pill);padding:6px 13px;">Fintech SaaS</span></div>
+            <p style="font-size:1.06rem;color:var(--ink2);line-height:1.5;max-width:56ch;"><span style="font-weight:600;color:var(--ink);">Design Manager.</span> Financial complexity tamed into everyday workflows, and a design team built to scale with the product.</p>
           </div>
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="section-link">Follow along <span class="arrow">↗</span></a>
+          <div style="text-align:right;white-space:nowrap;"><div style="font-weight:600;font-size:2.8rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="2">0</span></div><div style="font-size:12px;color:var(--ink3);margin-top:4px;">designers hired</div></div>
         </div>
-        <div class="talks-grid">
-          <div class="talk-photo r">
-            <img src="assets/speaking-bw.jpg" alt="Nelly Seiglan speaking on stage"
-                 onerror="this.style.display='none';this.parentNode.querySelector('.slot-fallback').style.display='flex';">
-            <div class="slot-fallback"><span>Add a black &amp; white photo of you speaking →<br>assets/speaking-bw.jpg</span></div>
+        <div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#f6b56a,#f4d78a);overflow:hidden;margin-bottom:16px;padding:40px 44px;position:relative;"><div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:1512/874;background:#ecebf3;"><iframe src="kolecto-demo.html" title="Kolecto — live product demo" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div><span style="position:absolute;left:22px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;backdrop-filter:blur(6px);pointer-events:none;">Product walkthrough</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" data-2col><div data-reveal style="aspect-ratio:5/4;border-radius:22px;background:linear-gradient(150deg,#fdeede,#fbe0c8);display:flex;align-items:center;justify-content:center;padding:12%;overflow:hidden;position:relative;"><div style="position:relative;width:100%;max-width:260px;aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:space-between;border-radius:18px;background:#fff;border:1.5px solid #f0a34d;padding:26px 24px;animation:tap 3.4s ease-in-out infinite;"><div style="font-size:1.95rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;color:var(--ink);">Scanner<br>une facture</div><svg viewBox="0 0 48 48" style="width:130px;height:130px;margin-left:auto;display:block;transform-origin:70% 70%;animation:tapicon 3.4s ease-in-out infinite;"><rect x="28" y="9" width="13" height="5" rx="2.5" fill="#eaa64a"/><rect x="7" y="14" width="34" height="27" rx="6" fill="#f3c68e"/><circle cx="24" cy="29" r="8" fill="#eaa64a"/><circle cx="24" cy="29" r="4.3" fill="#f3c68e"/><circle cx="34.5" cy="21" r="2" fill="#fff"/></svg><div style="position:absolute;right:20px;bottom:22px;width:22px;height:22px;pointer-events:none;animation:tapcur 3.4s ease-in-out infinite;"><svg viewBox="0 0 24 24" fill="#fff" stroke="#241d47" stroke-width="1.3" stroke-linejoin="round" style="width:100%;height:100%;filter:drop-shadow(0 3px 5px rgba(20,16,40,.4));"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg></div></div></div><div data-reveal data-reveal-delay="90" style="aspect-ratio:5/4;border-radius:22px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:34px;overflow:hidden;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:10px;">Craft</span><span style="font-size:1.7rem;font-weight:600;letter-spacing:-.03em;line-height:1.1;">Scan, import &amp; e-invoicing in two taps</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:16px;" data-phones>
+          <div data-reveal style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#ffe0bd,#fdeede);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;animation:floaty 6s ease-in-out infinite;"><img src="assets/kolecto-m01.png" data-hover data-label="Kolecto" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);transition:transform .8s var(--ease);" style-hover="transform:scale(1.05)"></div></div>
+          <div data-reveal data-reveal-delay="70" style="aspect-ratio:5/9;border-radius:22px;background:var(--paper);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;animation:floaty 6.6s ease-in-out infinite .5s;"><img src="assets/kolecto-m05.png" data-hover data-label="Kolecto" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.32);transition:transform .8s var(--ease);" style-hover="transform:scale(1.05)"></div></div>
+          <div data-reveal data-reveal-delay="140" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#f6b56a,#f4d78a);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;animation:floaty 7s ease-in-out infinite 1s;"><img src="assets/kolecto-m06.png" data-hover data-label="Kolecto" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);transition:transform .8s var(--ease);" style-hover="transform:scale(1.05)"></div></div>
+          <div data-reveal data-reveal-delay="210" style="aspect-ratio:5/9;border-radius:22px;background:var(--paper);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;animation:floaty 6.3s ease-in-out infinite .3s;"><img src="assets/kolecto-m07.png" data-hover data-label="Kolecto" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.32);transition:transform .8s var(--ease);" style-hover="transform:scale(1.05)"></div></div>
+          <div data-reveal data-reveal-delay="280" style="aspect-ratio:5/9;border-radius:22px;background:linear-gradient(155deg,#ffe0bd,#fdeede);display:flex;align-items:center;justify-content:center;padding:10% 8%;overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;animation:floaty 6.8s ease-in-out infinite .8s;"><img src="assets/kolecto-m03.png" data-hover data-label="Kolecto" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:15px;box-shadow:0 22px 44px -20px rgba(120,72,20,.4);transition:transform .8s var(--ease);" style-hover="transform:scale(1.05)"></div></div>
+        </div>
+        <div data-reveal style="border-radius:22px;background:var(--paper);border:1px solid var(--hair);padding:38px 34px 34px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;"><span style="width:8px;height:8px;border-radius:50%;background:#f6b56a;"></span><span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Design leadership</span></div>
+          <p style="font-size:1.12rem;font-weight:600;letter-spacing:-.02em;margin-bottom:28px;max-width:52ch;">As Lead Product Designer, I drive design across three squads shipping the Kolecto product.</p>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:var(--pill);padding:12px 22px;font-weight:600;font-size:.98rem;">Lead Product Design</div>
+            <div style="width:1px;height:26px;background:var(--hair2);"></div>
+            <div style="width:100%;height:1px;background:var(--hair2);max-width:74%;"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;margin-top:-1px;position:relative;">
+              <div style="position:absolute;top:0;left:16.6%;width:1px;height:26px;background:var(--hair2);"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:26px;background:var(--hair2);"></div>
+              <div style="position:absolute;top:0;left:83.3%;width:1px;height:26px;background:var(--hair2);"></div>
+              <div style="margin-top:26px;border-radius:18px;background:linear-gradient(155deg,#ffe0bd,#fdeede);padding:22px 20px;">
+                <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(120,72,20,.7);margin-bottom:8px;">Squad 01</div>
+                <div style="font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;">Activation</div>
+                <div style="font-size:.9rem;color:var(--ink2);line-height:1.45;">Onboarding &amp; first invoice sent</div>
+              </div>
+              <div style="margin-top:26px;border-radius:18px;background:linear-gradient(155deg,#f6b56a,#f4d78a);padding:22px 20px;">
+                <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(120,72,20,.7);margin-bottom:8px;">Squad 02</div>
+                <div style="font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;">Rétention</div>
+                <div style="font-size:.9rem;color:var(--ink2);line-height:1.45;">Daily workflows &amp; engagement</div>
+              </div>
+              <div style="margin-top:26px;border-radius:18px;background:var(--ink);color:var(--paper);padding:22px 20px;">
+                <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(252,251,244,.55);margin-bottom:8px;">Squad 03</div>
+                <div style="font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;">Paiement</div>
+                <div style="font-size:.9rem;color:rgba(252,251,244,.7);line-height:1.45;">Collection &amp; cash-in flows</div>
+              </div>
+            </div>
           </div>
-          <div class="talk-list">
-            <article class="talk r r-d1">
-              <div class="talk-top"><span class="talk-badge up">Upcoming</span><span class="talk-when">Sep 2026</span></div>
-              <h3>Design Ops in the AI era</h3>
-              <p>How design operations evolve when AI reshapes the way teams research, prototype, and ship.</p>
-            </article>
-            <article class="talk r r-d2">
-              <div class="talk-top"><span class="talk-badge done">Round table</span><span class="talk-when">Jun 2026</span></div>
-              <h3>When emotion becomes the design</h3>
-              <p>AI Experience Night round table, featured by <a href="https://www.le-ticket.fr/quand-la-conversation-devient-le-produit-lemotion-devient-le-design-nos-5-moments-forts-de-lai-experience-night/150458/" target="_blank" rel="noopener" class="at-link">The Ticket</a>: when conversation becomes the product, emotion becomes the design.</p>
-            </article>
-            <article class="talk r r-d3">
-              <div class="talk-top"><span class="talk-badge done">Talk</span><span class="talk-when">Mar 2026</span></div>
-              <h3>Conversational design for AI products</h3>
-              <p>At AI Product Day, making conversation the core of the product experience.</p>
-            </article>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="Kolecto.dc.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Kolecto case study →</a><a href="https://www.kolecto.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+      </article>
+
+      <!-- MILLEIS -->
+      <article id="milleis" data-reveal style="border-top:1px solid var(--hair);padding:54px 0 20px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:32px;" data-2col>
+          <div>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">04</span><h3 style="font-weight:600;font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.035em;line-height:1;">Milleis</h3><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#b2c8f4;border-radius:var(--pill);padding:6px 13px;">Private banking</span></div>
+            <p style="font-size:1.06rem;color:var(--ink2);line-height:1.5;max-width:56ch;"><span style="font-weight:600;color:var(--ink);">Lead Product Designer.</span> Private-banking mobile rebuilt from daily banking to wealth management, clarity meeting premium codes.</p>
+          </div>
+          <div style="text-align:right;white-space:nowrap;"><div style="font-weight:600;font-size:2.8rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="4.7" data-dec="1" data-suffix="★">0★</span></div><div style="font-size:12px;color:var(--ink3);margin-top:4px;">App Store · from 2.7</div></div>
+        </div>
+        <div style="border-radius:26px;background:linear-gradient(158deg,#e7ecfb,#dbe3f7);padding:44px 30px;margin-bottom:16px;overflow:hidden;">
+          <div style="display:flex;justify-content:center;align-items:flex-end;gap:22px;flex-wrap:wrap;">
+            <div data-slide style="cursor:zoom-in;" data-zoom="assets/milleis-home.png"><img src="assets/milleis-home.png" data-hover data-label="Zoom" style="height:340px;width:auto;max-width:none;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -22px rgba(16,24,52,.5);transition:transform .5s var(--ease);" style-hover="transform:translateY(-8px)"></div>
+            <div data-slide data-reveal-delay="90" style="cursor:zoom-in;" data-zoom="assets/milleis-accounts.png"><img src="assets/milleis-accounts.png" data-hover data-label="Zoom" style="height:340px;width:auto;max-width:none;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -22px rgba(16,24,52,.5);transition:transform .5s var(--ease);" style-hover="transform:translateY(-8px)"></div>
+            <div data-slide data-reveal-delay="180" style="cursor:zoom-in;" data-zoom="assets/milleis-portfolio.png"><img src="assets/milleis-portfolio.png" data-hover data-label="Zoom" style="height:340px;width:auto;max-width:none;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -22px rgba(16,24,52,.5);transition:transform .5s var(--ease);" style-hover="transform:translateY(-8px)"></div>
+            <div data-slide data-reveal-delay="270" style="cursor:zoom-in;" data-zoom="assets/milleis-messages.png"><img src="assets/milleis-messages.png" data-hover data-label="Zoom" style="height:340px;width:auto;max-width:none;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -22px rgba(16,24,52,.5);transition:transform .5s var(--ease);" style-hover="transform:translateY(-8px)"></div>
+            <div data-slide data-reveal-delay="360" style="cursor:zoom-in;" data-zoom="assets/milleis-banker.png"><img src="assets/milleis-banker.png" data-hover data-label="Zoom" style="height:340px;width:auto;max-width:none;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -22px rgba(16,24,52,.5);transition:transform .5s var(--ease);" style-hover="transform:translateY(-8px)"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" data-2col>
+          <div data-reveal style="aspect-ratio:5/4;border-radius:24px;background:linear-gradient(155deg,#5b8fd4,#3f6cb8);display:flex;flex-direction:column;gap:16px;padding:46px;overflow:hidden;"><div style="flex:1;width:100%;border-radius:20px;background:#373737;display:flex;flex-direction:column;justify-content:center;padding:26px 30px;box-shadow:0 34px 70px -30px rgba(16,24,52,.55);"><div style="text-align:center;color:#fff;font-size:clamp(.95rem,1.7vw,1.2rem);font-weight:500;">Évaluation de vos produits en gestion</div><div data-mil-amount style="text-align:center;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:700;letter-spacing:.01em;margin:8px 0 6px;">0,00 €</div><div style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:18px;">au 13 mars 2023</div><div style="height:9px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;display:flex;"><div data-mil-seg style="width:0;background:#8FDCF1;transition:width 1.5s var(--ease);"></div><div data-mil-seg style="width:0;background:#407EC9;transition:width 1.5s var(--ease) .12s;"></div><div data-mil-seg style="width:0;background:#00AFAB;transition:width 1.5s var(--ease) .24s;"></div></div><div style="display:flex;flex-direction:column;gap:7px;margin-top:16px;font-size:13px;color:#fff;"><span style="display:flex;align-items:center;gap:9px;"><span style="width:11px;height:11px;border-radius:50%;background:#8FDCF1;"></span>Gestion sous mandat / pilotée</span><span style="display:flex;align-items:center;gap:9px;"><span style="width:11px;height:11px;border-radius:50%;background:#407EC9;"></span>Gestion conseillée</span><span style="display:flex;align-items:center;gap:9px;"><span style="width:11px;height:11px;border-radius:50%;background:#00AFAB;"></span>Gestion libre</span></div></div></div>
+          <div data-reveal data-reveal-delay="120" style="aspect-ratio:5/4;border-radius:24px;background:linear-gradient(155deg,#5b8fd4,#3f6cb8);display:flex;flex-direction:column;gap:16px;padding:46px;overflow:hidden;"><div style="flex:1;width:100%;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 34px 70px -30px rgba(16,24,52,.55);"><img src="assets/milleis-stairs.png" alt="Milleis" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><img src="assets/milleis-logo.png" alt="Milleis" style="width:42%;height:auto;animation:zoomloop 7s ease-in-out infinite;"></div></div></div>
+        </div>
+        <div data-reveal style="aspect-ratio:24/9;border-radius:24px;background:#e4e9f7;background-image:radial-gradient(circle,rgba(111,127,180,.22) 1.5px,transparent 1.6px);background-size:22px 22px;display:flex;align-items:center;justify-content:center;padding:30px;position:relative;overflow:hidden;cursor:zoom-in;" data-zoom="assets/milleis-navmap.png"><div style="width:74%;height:100%;border-radius:16px;overflow:hidden;box-shadow:0 22px 46px -22px rgba(16,24,52,.5);"><img src="assets/milleis-navmap.png" data-hover data-label="Zoom" style="width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform .9s var(--ease);" style-hover="transform:scale(1.16)"></div><span style="position:absolute;left:22px;bottom:18px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;">User flow &amp; navigation</span></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="Milleis.dc.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Milleis case study →</a><a href="https://www.milleis.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:rgba(255,255,255,.7);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--white);">Visit site ↗</a></div>
+        <div data-zoom-modal style="position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:40px;overflow:auto;background:rgba(20,26,48,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);visibility:hidden;">
+          <button type="button" data-zoom-close aria-label="Close" data-hover style="position:absolute;top:26px;right:30px;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,.9);cursor:pointer;font-size:20px;line-height:1;color:var(--ink);display:flex;align-items:center;justify-content:center;">✕</button>
+          <img data-zoom-img alt="" style="max-width:min(1100px,92vw);max-height:88vh;width:auto;height:auto;border-radius:26px;box-shadow:0 40px 90px -30px rgba(16,24,52,.7);transform:scale(.92);transition:transform .45s var(--ease);">
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ THEODO ============ -->
+  <section id="theodo" style="padding:60px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="background:var(--cream);border:1px solid var(--hair);border-radius:var(--r-lg);padding:44px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:end;margin-bottom:36px;" data-2col>
+          <div>
+            <span style="display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--lime);"></span>05 · Consultancy</span>
+            <h2 style="font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem);letter-spacing:-.04em;line-height:.98;">Theodo</h2>
+          </div>
+          <p style="font-size:1.06rem;color:var(--ink2);line-height:1.55;">Three years as Designer → Lead Designer in consultancy. Shipping products across fintech, banking and SaaS for ambitious teams, then leading design on the engagements that mattered most.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px;" data-2col>
+          <div style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:26px;"><div style="font-weight:600;font-size:2.3rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="3" data-suffix=" yrs">0 yrs</span></div><div style="font-size:12.5px;color:var(--ink3);margin-top:8px;">Designer → Lead</div></div>
+          <div style="background:var(--lime);border-radius:var(--r);padding:26px;"><div style="font-weight:600;font-size:2.3rem;letter-spacing:-.04em;line-height:1;"><span data-count data-to="12" data-suffix="+">0+</span></div><div style="font-size:12.5px;color:rgba(26,26,26,.6);margin-top:8px;">Products &amp; engagements</div></div>
+          <div style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:26px;"><div style="font-weight:600;font-size:2.3rem;letter-spacing:-.04em;line-height:1;">Fintech</div><div style="font-size:12.5px;color:var(--ink3);margin-top:8px;">Banking · SaaS · AI</div></div>
+        </div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;">Selected clients</div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;" data-g6>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-drouot.png" alt="Drouot" style="max-width:100%;max-height:66%;object-fit:contain;"></div>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-milleis.png" alt="Milleis" style="max-width:100%;max-height:82%;object-fit:contain;"></div>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-axa.png" alt="AXA Climate" style="max-width:100%;max-height:60%;object-fit:contain;"></div>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-micromania.png" alt="Micromania" style="max-width:100%;max-height:52%;object-fit:contain;"></div>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-ada.png" alt="ADA" style="max-width:100%;max-height:52%;object-fit:contain;"></div>
+          <div style="aspect-ratio:2/1;background:var(--white);border:1px solid var(--hair);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:18px;"><img src="assets/logo-analgesia.png" alt="Institut Analgesia" style="max-width:100%;max-height:70%;object-fit:contain;"></div>
+        </div>
+      </div>
+    </div>
+    <div data-reveal style="margin-top:26px;overflow:hidden;">
+      <div style="display:flex;gap:14px;width:max-content;animation:marq 46s linear infinite;">
+        <img src="assets/milleis-home.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+        <img src="assets/kolecto-billing.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/verso-report.jpg" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/milleis-accounts.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+        <img src="assets/verso-studies.jpg" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/milleis-portfolio.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+        <img src="assets/milleis-home.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+        <img src="assets/kolecto-billing.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/verso-report.jpg" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/milleis-accounts.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+        <img src="assets/verso-studies.jpg" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);object-fit:cover;">
+        <img src="assets/milleis-portfolio.png" alt="" style="height:240px;width:auto;border-radius:14px;border:1px solid var(--hair);background:#111;object-fit:cover;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" style="padding:60px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:34px;"><span style="width:9px;height:9px;border-radius:50%;background:var(--lime);"></span><span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">About &amp; background</span><span style="flex:1;height:1px;background:var(--hair);"></span></div>
+      <div data-reveal style="display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;" data-2col>
+        <div>
+          <p style="font-size:1.7rem;font-weight:500;color:var(--ink);line-height:1.25;letter-spacing:-.025em;max-width:20ch;margin-bottom:24px;">Six years, one obsession: products that feel effortless and earn trust.</p>
+          <p style="font-size:1.02rem;color:var(--ink2);line-height:1.55;max-width:38ch;margin-bottom:28px;">Whether that's an AI interviewer, a private-banking app, or the design team behind it.</p>
+          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover data-magnet style="display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:13px 22px;border-radius:var(--pill);">LinkedIn ↗</a>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r-lg);padding:12px 30px;box-shadow:var(--shadow-sm);">
+          <ul style="list-style:none;">
+            <li data-hover style="display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:18px;padding:24px 0;border-bottom:1px solid var(--hair);transition:padding-left .3s var(--ease);" style-hover="padding-left:8px;"><span style="width:44px;height:44px;border-radius:14px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">H</span><span><strong style="display:block;font-size:1.16rem;font-weight:600;letter-spacing:-.02em;">Founding Designer</strong><span style="font-size:13px;color:var(--ink3);">Hexa · AI-native products</span></span><span style="font-size:13px;font-weight:500;color:var(--ink2);">2025 —</span></li>
+            <li data-hover style="display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:18px;padding:24px 0;border-bottom:1px solid var(--hair);transition:padding-left .3s var(--ease);" style-hover="padding-left:8px;"><span style="width:44px;height:44px;border-radius:14px;background:var(--butter);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">K</span><span><strong style="display:block;font-size:1.16rem;font-weight:600;letter-spacing:-.02em;">Design Manager</strong><span style="font-size:13px;color:var(--ink3);">Kolecto · fintech SaaS</span></span><span style="font-size:13px;font-weight:500;color:var(--ink2);">2024–25</span></li>
+            <li data-hover style="display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:18px;padding:24px 0;border-bottom:1px solid var(--hair);transition:padding-left .3s var(--ease);" style-hover="padding-left:8px;"><span style="width:44px;height:44px;border-radius:14px;background:var(--butter);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">T</span><span><strong style="display:block;font-size:1.16rem;font-weight:600;letter-spacing:-.02em;">Designer → Lead Designer</strong><span style="font-size:13px;color:var(--ink3);">Theodo · consultancy</span></span><span style="font-size:13px;font-weight:500;color:var(--ink2);">2021–24</span></li>
+            <li data-hover style="display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:18px;padding:24px 0;transition:padding-left .3s var(--ease);" style-hover="padding-left:8px;"><span style="width:44px;height:44px;border-radius:14px;background:var(--butter);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">D</span><span><strong style="display:block;font-size:1.16rem;font-weight:600;letter-spacing:-.02em;">New Business</strong><span style="font-size:13px;color:var(--ink3);">DDB Paris · agency</span></span><span style="font-size:13px;font-weight:500;color:var(--ink2);">2019–21</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section id="speaking" style="padding:60px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:28px;"><span style="width:9px;height:9px;border-radius:50%;background:var(--lime);"></span><span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">Speaking</span><span style="flex:1;height:1px;background:var(--hair);"></span></div>
+      <div data-reveal style="margin-bottom:36px;">
+        <h2 style="font-weight:560;font-size:clamp(2rem,4.4vw,3.4rem);letter-spacing:-.035em;line-height:1;">On stage · AI &amp; design</h2>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;" data-2col>
+        <div style="position:relative;align-self:stretch;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--hair);filter:grayscale(.3);box-shadow:var(--shadow-sm);min-height:0;"><img src="assets/speaking-bw.jpg" alt="Nelly speaking on stage" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);" style-hover="transform:scale(1.04)"></div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <article data-hover style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:26px 30px;transition:transform .3s var(--ease),box-shadow .3s;box-shadow:var(--shadow-sm);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow);">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);border-radius:var(--pill);padding:4px 11px;">Upcoming</span><span style="font-size:12.5px;color:var(--ink3);">Sep 2026</span></div>
+            <h3 style="font-size:1.3rem;font-weight:600;letter-spacing:-.025em;margin-bottom:7px;">Design Ops in the AI era</h3>
+            <p style="font-size:.96rem;color:var(--ink2);line-height:1.5;">How design operations evolve when AI reshapes how teams research, prototype and ship.</p>
+          </article>
+          <article data-hover style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:26px 30px;transition:transform .3s var(--ease),box-shadow .3s;box-shadow:var(--shadow-sm);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow);">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--butter);border-radius:var(--pill);padding:4px 11px;">Round table</span><span style="font-size:12.5px;color:var(--ink3);">Jun 2026</span></div>
+            <h3 style="font-size:1.3rem;font-weight:600;letter-spacing:-.025em;margin-bottom:7px;">When emotion becomes the design</h3>
+            <p style="font-size:.96rem;color:var(--ink2);line-height:1.5;">AI Experience Night round table, featured by <a href="https://www.le-ticket.fr/quand-la-conversation-devient-le-produit-lemotion-devient-le-design-nos-5-moments-forts-de-lai-experience-night/150458/" target="_blank" rel="noopener" class="tlink">The Ticket</a>: when conversation becomes the product.</p>
+          </article>
+          <article data-hover style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:26px 30px;transition:transform .3s var(--ease),box-shadow .3s;box-shadow:var(--shadow-sm);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow);">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--butter);border-radius:var(--pill);padding:4px 11px;">Talk</span><span style="font-size:12.5px;color:var(--ink3);">Mar 2026</span></div>
+            <h3 style="font-size:1.3rem;font-weight:600;letter-spacing:-.025em;margin-bottom:7px;">Conversational design for AI products</h3>
+            <p style="font-size:.96rem;color:var(--ink2);line-height:1.5;">At <a href="https://www.ai-product-day.com/en/speakers-new/nelly-seiglan" target="_blank" rel="noopener" class="tlink">AI Product Day</a>, making conversation the core of the product experience.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section id="writing" style="padding:60px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="background:var(--lime);border-radius:var(--r-lg);padding:52px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" data-2col>
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(26,26,26,.55);margin-bottom:22px;">Re:Design · Substack</span>
+          <h2 style="font-weight:600;font-size:clamp(1.9rem,3.8vw,3rem);letter-spacing:-.035em;line-height:1.02;margin-bottom:18px;">Writing on design in the age of AI</h2>
+          <p style="font-size:1.04rem;color:rgba(26,26,26,.72);line-height:1.55;max-width:40ch;margin-bottom:32px;">Field notes on building AI-native products, read by a growing community of designers and product people.</p>
+          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover data-magnet style="display:inline-flex;align-items:center;gap:10px;font-size:.98rem;font-weight:600;color:var(--paper);background:var(--ink);padding:14px 26px;border-radius:var(--pill);">Read on Substack <span>↗</span></a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.55);border-radius:16px;padding:20px 22px;transition:background .25s,transform .25s var(--ease);" style-hover="background:var(--white);transform:translateX(4px);"><span style="font-size:1.06rem;font-weight:500;letter-spacing:-.02em;">Designing trust into AI interfaces</span><span style="font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(26,26,26,.5);">ESSAY ↗</span></a>
+          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.55);border-radius:16px;padding:20px 22px;transition:background .25s,transform .25s var(--ease);" style-hover="background:var(--white);transform:translateX(4px);"><span style="font-size:1.06rem;font-weight:500;letter-spacing:-.02em;">What Design Ops becomes in the AI era</span><span style="font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(26,26,26,.5);">ESSAY ↗</span></a>
+          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.55);border-radius:16px;padding:20px 22px;transition:background .25s,transform .25s var(--ease);" style-hover="background:var(--white);transform:translateX(4px);"><span style="font-size:1.06rem;font-weight:500;letter-spacing:-.02em;">From 0 → 1 as a founding designer</span><span style="font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(26,26,26,.5);">NOTES ↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" style="padding:40px 0 80px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;">
+      <div data-reveal style="background:var(--white);border:1px solid var(--hair);border-radius:32px;padding:100px 40px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;">
+        <div aria-hidden="true" style="position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(220,238,99,.5),transparent 66%);"></div>
+        <div aria-hidden="true" style="position:absolute;bottom:-90px;left:-50px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,201,236,.45),transparent 66%);"></div>
+        <div style="position:relative;">
+          <span style="display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);margin-bottom:28px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--lime);"></span>Get in touch</span>
+          <h2 style="font-weight:560;font-size:clamp(2.4rem,7vw,5.4rem);letter-spacing:-.04em;line-height:1.0;margin-bottom:32px;">Let's build something<br>people <span style="background:var(--lime);border-radius:10px;padding:0 .16em;box-decoration-break:clone;-webkit-box-decoration-break:clone;">trust &amp; love</span>.</h2>
+          <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
+            <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover data-magnet style="display:inline-flex;align-items:center;gap:10px;font-size:1rem;font-weight:600;color:var(--paper);background:var(--ink);padding:16px 30px;border-radius:var(--pill);">LinkedIn <span>↗</span></a>
+            <a href="mailto:nelly.sgn@gmail.com" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:1rem;font-weight:600;color:var(--ink);background:var(--paper);padding:16px 28px;border:1px solid var(--hair2);border-radius:var(--pill);transition:background .25s;" style-hover="background:var(--butter-soft);">Email me</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ════════ WRITING ════════ -->
-    <section id="writing" class="section tone-2">
-      <div class="shell">
-        <div class="writing-card r">
-          <div class="writing-intro">
-            <span class="label">Re:Design · Substack</span>
-            <h2>Writing about design in the age of AI.</h2>
-            <p>Ideas, opinions, and field notes on building AI-native products, read by a growing community of designers and product people.</p>
-            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" class="btn btn-primary">Read on Substack <span class="arrow">↗</span></a>
-          </div>
-          <div class="writing-posts">
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">Designing trust into AI interfaces</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span></a>
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">What Design Ops becomes in the AI era</span><span class="pmeta">ESSAY</span><span class="arrow">↗</span></a>
-            <a class="post" href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener"><span class="ptitle">From 0 → 1 as a founding designer</span><span class="pmeta">NOTES</span><span class="arrow">↗</span></a>
-          </div>
-        </div>
+  <!-- ============ FOOTER ============ -->
+  <footer style="padding:36px 0 44px;border-top:1px solid var(--hair);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <span style="font-size:13px;color:var(--ink3);">© 2026 Nelly Seiglan · Lead Product Designer</span>
+      <div style="display:flex;gap:8px;">
+        <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-hover style="width:42px;height:42px;border-radius:12px;background:var(--white);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:color .2s,background .2s;" style-hover="color:var(--ink);background:var(--lime);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-hover style="width:42px;height:42px;border-radius:12px;background:var(--white);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:color .2s,background .2s;" style-hover="color:var(--ink);background:var(--lime);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+        <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-hover style="width:42px;height:42px;border-radius:12px;background:var(--white);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:color .2s,background .2s;" style-hover="color:var(--ink);background:var(--lime);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
       </div>
-    </section>
-
-    <!-- ════════ CONTACT ════════ -->
-    <section id="contact" class="section contact">
-      <div class="shell">
-        <span class="label">Get in touch</span>
-        <h2>Let's build something<br>people <em>trust &amp; love</em>.</h2>
-        <div class="contact-actions">
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn <span class="arrow">↗</span></a>
-          <a href="mailto:nelly.sgn@gmail.com" class="btn btn-ghost">Email me</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="shell">
-      <div class="footer-row">
-        <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
-        <div class="footer-social">
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
-          <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
-          <a href="mailto:nelly.sgn@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
-        </div>
-        <div class="footer-meta">v3.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
-      </div>
+      <span style="font-size:13px;color:var(--ink3);">Available for 2026</span>
     </div>
   </footer>
 
-  <script src="assets/refonte.js"></script>
+</div>
+<script src="assets/site.js"></script>
 </body>
 </html>

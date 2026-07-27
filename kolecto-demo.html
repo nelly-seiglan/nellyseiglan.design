@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kolecto — Motion demo</title>
+<style>
+:root{ --indigo:#4038E5; --indigo-soft:#6B63F0; --ink:#141233; }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow:hidden;color:var(--ink);background:transparent;
+}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1512px;height:874px;flex:0 0 auto;transform-origin:center center;
+  border-radius:18px;overflow:hidden;background:#fff;
+  box-shadow:0 26px 54px -26px rgba(34,26,90,.4),0 0 0 1px rgba(255,255,255,.7);
+}
+#chrome{display:none}
+#screen{position:absolute;inset:0;overflow:hidden;background:#fafafa}
+.frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s;z-index:1}
+.frame.active{opacity:1;visibility:visible;z-index:2}
+.frame img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#fff;
+  transform:scale(1.035);transition:transform 3.2s cubic-bezier(.2,.6,.2,1)}
+.frame.active img{transform:scale(1)}
+#cursor{position:absolute;left:0;top:0;z-index:40;pointer-events:none;opacity:0;
+  transition:left .95s cubic-bezier(.45,.05,.2,1),top .95s cubic-bezier(.45,.05,.2,1),opacity .35s;
+  filter:drop-shadow(0 5px 8px rgba(20,16,60,.4))}
+#cursor.show{opacity:1}
+#cursor .arw{width:30px;height:30px;display:block}
+#cursor .rip{position:absolute;left:4px;top:3px;width:18px;height:18px;border-radius:50%;
+  background:rgba(64,56,229,.5);transform:scale(0);opacity:0}
+#cursor.click .rip{animation:rip .6s ease-out}
+@keyframes rip{0%{transform:scale(0);opacity:.75}100%{transform:scale(5.5);opacity:0}}
+#cursor.press .arw{transform:scale(.82);transition:transform .12s}
+#cap,#ctl{display:none !important}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+  <div id="screen">
+    <div class="frame" data-key="home"><img src="assets/kolecto-home.png" alt="Kolecto — Accueil"></div>
+    <div class="frame" data-key="create"><img src="assets/kolecto-create.png" alt="Kolecto — Création de facture"></div>
+    <div class="frame" data-key="invoices"><img src="assets/kolecto-invoices.png" alt="Kolecto — Mes factures"></div>
+    <div class="frame" data-key="purchases"><img src="assets/kolecto-purchases.png" alt="Kolecto — Dépenses fournisseurs"></div>
+    <div class="frame" data-key="einvoicing"><img src="assets/kolecto-einvoicing.png" alt="Kolecto — Facturation électronique"></div>
+    <div class="frame" data-key="accounting"><img src="assets/kolecto-accounting.png" alt="Kolecto — Plan comptable"></div>
+  </div>
+</div></div>
+
+<div id="cap"></div>
+<div id="ctl">
+  <button id="btnPlay"></button><button id="btnPrev"></button>
+  <span class="steplabel" id="stepLabel"></span><div class="dots" id="dots"></div>
+  <button id="btnNext"></button><button id="btnRestart"></button>
+</div>
+
+<script>
+var stage=document.getElementById('stage');
+var STAGE_W=1512, STAGE_H=874;
+function fit(){
+  var vw=window.innerWidth, vh=window.innerHeight;
+  var s=Math.min(vw/STAGE_W, vh/STAGE_H);
+  if(!isFinite(s)||s<=0) s=0.2;
+  stage.style.transform='scale('+Math.max(0.1,s)+')';
+}
+window.addEventListener('resize',fit); fit();
+
+var frames={};
+document.querySelectorAll('.frame').forEach(function(f){frames[f.dataset.key]=f});
+var pathEl=null;
+var STEPS=[
+  {key:'home',       path:'/accueil'},
+  {key:'create',     path:'/ventes/factures/nouvelle'},
+  {key:'invoices',   path:'/ventes/factures'},
+  {key:'purchases',  path:'/achats/factures'},
+  {key:'einvoicing', path:'/facturation-electronique'},
+  {key:'accounting', path:'/comptabilite/plan-comptable'}
+];
+var idx=0, playing=false, token=0;
+function show(key){ Object.keys(frames).forEach(function(k){frames[k].classList.toggle('active', k===key)}); }
+function goTo(i){ i=Math.max(0,Math.min(STEPS.length-1,i)); idx=i; show(STEPS[i].key); }
+
+var screenEl=document.getElementById('screen');
+var cursor=document.createElement('div');
+cursor.id='cursor';
+cursor.innerHTML='<svg class="arw" viewBox="0 0 24 24" fill="#fff" stroke="#241d47" stroke-width="1.3" stroke-linejoin="round"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg><span class="rip"></span>';
+screenEl.appendChild(cursor);
+function moveCursor(x,y){cursor.style.left=x+'px';cursor.style.top=y+'px';}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)});}
+async function clickAt(x,y,hold){
+  moveCursor(x,y);
+  await sleep(1000);
+  cursor.classList.add('click','press');
+  await sleep(150); cursor.classList.remove('press');
+  setTimeout(function(){cursor.classList.remove('click')},600);
+  await sleep(hold||420);
+}
+async function tour(){
+  var my=++token; playing=true;
+  cursor.classList.add('show');
+  var A=function(){return my===token && playing};
+  while(A()){
+    goTo(0); moveCursor(420,300);
+    await sleep(1600); if(!A())break;
+    await clickAt(875,720); if(!A())break;
+    goTo(1);
+    await sleep(900); if(!A())break;
+    moveCursor(377,241); await sleep(1300); if(!A())break;
+    moveCursor(351,358); await sleep(1200); if(!A())break;
+    await clickAt(1358,30,300); if(!A())break;
+    goTo(2);
+    await sleep(2600); if(!A())break;
+    await clickAt(84,452); if(!A())break;
+    goTo(3);
+    await sleep(2300); if(!A())break;
+    await clickAt(129,757); if(!A())break;
+    goTo(4);
+    await sleep(3000); if(!A())break;
+    await clickAt(93,618); if(!A())break;
+    goTo(5);
+    cursor.classList.remove('show');
+    await sleep(4200); if(!A())break;
+    cursor.classList.add('show');
+  }
+}
+goTo(0);
+if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ }
+else { tour(); }
+</script>
+</body>
+</html>
