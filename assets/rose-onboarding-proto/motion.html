@@ -17,8 +17,7 @@ body{
 
 /* floating browser window */
 #stage{position:relative;width:1280px;height:844px;flex:0 0 auto;transform-origin:center center;
-  border-radius:16px;overflow:hidden;background:#fff;
-  box-shadow:0 50px 130px -34px rgba(24,34,74,.5),0 12px 40px -18px rgba(24,34,74,.32),0 0 0 1px rgba(255,255,255,.7);
+  overflow:hidden;background:#fff;
 }
 
 /* chrome */
@@ -88,7 +87,7 @@ body{
   </div>
 
   <div id="screen">
-    <iframe id="fOnb"    class="pane on" src="src/onboarding.html"></iframe>
+    <iframe id="fOnb"    class="pane"    src="src/onboarding.html"></iframe>
     <iframe id="fHome"   class="pane"    src="src/home.html"></iframe>
     <iframe id="fConfig" class="pane"    src="src/config.html"></iframe>
     <iframe id="fPlay"   class="pane"    src="src/playground.html"></iframe>
@@ -111,7 +110,7 @@ body{
 var stage=document.getElementById('stage');
 var STAGE_W=1280, STAGE_H=844;
 function fit(){
-  var pad=40, vw=window.innerWidth-pad, vh=window.innerHeight-pad-70;
+  var vw=window.innerWidth, vh=window.innerHeight;
   var s=Math.min(vw/STAGE_W, vh/STAGE_H);
   if(!isFinite(s)||s<=0) s=0.2;
   stage.style.transform='scale('+Math.max(0.2,s)+')';
@@ -193,8 +192,9 @@ async function tour(){
 
   while(A()){
     /* ---- Chapter 1 : Onboarding (drive the real screens) ---- */
-    setChapter(0); show('onb'); url('rose.ai','/start');
+    setChapter(0); url('rose.ai','/start');
     await reloadOnb(); if(!A())break;
+    show('onb');
     cursor.classList.add('show'); moveCursor(640,420);
     await sleep(700); if(!A())break;
 
