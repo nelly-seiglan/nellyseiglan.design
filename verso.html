@@ -250,9 +250,10 @@ document.addEventListener("DOMContentLoaded",function(){
 
     const cio = new IntersectionObserver((es) => {
       es.forEach(e => {
-        if (!e.isIntersecting) return;
         const el = e.target;
-        cio.unobserve(el);
+        if (!e.isIntersecting) { el.dataset.counting = '0'; return; }
+        if (el.dataset.counting === '1') return;
+        el.dataset.counting = '1';
         const to = parseFloat(el.dataset.to) || 0, dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '';
         const dur = 1500; let s = null;
         const step = (t) => {
@@ -265,10 +266,25 @@ document.addEventListener("DOMContentLoaded",function(){
       });
     }, { threshold: 0.6 });
 
+    // restart looping demo iframes / videos from the top when you scroll back to them
+    const dio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        const el = e.target;
+        if (e.isIntersecting) {
+          if (el.dataset.wasOut === '1') {
+            el.dataset.wasOut = '0';
+            if (el.tagName === 'IFRAME') { el.src = el.src; }
+            else if (el.tagName === 'VIDEO') { try { el.currentTime = 0; el.play().catch(() => {}); } catch (e2) {} }
+          }
+        } else { el.dataset.wasOut = '1'; }
+      });
+    }, { threshold: 0.25 });
+
     const wired = new WeakSet();
     const scan = () => {
       $$('[data-reveal]').forEach(el => io.observe(el));
       $$('[data-count]').forEach(el => cio.observe(el));
+      $$('iframe:not([data-wt-screen]), video').forEach(el => { if (wired.has(el)) return; wired.add(el); dio.observe(el); });
 
       $$('[data-wt]').forEach(wt => {
         if (wired.has(wt)) return; wired.add(wt);
