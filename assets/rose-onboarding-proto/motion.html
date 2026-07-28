@@ -237,11 +237,11 @@ async function tour(){
     await clickEl(btn(/create my agent/i),A); if(!A())break;
 
     cap("Rose assemble l’agent à partir du site…");
-    await sleep(2100); if(!A())break;   // "Loading … " → pricing
+    await sleep(2600); if(!A())break;   // "Loading … " → pricing
 
     url('rose.ai','/go-live');
     cap("L’agent est <b>prêt à passer en ligne</b> — choix du plan.");
-    await sleep(2600); if(!A())break;
+    await sleep(5200); if(!A())break;
 
     /* ---- Chapter 2 : Dashboard Home ---- */
     setChapter(1); show('home'); url('app.userose.ai','/home');
