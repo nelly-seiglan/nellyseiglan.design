@@ -17,7 +17,7 @@ body{
 
 /* floating browser window */
 #stage{position:relative;width:1280px;height:844px;flex:0 0 auto;transform-origin:center center;
-  overflow:hidden;background:#fff;
+  overflow:hidden;background:#faf9f5;
 }
 
 /* chrome */
@@ -189,12 +189,13 @@ function reloadOnb(){ var p=waitLoad(fOnb); try{ fOnb.contentWindow.location.rel
 async function tour(){
   var my=++token; playing=true; updatePlay();
   var A=function(){return my===token && playing};
+  var firstRun=(my===1);
 
   while(A()){
     /* ---- Chapter 1 : Onboarding (drive the real screens) ---- */
     setChapter(0); url('rose.ai','/start');
-    await reloadOnb(); if(!A())break;
     show('onb');
+    if(firstRun){ firstRun=false; } else { await reloadOnb(); if(!A())break; }
     cursor.classList.add('show'); moveCursor(640,420);
     await sleep(700); if(!A())break;
 
@@ -286,7 +287,7 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ---------- start once the onboarding frame is ready ---------- */
-setChapter(0);
+setChapter(0); show('onb');
 if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ updatePlay(); }
 else{
   if(fOnb.contentDocument && fOnb.contentDocument.readyState==='complete'){ tour(); }
