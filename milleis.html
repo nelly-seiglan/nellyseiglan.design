@@ -28,6 +28,8 @@
   @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
   @media (hover:none){[data-cursor]{display:none!important;}}
   @media (max-width:900px){[data-2col]{grid-template-columns:1fr!important;}[data-3col]{grid-template-columns:1fr!important;}[data-4col]{grid-template-columns:repeat(2,1fr)!important;}[data-hide-sm]{display:none!important;}[data-meta]>div:nth-child(3){padding-left:0!important;}}
+
+  @media (max-width:760px){[data-navburger]{display:inline-flex!important;}[data-navlinks]{position:absolute;top:60px;right:14px;left:auto;min-width:232px;max-width:calc(100vw - 28px);flex-direction:column;align-items:stretch!important;gap:2px!important;background:var(--white);border:1px solid var(--hair);border-radius:18px;padding:10px;box-shadow:0 24px 60px -28px rgba(26,26,26,.45);display:none!important;}[data-navlinks].open{display:flex!important;}[data-navlinks]>a,[data-navlinks] [data-dd-trigger]{width:100%;padding:12px 14px!important;border-radius:12px!important;font-size:15px!important;margin:0!important;}[data-navlinks] [data-dd]{width:100%;}[data-navlinks] [data-dd-trigger]{justify-content:space-between;}[data-navlinks] [data-dd-menu]{position:static!important;transform:none!important;box-shadow:none!important;border:none!important;padding:2px 0 2px 8px!important;min-width:0!important;background:transparent!important;display:none!important;visibility:visible!important;opacity:1!important;}[data-navlinks] [data-dd]:focus-within [data-dd-menu]{display:flex!important;}}
 </style>
 </head>
 <body>
@@ -38,7 +40,7 @@
   <nav data-nav style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(252,251,244,.82);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--hair);transition:box-shadow .4s var(--ease);">
     <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:64px;">
       <a href="index.html" data-hover style="font-size:16px;font-weight:600;letter-spacing:-.02em;">Nelly Seiglan</a>
-      <div style="display:flex;align-items:center;gap:8px;">
+      <button data-navburger aria-label="Menu" onclick="document.querySelector('[data-navlinks]').classList.toggle('open')" style="display:none;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:6px;color:var(--ink);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div data-navlinks style="display:flex;align-items:center;gap:8px;">
         <a href="index.html" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Home</a>
         <div data-dd style="position:relative;">
           <button type="button" data-dd-trigger data-hover style="display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--ink);background:var(--butter-soft);border:none;cursor:pointer;padding:9px 16px;border-radius:var(--pill);">Projects <svg data-chev width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .3s var(--ease);margin-top:1px;"><path d="M6 9l6 6 6-6"/></svg></button>
