@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VERSO — Motion demo (vraies maquettes)</title>
+<style>
+:root{--purple:#6237F0;--bg:#EDECEF;
+  --f-home:url(frames/home.png);
+  --f-report:url(frames/report.png);
+  --f-finding:url(frames/finding.png);
+  --f-interview:url(frames/interview.png);
+  --f-interviews:url(frames/interviews.png);
+  --f-chatEmpty:url(frames/chat-empty.png);
+  --f-chatFull:url(frames/chat-full.png);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden;background:#FAFAFA;}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#FAFAFA}
+#stage{position:relative;width:1512px;height:982px;flex:0 0 auto;transform-origin:center center;
+  overflow:hidden;background:#FAFAFA}
+
+/* frames (crossfade), each screen as a single background image */
+.frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;z-index:1;
+  background-repeat:no-repeat;background-position:center;background-size:100% 100%}
+.frame.active{opacity:1;visibility:visible;z-index:2}
+.frame[data-key="home"]{background-image:var(--f-home)}
+.frame[data-key="finding"]{background-image:var(--f-finding)}
+.frame[data-key="interviews"]{background-image:var(--f-interviews)}
+.frame[data-key="chatEmpty"]{background-image:var(--f-chatEmpty)}
+.frame[data-key="chatFull"]{background-image:var(--f-chatFull)}
+.frame[data-key="interview"]{background-image:var(--f-interview);background-size:cover;background-color:#FAFAFA}
+
+/* report: fixed sidebar + fixed header, only the centre/right content pans */
+.frame[data-key="report"]{background:#FAFAFA}
+.rp-side,.rp-head,.rp-content{position:absolute;background-image:var(--f-report);
+  background-repeat:no-repeat;background-size:1512px 4502px}
+.rp-side{left:0;top:0;width:225px;height:982px;background-position:0 0;z-index:3}
+.rp-head{left:225px;top:0;width:1287px;height:56px;background-position:-225px 0;z-index:3}
+.rp-content{left:225px;top:56px;width:1287px;height:926px;background-position:-225px -56px;z-index:2;
+  transition:background-position 1.5s cubic-bezier(.4,.05,.2,1)}
+
+/* moving cursor */
+#cursor{position:absolute;left:0;top:0;z-index:40;pointer-events:none;opacity:0;
+  transition:left .9s cubic-bezier(.45,.05,.2,1),top .9s cubic-bezier(.45,.05,.2,1),opacity .35s;
+  filter:drop-shadow(0 4px 7px rgba(20,16,40,.4))}
+#cursor.show{opacity:1}
+#cursor .arw{width:34px;height:34px;display:block}
+#cursor .rip{position:absolute;left:6px;top:5px;width:18px;height:18px;border-radius:50%;
+  background:rgba(98,55,240,.5);transform:scale(0);opacity:0}
+#cursor.click .rip{animation:rip .55s ease-out}
+@keyframes rip{0%{transform:scale(0);opacity:.75}100%{transform:scale(5);opacity:0}}
+#cursor.press .arw{transform:scale(.82);transition:transform .12s}
+
+/* caption + controller */
+#cap{display:none!important;position:fixed;left:20px;bottom:22px;z-index:50;background:rgba(20,18,32,.82);backdrop-filter:blur(10px);
+  color:#fff;font-size:12.5px;padding:9px 14px;border-radius:12px;max-width:250px;line-height:1.4;
+  box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#cap b{color:#c9baff}
+@media (max-width:720px){#cap{display:none}}
+#cap,#ctl{transition:opacity .45s ease}
+.ui-hidden{opacity:0 !important;pointer-events:none}
+#ctl{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;
+  background:rgba(20,18,32,.82);backdrop-filter:blur(10px);border-radius:999px;padding:7px 8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);color:#fff;font-size:13px}
+#ctl button{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;border:none;background:none;cursor:pointer}
+#ctl button:hover{background:rgba(255,255,255,.14)}
+#ctl button svg{width:16px;height:16px}
+#ctl .steplabel{padding:0 8px;min-width:150px;text-align:center;font-weight:500;opacity:.92}
+#ctl .dots{display:flex;gap:5px;padding:0 6px}
+#ctl .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28)}
+#ctl .dots i.on{background:#fff}
+#ctl{display:none!important;}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <div class="frame" data-key="home" role="img" aria-label="VERSO — Home"></div>
+
+  <div class="frame" data-key="report" role="img" aria-label="VERSO — Study report">
+    <div class="rp-content" id="reportPane"></div>
+    <div class="rp-head"></div>
+    <div class="rp-side"></div>
+  </div>
+
+  <div class="frame" data-key="finding" role="img" aria-label="VERSO — Finding"></div>
+  <div class="frame" data-key="interview" role="img" aria-label="VERSO — Interview"></div>
+  <div class="frame" data-key="interviews" role="img" aria-label="VERSO — All interviews"></div>
+  <div class="frame" data-key="chatEmpty" role="img" aria-label="VERSO — Chat"></div>
+  <div class="frame" data-key="chatFull" role="img" aria-label="VERSO — Chat answer"></div>
+
+</div></div>
+
+<div id="cap"></div>
+<div id="ctl">
+  <button id="btnPlay" title="Lecture / Pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  <button id="btnPrev" title="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <span class="steplabel" id="stepLabel">1 / 7 · Home</span>
+  <div class="dots" id="dots"></div>
+  <button id="btnNext" title="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button id="btnRestart" title="Recommencer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 10a8 8 0 0 0-14-4M4 14a8 8 0 0 0 14 4"/></svg></button>
+</div>
+
+<script>
+/* scale to fit */
+var stage=document.getElementById('stage');
+function fit(){
+  var s=Math.min(window.innerWidth/1512, window.innerHeight/982);
+  if(!isFinite(s)||s<=0) s=0.2;
+  stage.style.transform='scale('+Math.max(0.2,s)+')';
+}
+window.addEventListener('resize',fit); fit();
+
+/* frames */
+var frames={};
+document.querySelectorAll('.frame').forEach(function(f){frames[f.dataset.key]=f});
+var reportPane=document.getElementById('reportPane');
+
+/* ordered STEPS: each = the screen shown + label */
+var STEPS=[
+  {key:'home',       label:'Home'},
+  {key:'report',     label:'Study report'},
+  {key:'finding',    label:'Finding'},
+  {key:'interviews', label:'All interviews'},
+  {key:'interview',  label:'Interview'},
+  {key:'chatEmpty',  label:'Chat'},
+  {key:'chatFull',   label:'Chat — answer'}
+];
+var idx=0, playing=false, token=0;
+
+function show(key){
+  Object.keys(frames).forEach(function(k){frames[k].classList.toggle('active', k===key)});
+  if(key==='report') reportPane.style.backgroundPosition='-225px -56px'; /* reset scroll on entry */
+}
+function setControls(i){
+  document.getElementById('stepLabel').textContent=(i+1)+' / '+STEPS.length+' · '+STEPS[i].label;
+  var d=document.getElementById('dots'); d.innerHTML='';
+  STEPS.forEach(function(_,k){var e=document.createElement('i'); if(k<=i)e.className='on'; d.appendChild(e)});
+}
+function goTo(i){ i=Math.max(0,Math.min(STEPS.length-1,i)); idx=i; show(STEPS[i].key); setControls(i); }
+
+/* cursor */
+var cursor=document.createElement('div');
+cursor.id='cursor';
+cursor.innerHTML='<svg class="arw" viewBox="0 0 24 24" fill="#fff" stroke="#241d47" stroke-width="1.3" stroke-linejoin="round"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg><span class="rip"></span>';
+stage.appendChild(cursor);
+function moveCursor(x,y){cursor.style.left=x+'px';cursor.style.top=y+'px';}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)});}
+function cap(html){document.getElementById('cap').innerHTML=html;}
+function updatePlay(){document.getElementById('btnPlay').innerHTML=playing
+  ?'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+  :'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';}
+
+async function clickAt(x,y,hold){
+  moveCursor(x,y);
+  await sleep(950);
+  cursor.classList.add('click','press');
+  await sleep(150); cursor.classList.remove('press');
+  setTimeout(function(){cursor.classList.remove('click')},550);
+  await sleep(hold||420);
+}
+
+function pause(){ if(!playing)return; playing=false; token++; cursor.classList.remove('show'); updatePlay(); cap(''); }
+
+async function tour(){
+  var my=++token; playing=true; updatePlay();
+  cursor.classList.add('show');
+  var A=function(){return my===token && playing};
+  while(A()){
+    // 1 HOME -> click study
+    goTo(0); cap('▶︎ <b>Lecture auto</b> — on ouvre une étude'); moveCursor(300,250);
+    await sleep(1200); if(!A())break;
+    await clickAt(560,525); if(!A())break;
+
+    // 2 REPORT -> pan -> click a finding
+    goTo(1); cap('Le <b>rapport d’étude</b> — on descend vers les findings');
+    await sleep(700); if(!A())break;
+    reportPane.style.backgroundPosition='-225px -696px';   /* scroll content to findings */
+    await sleep(1700); if(!A())break;
+    await clickAt(620,430); if(!A())break;
+
+    // 3 FINDING -> open the interviews
+    goTo(2); cap('');
+    await sleep(1700); if(!A())break;
+    await clickAt(600,352); if(!A())break;
+
+    // 4 ALL INTERVIEWS -> open one interview
+    goTo(3); cap('');
+    await sleep(2000); if(!A())break;
+    await clickAt(430,300); if(!A())break;
+
+    // 5 INTERVIEW detail -> open the chat
+    goTo(4); cap('');
+    await sleep(2500); if(!A())break;
+    await clickAt(120,400); if(!A())break;
+
+    // 6 CHAT empty -> ask a suggested question
+    goTo(5); cap('<b>Chat with AI</b> — on pose une question');
+    await sleep(1000); if(!A())break;
+    await clickAt(690,416,150); if(!A())break;
+
+    // 7 CHAT answer (crossfade to the answered frame)
+    goTo(6); cap('Réponse générée, sourcée, avec le <b>verbatim lié</b> à droite');
+    cursor.classList.remove('show');
+    await sleep(4800); if(!A())break;
+    cursor.classList.add('show');
+  }
+}
+
+/* controls */
+document.getElementById('btnPlay').addEventListener('click',function(){ playing?pause():tour(); });
+document.getElementById('btnNext').addEventListener('click',function(){ pause(); goTo(idx+1); });
+document.getElementById('btnPrev').addEventListener('click',function(){ pause(); goTo(idx-1); });
+document.getElementById('btnRestart').addEventListener('click',function(){ pause(); goTo(0); });
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'){pause();goTo(idx+1);}
+  if(e.key==='ArrowLeft'){pause();goTo(idx-1);}
+  if(e.key===' '){e.preventDefault();document.getElementById('btnPlay').click();}
+});
+/* clicks do not pause — clean auto-loop */
+
+/* auto-hide controls for a clean embedded look */
+var uiEls=[], hideT;
+function showUI(){uiEls.forEach(function(e){e.classList.remove('ui-hidden')}); clearTimeout(hideT);
+  hideT=setTimeout(function(){uiEls.forEach(function(e){e.classList.add('ui-hidden')})},2800);}
+['mousemove','keydown','touchstart','click'].forEach(function(ev){window.addEventListener(ev,showUI,true)});
+showUI();
+
+/* start */
+goTo(0);
+if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ updatePlay(); }
+else { tour(); }
+</script>
+</body>
+</html>

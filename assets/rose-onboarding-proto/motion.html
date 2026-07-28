@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rose — Onboarding motion</title>
+<style>
+:root{ --blue:#2563eb; --ink:#0f1728; }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow:hidden;color:var(--ink);
+  background:transparent;
+}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+
+/* floating browser window */
+#stage{position:relative;width:1280px;height:844px;flex:0 0 auto;transform-origin:center center;
+  overflow:hidden;background:#faf9f5;
+}
+
+/* chrome */
+#chrome{display:none!important;position:absolute;top:0;left:0;right:0;height:44px;z-index:60;display:flex;align-items:center;gap:16px;
+  padding:0 18px;background:linear-gradient(#fdfdfe,#f3f4f8);border-bottom:1px solid rgba(15,23,40,.08)}
+#chrome .dots{display:flex;gap:8px}
+#chrome .dots i{width:11px;height:11px;border-radius:50%;display:block}
+#chrome .dots i:nth-child(1){background:#ff5f57}
+#chrome .dots i:nth-child(2){background:#febc2e}
+#chrome .dots i:nth-child(3){background:#28c840}
+#urlbar{flex:1;max-width:520px;margin:0 auto;height:28px;border-radius:8px;background:#fff;
+  border:1px solid rgba(15,23,40,.08);display:flex;align-items:center;gap:8px;padding:0 12px;
+  font-size:12.5px;color:#7a8496;box-shadow:inset 0 1px 2px rgba(15,23,40,.04)}
+#urlbar svg{width:12px;height:12px;flex:0 0 auto;opacity:.7}
+#urlbar .u b{color:var(--ink);font-weight:600}
+#chrome .spacer{width:52px;flex:0 0 auto}
+
+/* screen holds the iframes */
+#screen{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;background:#faf9f5}
+.pane{position:absolute;inset:0;border:0;width:1280px;height:844px;opacity:0;visibility:hidden;
+  transition:opacity .6s ease,visibility .6s;z-index:1;background:#faf9f5}
+.pane.on{opacity:1;visibility:visible;z-index:2}
+
+/* cursor */
+#cursor{position:absolute;left:0;top:0;z-index:55;pointer-events:none;opacity:0;
+  transition:left .9s cubic-bezier(.45,.05,.2,1),top .9s cubic-bezier(.45,.05,.2,1),opacity .3s;
+  filter:drop-shadow(0 5px 8px rgba(20,30,80,.4))}
+#cursor.show{opacity:1}
+#cursor .arw{width:28px;height:28px;display:block}
+#cursor .rip{position:absolute;left:4px;top:3px;width:18px;height:18px;border-radius:50%;
+  background:rgba(37,99,235,.5);transform:scale(0);opacity:0}
+#cursor.click .rip{animation:rip .6s ease-out}
+@keyframes rip{0%{transform:scale(0);opacity:.75}100%{transform:scale(5.5);opacity:0}}
+#cursor.press .arw{transform:scale(.82);transition:transform .12s}
+
+/* caption + controller */
+#cap{display:none!important;position:fixed;left:22px;bottom:24px;z-index:80;background:rgba(15,20,45,.85);backdrop-filter:blur(12px);
+  color:#fff;font-size:13px;padding:10px 15px;border-radius:13px;max-width:300px;line-height:1.45;
+  box-shadow:0 12px 34px rgba(16,24,60,.32);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+#cap.on{opacity:1;transform:translateY(0)}
+#cap b{color:#a9c6ff;font-weight:600}
+@media (max-width:760px){#cap{display:none}}
+#ctl{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:6px;
+  background:rgba(15,20,45,.85);backdrop-filter:blur(12px);border-radius:999px;padding:7px 8px;
+  box-shadow:0 12px 34px rgba(16,24,60,.32);color:#fff;font-size:13px}
+#ctl button{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;border:none;background:none;cursor:pointer}
+#ctl button:hover{background:rgba(255,255,255,.14)}
+#ctl button svg{width:16px;height:16px}
+#ctl .steplabel{padding:0 10px;min-width:190px;text-align:center;font-weight:500;opacity:.95}
+#ctl .dots{display:flex;gap:5px;padding:0 6px}
+#ctl .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);transition:background .3s,width .3s;cursor:pointer}
+#ctl .dots i.on{background:#fff}
+#ctl .dots i.cur{width:16px;border-radius:3px;background:#7aa7ff}
+#ctl{display:none!important;}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <div id="chrome">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div id="urlbar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <span class="u"><b id="host">rose.ai</b><span id="path"></span></span>
+    </div>
+    <span class="spacer"></span>
+  </div>
+
+  <div id="screen">
+    <iframe id="fOnb"    class="pane"    src="src/onboarding.html"></iframe>
+    <iframe id="fHome"   class="pane"    src="src/home.html"></iframe>
+    <iframe id="fConfig" class="pane"    src="src/config.html"></iframe>
+    <iframe id="fPlay"   class="pane"    src="src/playground.html"></iframe>
+  </div>
+
+</div></div>
+
+<div id="cap"></div>
+<div id="ctl">
+  <button id="btnPlay" title="Lecture / Pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  <button id="btnPrev" title="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <span class="steplabel" id="stepLabel">Onboarding</span>
+  <div class="dots" id="dots"></div>
+  <button id="btnNext" title="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button id="btnRestart" title="Recommencer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 10a8 8 0 0 0-14-4M4 14a8 8 0 0 0 14 4"/></svg></button>
+</div>
+
+<script>
+/* ---------- scale to fit ---------- */
+var stage=document.getElementById('stage');
+var STAGE_W=1280, STAGE_H=844;
+function fit(){
+  var vw=window.innerWidth, vh=window.innerHeight;
+  var s=Math.min(vw/STAGE_W, vh/STAGE_H);
+  if(!isFinite(s)||s<=0) s=0.2;
+  stage.style.transform='scale('+Math.max(0.2,s)+')';
+}
+window.addEventListener('resize',fit); fit();
+
+/* ---------- refs ---------- */
+var screenEl=document.getElementById('screen');
+var fOnb=document.getElementById('fOnb'), fHome=document.getElementById('fHome'),
+    fConfig=document.getElementById('fConfig'), fPlay=document.getElementById('fPlay');
+var panes={onb:fOnb,home:fHome,config:fConfig,play:fPlay};
+var pathEl=document.getElementById('path'), hostEl=document.getElementById('host');
+
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)});}
+function show(name){ Object.keys(panes).forEach(function(k){panes[k].classList.toggle('on',k===name)}); }
+function url(host,p){ hostEl.textContent=host; pathEl.textContent=p||''; }
+
+/* ---------- cursor ---------- */
+var cursor=document.createElement('div');
+cursor.id='cursor';
+cursor.innerHTML='<svg class="arw" viewBox="0 0 24 24" fill="#fff" stroke="#1a2340" stroke-width="1.3" stroke-linejoin="round"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg><span class="rip"></span>';
+screenEl.appendChild(cursor);
+function moveCursor(x,y){cursor.style.left=x+'px';cursor.style.top=y+'px';}
+
+/* ---------- caption + controller ---------- */
+var capEl=document.getElementById('cap');
+function cap(html){ if(!html){capEl.classList.remove('on');return;} capEl.innerHTML=html; capEl.classList.add('on'); }
+function updatePlay(){document.getElementById('btnPlay').innerHTML=playing
+  ?'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+  :'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';}
+
+var CHAPTERS=[
+  {key:'onb',    label:'Onboarding'},
+  {key:'home',   label:'Dashboard'},
+  {key:'config', label:'Config Studio'},
+  {key:'play',   label:'Playground'}
+];
+var chap=0, playing=false, token=0;
+function setChapter(i){
+  chap=i;
+  document.getElementById('stepLabel').textContent=CHAPTERS[i].label;
+  var d=document.getElementById('dots'); d.innerHTML='';
+  CHAPTERS.forEach(function(_,k){var e=document.createElement('i'); if(k<i)e.className='on'; if(k===i)e.className='cur';
+    e.onclick=function(){ pause(); seekChapter(k); }; d.appendChild(e)});
+}
+
+/* ---------- drive the real onboarding iframe ---------- */
+function odoc(){ try{return fOnb.contentDocument}catch(e){return null} }
+function btn(re){ var d=odoc(); if(!d)return null; return [].slice.call(d.querySelectorAll('button')).find(function(b){return re.test((b.textContent||'').trim())})||null; }
+function q(sel){ var d=odoc(); return d?d.querySelector(sel):null; }
+function setNativeValue(el,val){
+  var proto=el.tagName==='TEXTAREA'?el.ownerDocument.defaultView.HTMLTextAreaElement.prototype
+                                    :el.ownerDocument.defaultView.HTMLInputElement.prototype;
+  Object.getOwnPropertyDescriptor(proto,'value').set.call(el,val);
+  el.dispatchEvent(new Event('input',{bubbles:true}));
+  el.dispatchEvent(new Event('change',{bubbles:true}));
+}
+function centerOf(el){ var r=el.getBoundingClientRect(); return {x:r.left+r.width/2, y:r.top+r.height/2}; }
+
+async function toEl(el){ if(!el)return false; var c=centerOf(el); moveCursor(c.x,c.y); await sleep(850); return true; }
+async function ripple(){ cursor.classList.add('click','press'); await sleep(140); cursor.classList.remove('press');
+  setTimeout(function(){cursor.classList.remove('click')},600); await sleep(260); }
+async function clickEl(el,guard){ if(!await toEl(el))return false; if(guard&&!guard())return false; await ripple(); el.click(); return true; }
+async function typeInto(el,text,guard){
+  if(!await toEl(el))return false;
+  el.focus();
+  var v='';
+  for(var i=0;i<text.length;i++){ if(guard&&!guard())return false; v+=text[i]; setNativeValue(el,v); await sleep(45); }
+  await sleep(250); return true;
+}
+function waitLoad(f){ return new Promise(function(res){ var done=false; function on(){ if(done)return; done=true; setTimeout(res,650); }
+  f.addEventListener('load',on,{once:true}); }); }
+function reloadOnb(){ var p=waitLoad(fOnb); try{ fOnb.contentWindow.location.reload(); }catch(e){ fOnb.src=fOnb.src; } return p; }
+
+/* ---------- the tour ---------- */
+async function tour(){
+  var my=++token; playing=true; updatePlay();
+  var A=function(){return my===token && playing};
+  var firstRun=(my===1);
+
+  while(A()){
+    /* ---- Chapter 1 : Onboarding (drive the real screens) ---- */
+    setChapter(0); url('rose.ai','/start');
+    show('onb');
+    if(firstRun){ firstRun=false; } else { await reloadOnb(); if(!A())break; }
+    cursor.classList.add('show'); moveCursor(640,420);
+    await sleep(700); if(!A())break;
+
+    cap("Le parcours d’onboarding <b>self-serve</b> de Rose, de bout en bout.");
+    await clickEl(btn(/try in rose/i),A); if(!A())break;
+    await sleep(950); if(!A())break;
+
+    cap("Création du compte — <b>juste un email pro</b>, pas de mot de passe.");
+    await typeInto(q('input[type=email]'),'nelly@hexa.co',A); if(!A())break;
+    await clickEl(btn(/continue with email/i),A); if(!A())break;
+    await sleep(900); if(!A())break;
+
+    cap("Un <b>lien magique</b> est envoyé — un clic et c’est parti.");
+    await clickEl(btn(/open the link/i),A); if(!A())break;
+    await sleep(1000); if(!A())break;
+
+    url('rose.ai','/setup');
+    cap("<b>Étape 1/4</b> — Rose lit tout ton site pour se former.");
+    await typeInto(q('input[placeholder="www.example.com"]'),'hexa.co',A); if(!A())break;
+    await clickEl(btn(/^continue/i),A); if(!A())break;
+    await sleep(1100); if(!A())break;
+
+    cap("<b>Étape 2/4</b> — le nom de marque, pré-rempli depuis le domaine.");
+    await sleep(700); if(!A())break;
+    await clickEl(btn(/^continue/i),A); if(!A())break;
+    await sleep(1000); if(!A())break;
+
+    cap("<b>Étape 3/4</b> — la langue par défaut de l’agent.");
+    await sleep(700); if(!A())break;
+    await clickEl(btn(/^continue/i),A); if(!A())break;
+    await sleep(1000); if(!A())break;
+
+    cap("<b>Étape 4/4</b> — le <b>ton</b> de l’agent.");
+    var balanced=(function(){ var d=odoc(); if(!d)return null;
+      var n=[].slice.call(d.querySelectorAll('*')).find(function(e){return e.children.length<=3 && /^Balanced/.test((e.textContent||'').trim()) && /recommended/i.test(e.textContent)});
+      if(!n)return null; var t=n; while(t&&t!==d.body){ if(t.getBoundingClientRect().height>50 && t.getBoundingClientRect().height<130){break;} t=t.parentElement; } return t||n;
+    })();
+    await clickEl(balanced,A); if(!A())break;
+    await sleep(500); if(!A())break;
+    await clickEl(btn(/create my agent/i),A); if(!A())break;
+
+    cap("Rose assemble l’agent à partir du site…");
+    await sleep(2600); if(!A())break;   // "Loading … " → pricing
+
+    url('rose.ai','/go-live');
+    cap("L’agent est <b>prêt à passer en ligne</b> — choix du plan.");
+    await sleep(5200); if(!A())break;
+
+    /* ---- Chapter 2 : Dashboard Home ---- */
+    setChapter(1); show('home'); url('app.userose.ai','/home');
+    cursor.classList.remove('show');
+    cap("Direction le <b>dashboard</b> : Rose a fini de lire le site (210 pages).");
+    await sleep(3600); if(!A())break;
+
+    /* ---- Chapter 3 : Config Studio ---- */
+    setChapter(2); show('config'); url('app.userose.ai','/config-studio');
+    cap("<b>Config Studio</b> — chaque agent (Website, Nurturing, Handoff…) se configure ici.");
+    await sleep(3600); if(!A())break;
+
+    /* ---- Chapter 4 : Playground ---- */
+    setChapter(3); show('play'); url('app.userose.ai','/playground');
+    cap("<b>Playground</b> — on teste l’agent en live avant de publier.");
+    await sleep(3800); if(!A())break;
+
+    cap('');
+    await sleep(600); if(!A())break;
+    /* loop */
+  }
+}
+
+/* ---------- controls ---------- */
+function pause(){ if(!playing)return; playing=false; token++; cursor.classList.remove('show'); updatePlay(); cap(''); }
+function seekChapter(i){
+  i=Math.max(0,Math.min(CHAPTERS.length-1,i));
+  setChapter(i);
+  if(i===0){ show('onb'); url('rose.ai','/start'); }
+  else if(i===1){ show('home'); url('app.userose.ai','/home'); }
+  else if(i===2){ show('config'); url('app.userose.ai','/config-studio'); }
+  else { show('play'); url('app.userose.ai','/playground'); }
+}
+document.getElementById('btnPlay').addEventListener('click',function(){ playing?pause():tour(); });
+document.getElementById('btnNext').addEventListener('click',function(){ pause(); seekChapter(chap+1); });
+document.getElementById('btnPrev').addEventListener('click',function(){ pause(); seekChapter(chap-1); });
+document.getElementById('btnRestart').addEventListener('click',function(){ pause(); tour(); });
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'){pause();seekChapter(chap+1);}
+  if(e.key==='ArrowLeft'){pause();seekChapter(chap-1);}
+  if(e.key===' '){e.preventDefault();document.getElementById('btnPlay').click();}
+});
+
+/* ---------- start once the onboarding frame is ready ---------- */
+setChapter(0); show('onb');
+if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ updatePlay(); }
+else{
+  if(fOnb.contentDocument && fOnb.contentDocument.readyState==='complete'){ tour(); }
+  else{ fOnb.addEventListener('load',function(){ if(!playing) tour(); },{once:true}); setTimeout(function(){ if(!playing) tour(); },2500); }
+}
+</script>
+</body>
+</html>

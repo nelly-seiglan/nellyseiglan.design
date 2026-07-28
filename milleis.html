@@ -1,306 +1,380 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Milleis · Nelly Seiglan</title>
-  <meta name="description" content="Milleis, growing a private bank's mobile app from everyday banking into a wealth platform, for two very different audiences at once. Case study by Nelly Seiglan, Lead Product Designer.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/case.css">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milleis · Nelly Seiglan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;overflow-x:clip;}
+  body{background:#FCFBF4;color:#1A1A1A;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-family:'Inter',sans-serif;letter-spacing:-0.011em;}
+  a{color:inherit;text-decoration:none;}
+  a.tlink{color:#1A1A1A;box-shadow:inset 0 -2px 0 oklch(94.5% 0.129 101.54);transition:box-shadow .25s;}
+  a.tlink:hover{box-shadow:inset 0 -10px 0 oklch(94.5% 0.129 101.54);}
+  img,video{display:block;max-width:100%;}
+  ::selection{background:oklch(94.5% 0.129 101.54);color:#1A1A1A;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  @keyframes nudge{0%,100%{transform:translateY(-3px);}50%{transform:translateY(4px);}}
+  [data-dd]:hover [data-dd-menu],[data-dd]:focus-within [data-dd-menu]{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important;}
+  [data-dd]:hover [data-chev],[data-dd]:focus-within [data-chev]{transform:rotate(180deg);}
+  [data-dd]:hover::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;}
+  @keyframes slidein{from{opacity:0;transform:translateX(70px);}to{opacity:1;transform:none;}}
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  [data-reveal]{animation:rise .85s cubic-bezier(.22,1,.36,1) both;}
+  [data-slide]{animation:slidein .9s cubic-bezier(.22,1,.36,1) both;}
+  @supports (animation-timeline: view()){[data-reveal],[data-slide]{animation-timeline:view();animation-range:entry 0% cover 20%;}}
+  @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
+  @media (hover:none){[data-cursor]{display:none!important;}}
+  @media (max-width:900px){[data-2col]{grid-template-columns:1fr!important;}[data-3col]{grid-template-columns:1fr!important;}[data-4col]{grid-template-columns:repeat(2,1fr)!important;}[data-hide-sm]{display:none!important;}[data-meta]>div:nth-child(3){padding-left:0!important;}}
+
+  @media (max-width:760px){[data-navburger]{display:inline-flex!important;}[data-navlinks]{position:absolute;top:60px;right:14px;left:auto;min-width:232px;max-width:calc(100vw - 28px);flex-direction:column;align-items:stretch!important;gap:2px!important;background:var(--white);border:1px solid var(--hair);border-radius:18px;padding:10px;box-shadow:0 24px 60px -28px rgba(26,26,26,.45);display:none!important;}[data-navlinks].open{display:flex!important;}[data-navlinks]>a,[data-navlinks] [data-dd-trigger]{width:100%;padding:12px 14px!important;border-radius:12px!important;font-size:15px!important;margin:0!important;}[data-navlinks] [data-dd]{width:100%;}[data-navlinks] [data-dd-trigger]{justify-content:space-between;}[data-navlinks] [data-dd-menu]{position:static!important;inset:auto!important;transform:none!important;width:100%!important;max-width:100%!important;box-shadow:none!important;border:none!important;padding:2px 0 2px 8px!important;min-width:0!important;background:transparent!important;display:none!important;visibility:visible!important;opacity:1!important;}[data-navlinks] [data-dd]:hover [data-dd-menu],[data-navlinks] [data-dd]:focus-within [data-dd-menu]{display:flex!important;transform:none!important;left:auto!important;}}
+</style>
 </head>
-<body data-bg="haze" data-grain="on" data-motion="subtle">
+<body>
+<div data-root style="position:relative;--paper:#FCFBF4;--white:#FFFFFF;--cream:#FBF7E7;--butter-soft:#FAF8DC;--lime:oklch(94.5% 0.129 101.54);--ink:#1A1A1A;--ink2:rgba(26,26,26,.62);--ink3:rgba(26,26,26,.42);--hair:rgba(26,26,26,.09);--hair2:rgba(26,26,26,.16);--accent:#B2C8F4;--accent-soft:#EAF0FC;--shadow:0 16px 44px -28px rgba(26,26,26,.32);--shadow-sm:0 8px 24px -18px rgba(26,26,26,.28);--pill:100px;--sans:'Inter',sans-serif;--ease:cubic-bezier(.22,1,.36,1);font-family:var(--sans);">
 
-  
+  <div data-progress aria-hidden="true" style="position:fixed;top:63px;left:0;height:2px;width:0;background:var(--lime);z-index:1100;transition:width .1s linear;"></div>
 
-  <div class="curtain" id="curtain"><span class="curtain-mark">Nelly Seiglan</span></div>
-  <div class="page-halo" id="page-halo" aria-hidden="true"></div>
-  <canvas id="haze-canvas" aria-hidden="true"></canvas>
-  <div class="bg-aurora" aria-hidden="true"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
-  <div class="bg-grain" aria-hidden="true"></div>
-
-  <nav class="nav">
-    <a href="index.html" class="nav-brand" data-cursor="">NS</a>
-    <div class="nav-links">
-      <a href="index.html#home">Home</a>
-      <div class="nav-dd">
-        <button type="button" class="nav-dd-trigger active" aria-haspopup="true" aria-expanded="false">Projects <span class="chev">▼</span></button>
-        <div class="nav-dd-menu" role="menu">
-          <a href="verso.html" role="menuitem">Verso <span class="ix">01</span></a>
-          <a href="rose.html" role="menuitem">Rose <span class="ix">02</span></a>
-          <a href="kolecto.html" role="menuitem">Kolecto <span class="ix">03</span></a>
-          <a href="milleis.html" role="menuitem">Milleis <span class="ix">04</span></a>
-          <a href="index.html#work" class="nav-dd-all" role="menuitem">All projects ↓</a>
+  <nav data-nav style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(252,251,244,.82);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--hair);transition:box-shadow .4s var(--ease);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:64px;">
+      <a href="index.html" data-hover style="font-size:16px;font-weight:600;letter-spacing:-.02em;">Nelly Seiglan</a>
+      <button data-navburger aria-label="Menu" onclick="document.querySelector('[data-navlinks]').classList.toggle('open')" style="display:none;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:6px;color:var(--ink);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div data-navlinks style="display:flex;align-items:center;gap:8px;">
+        <a href="index.html" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">Home</a>
+        <div data-dd style="position:relative;">
+          <button type="button" data-dd-trigger data-hover style="display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--ink);background:var(--butter-soft);border:none;cursor:pointer;padding:9px 16px;border-radius:var(--pill);">Projects <svg data-chev width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .3s var(--ease);margin-top:1px;"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div data-dd-menu style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:242px;padding:8px;display:flex;flex-direction:column;gap:2px;background:var(--white);border:1px solid var(--hair);border-radius:20px;box-shadow:var(--shadow);visibility:hidden;pointer-events:none;">
+            <a href="verso.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Verso <span style="font-size:11px;color:var(--ink3);">01</span></a>
+            <a href="rose.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Rose <span style="font-size:11px;color:var(--ink3);">02</span></a>
+            <a href="kolecto.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;transition:background .2s;" style-hover="background:var(--butter-soft);">Kolecto <span style="font-size:11px;color:var(--ink3);">03</span></a>
+            <a href="milleis.html" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:600;padding:11px 15px;border-radius:12px;background:var(--butter-soft);" >Milleis <span style="font-size:11px;color:var(--ink3);">04</span></a>
+            <a href="index.html#work" data-hover style="display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:500;padding:11px 15px;border-radius:12px;color:var(--ink2);border-top:1px solid var(--hair);margin-top:4px;transition:background .2s;" style-hover="background:var(--butter-soft);">All projects <span style="font-size:11px;color:var(--ink3);">↓</span></a>
+          </div>
         </div>
+        <a href="index.html#about" data-hover style="font-size:14.5px;font-weight:500;color:var(--ink2);padding:9px 16px;border-radius:var(--pill);transition:color .25s,background .25s;" style-hover="color:var(--ink);background:var(--butter-soft);">About</a>
+        <a href="index.html#contact" data-hover data-magnet style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);margin-left:8px;">Get in touch <span>↗</span></a>
       </div>
-      <a href="index.html#about">About</a>
     </div>
-    <a href="index.html#contact" class="nav-cta" data-cursor="say hi">Get in touch</a>
   </nav>
 
-  <main class="page">
+  <section style="padding:142px 0 44px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:26px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+        <span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">Case study 04 · Private banking</span>
+        <span style="flex:1;height:1px;background:var(--hair);"></span>
+      </div>
+      <h1 data-reveal data-reveal-delay="80" style="font-weight:560;letter-spacing:-.035em;line-height:.98;font-size:clamp(3.2rem,9vw,7.4rem);margin-bottom:28px;">Milleis</h1>
+      <p data-reveal data-reveal-delay="160" style="font-size:1.3rem;line-height:1.48;color:var(--ink2);max-width:62ch;margin-bottom:44px;">Growing a private bank’s app from everyday banking into a full wealth platform, for two very different audiences, in one product.</p>
+      <div data-reveal data-reveal-delay="240" data-meta data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);">
+        <div style="background:var(--paper);padding:22px 24px 22px 0;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Role</div><div style="font-size:1rem;font-weight:500;">Lead Product Designer</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Timeline</div><div style="font-size:1rem;font-weight:500;">1 year</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Team</div><div style="font-size:1rem;font-weight:500;">2 designers + eng</div></div><div style="background:var(--paper);padding:22px 24px;"><div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Scope</div><div style="font-size:1rem;font-weight:500;">Research · UX/UI · Design System</div></div>
+      </div></div>
+  </section>
 
-    <!-- ════════ HERO ════════ -->
-    <section class="case-hero">
-      <div class="shell">
-        <h1 class="case-title r">Milleis</h1>
-        <p class="case-sum r r-d1">Growing a private bank's app from everyday banking into a full wealth platform, for two very different audiences, in one product.</p>
-        <div class="meta-strip r r-d2">
-          <div><div class="k">Role</div><div class="v">Lead Product Designer</div></div>
-          <div><div class="k">Timeline</div><div class="v">1 year</div></div>
-          <div><div class="k">Team</div><div class="v">2 designers + eng team</div></div>
-          <div><div class="k">Scope</div><div class="v">User Research · UX/UI · Design System</div></div>
+  <section style="padding:16px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#b2c8f4,#dbe5f9);overflow:hidden;padding:48px 44px;position:relative;">
+        <div data-4col style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:center;">
+          <img src="assets/milleis-home.png" alt="Milleis app screen" loading="lazy" style="width:100%;height:auto;border-radius:14px;box-shadow:0 26px 54px -26px rgba(20,32,64,.55);"><img src="assets/milleis-accounts.png" alt="Milleis app screen" loading="lazy" style="width:100%;height:auto;border-radius:14px;box-shadow:0 26px 54px -26px rgba(20,32,64,.55);"><img src="assets/milleis-portfolio.png" alt="Milleis app screen" loading="lazy" style="width:100%;height:auto;border-radius:14px;box-shadow:0 26px 54px -26px rgba(20,32,64,.55);"><img src="assets/milleis-banker.png" alt="Milleis app screen" loading="lazy" style="width:100%;height:auto;border-radius:14px;box-shadow:0 26px 54px -26px rgba(20,32,64,.55);"><img src="assets/milleis-messages.png" alt="Milleis app screen" loading="lazy" style="width:100%;height:auto;border-radius:14px;box-shadow:0 26px 54px -26px rgba(20,32,64,.55);">
+        </div>
+        
+      </div></div>
+  </section>
+
+  <section style="padding:52px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal data-3col style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);box-shadow:0 18px 40px -30px rgba(26,26,26,.3);padding:28px 26px;"><div style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);background:var(--accent-soft);border-radius:100px;padding:5px 12px;margin-bottom:16px;">Challenge</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Turn a daily-banking app into a wealth platform, without losing either audience.</p></div>
+        <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);box-shadow:0 18px 40px -30px rgba(26,26,26,.3);padding:28px 26px;"><div style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);background:var(--accent-soft);border-radius:100px;padding:5px 12px;margin-bottom:16px;">My role</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink2);">Led research, IA &amp; navigation, the visual system, and 2 designers embedded in feature teams.</p></div>
+        <div style="border-radius:20px;background:var(--accent-soft);box-shadow:0 14px 34px -30px rgba(26,26,26,.2);padding:28px 26px;"><div style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--white);border-radius:100px;padding:5px 12px;margin-bottom:16px;">Outcome</div><p style="font-size:1.02rem;line-height:1.5;color:var(--ink);">App Store rating 2.7 → 4.7, and new product bets unlocked.</p></div>
+      </div></div>
+  </section>
+
+  <section style="padding:64px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-2col style="display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start;">
+        <div data-reveal style="">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Context</span></div>
+          <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:20px;">One app, two worlds.</h2>
+          <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:16px;">Milleis’s app only did everyday banking. The bank was expanding into investment and wanted the full portfolio on the phone, without alienating its historical clients, and while attracting a newer, more financial profile.</p><p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:16px;">The hard part wasn’t features. It was serving <strong style="color:var(--ink);font-weight:600;">two opposite mental models</strong> inside a single, coherent product.</p>
+        </div>
+        <div data-reveal data-reveal-delay="100" style="display:grid;gap:14px;">
+          <div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);box-shadow:0 18px 40px -30px rgba(26,26,26,.3);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">Historical clients</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">Older, less digital, deeply loyal. They open the app to check balances and reassure themselves.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Needs · clarity &amp; trust</span></div><div style="border-radius:20px;background:var(--white);border:1px solid var(--hair);box-shadow:0 18px 40px -30px rgba(26,26,26,.3);padding:26px;"><div style="font-size:1.15rem;font-weight:600;letter-spacing:-.02em;margin-bottom:9px;">New wealth clients</div><p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:14px;">Younger, finance-savvy, performance-driven. They want positions, performance and markets, fast.</p><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Needs · depth &amp; control</span></div>
+        </div>
+      </div></div>
+  </section>
+
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;"><div style="max-width:74ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Process · 1 year, embedded in feature teams</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">How I worked it, end to end.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">A continuous loop, not a waterfall. Research and testing ran alongside design the whole way through.</p>
         </div>
       </div>
-    </section>
+      <div data-reveal data-reveal-delay="80" data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">01</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">User interviews</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Both audiences, in their own words.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Discover</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">02</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">Priority personas</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Two profiles, one product to serve them.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Discover</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">03</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">Navigation maps</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Mapped every screen, end to end.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Structure</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">04</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">Visual territories</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Two worlds, one identity.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Define</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">05</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">Design system</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Components scaled across the app.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Systemize</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">06</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">Screen redesign</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Screen by screen, in feature teams.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Design</span></div>
+        <div style="border-radius:18px;background:var(--white);border:1px solid var(--hair);padding:22px 20px;display:flex;flex-direction:column;gap:10px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);">07</span><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.02em;">User testing</span><p style="font-size:.9rem;line-height:1.45;color:var(--ink2);flex:1;">Validated continuously to launch.</p><span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">Validate</span></div>
+        <div style="border-radius:18px;background:var(--accent-soft);padding:22px 20px;display:flex;align-items:flex-end;"><p style="font-size:.95rem;line-height:1.45;color:var(--ink);">Then a workshop with the Comex and the CEO to win buy-in on a bold navigation call.</p></div>
+      </div></div>
+  </section>
 
-    <!-- ════════ MEDIA ════════ -->
-    <section class="case-media">
-      <div class="shell">
-        <div class="case-frame r" data-video="assets/milleis.mp4" data-cursor="play">
-          <video autoplay="" muted="" loop="" playsinline="" preload="metadata"><source src="assets/milleis.mp4" type="video/mp4"></video>
-          <span class="play-hint">▶ play walkthrough</span>
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;"><div style="max-width:74ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Navigation · the technical core</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">I rebuilt how the whole app is navigated.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">I mapped every screen and tested several navigation systems with real users. The breakthrough was organising the entire app by <strong style="color:var(--ink);font-weight:600;">interaction depth</strong>, ranking information by how much it matters, and how fast it has to be reachable.</p>
         </div>
       </div>
-    </section>
+      <div data-reveal data-reveal-delay="80" data-4col style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+        <div style="border-radius:20px;background:var(--accent-soft);box-shadow:0 14px 34px -30px rgba(26,26,26,.2);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="align-self:flex-start;display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--white);border-radius:100px;padding:5px 12px;margin-bottom:14px;">No click</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">The essential</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">Total assets, accounts, the one number each client opens the app for.</p></div><div style="border-radius:20px;background:var(--accent-soft);box-shadow:0 14px 34px -30px rgba(26,26,26,.2);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="align-self:flex-start;display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--white);border-radius:100px;padding:5px 12px;margin-bottom:14px;">1 click</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">Everyday actions</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">Transfers, cards, beneficiaries, placed in the thumb zone, not a burger menu.</p></div><div style="border-radius:20px;background:var(--accent-soft);box-shadow:0 14px 34px -30px rgba(26,26,26,.2);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="align-self:flex-start;display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--white);border-radius:100px;padding:5px 12px;margin-bottom:14px;">2 clicks</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">The depth</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">Account detail, portfolio performance, positions and allocation.</p></div><div style="border-radius:20px;background:var(--accent-soft);box-shadow:0 14px 34px -30px rgba(26,26,26,.2);padding:26px 24px;min-height:190px;display:flex;flex-direction:column;"><span style="align-self:flex-start;display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--white);border-radius:100px;padding:5px 12px;margin-bottom:14px;">3 clicks</span><span style="font-size:1.18rem;font-weight:600;letter-spacing:-.025em;margin-bottom:10px;">The rare</span><p style="font-size:.95rem;line-height:1.48;color:var(--ink2);">Edge settings and one-off operations, kept out of the way.</p></div>
+      </div>
+      <div data-reveal data-reveal-delay="120" style="border-radius:22px;background:linear-gradient(150deg,#eaf0fc,#dbe5f9);padding:40px 44px;margin-top:16px;position:relative;">
+        <img src="assets/milleis-navmap.png" alt="Navigation map of the full Milleis app, organised by interaction depth" loading="lazy" style="width:100%;height:auto;border-radius:12px;box-shadow:0 26px 54px -26px rgba(20,32,64,.4);background:#fff;">
+        
+      </div></div>
+  </section>
 
-    <!-- ════════ AT A GLANCE ════════ -->
-    <section style="padding: 8px 0 76px;">
-      <div class="shell">
-        <div class="glance r">
-          <div><div class="k">Challenge</div><div class="v">Turn a daily-banking app into a wealth platform, without losing either audience.</div></div>
-          <div><div class="k">My role</div><div class="v">Led research, IA &amp; navigation, the visual system, and 2 designers in feature teams.</div></div>
-          <div><div class="k">Outcome</div><div class="v">App Store rating 2.7 → 4.7, and new product bets unlocked.</div></div>
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;"><div style="max-width:74ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">The bet</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">Two universes in one app.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">Rather than averaging the two audiences into one bland middle, I split the app into two visual worlds that share a single navigation and identity, so each client feels at home without fragmenting the product.</p><p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">Same components, same grid, two atmospheres. The shift in colour, contrast and imagery signals “which world am I in”, with zero added navigation cost.</p>
         </div>
       </div>
-    </section>
+      <div data-2col style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div data-reveal style="border-radius:22px;background:linear-gradient(160deg,#efe8da,#e4d9c3);padding:34px 34px 0;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="display:flex;gap:7px;margin-bottom:16px;"><span style="width:15px;height:15px;border-radius:50%;background:#efe8da;box-shadow:inset 0 0 0 1px rgba(26,26,26,.15);"></span><span style="width:15px;height:15px;border-radius:50%;background:#c89a5b;"></span><span style="width:15px;height:15px;border-radius:50%;background:#2b2317;"></span></div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.5);margin-bottom:8px;">Banque au quotidien</div>
+          <div style="font-size:1.5rem;font-weight:600;letter-spacing:-.03em;margin-bottom:10px;">Everyday</div>
+          <p style="font-size:.98rem;line-height:1.5;color:var(--ink2);margin-bottom:26px;">Warm and beige, the codes of luxury and Milleis’s heritage. Familiar and reassuring for historical clients.</p>
+          <img src="assets/milleis-home.png" alt="Milleis everyday home dashboard" loading="lazy" style="width:64%;margin:auto auto 0;border-radius:16px 16px 0 0;box-shadow:0 -8px 44px -20px rgba(43,35,23,.6);">
+        </div>
+        <div data-reveal data-reveal-delay="90" style="border-radius:22px;background:linear-gradient(160deg,#131722,#0b0c10);color:var(--paper);padding:34px 34px 0;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="display:flex;gap:7px;margin-bottom:16px;"><span style="width:15px;height:15px;border-radius:50%;background:#0b0c10;box-shadow:inset 0 0 0 1px rgba(252,251,244,.25);"></span><span style="width:15px;height:15px;border-radius:50%;background:#3b82f6;"></span><span style="width:15px;height:15px;border-radius:50%;background:#c89a5b;"></span></div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(252,251,244,.5);margin-bottom:8px;">Invest</div>
+          <div style="font-size:1.5rem;font-weight:600;letter-spacing:-.03em;margin-bottom:10px;">Wealth &amp; markets</div>
+          <p style="font-size:.98rem;line-height:1.5;color:rgba(252,251,244,.68);margin-bottom:26px;">Darker and focused, with a blue accent I introduced. Built for the new, more financial client.</p>
+          <img src="assets/milleis-portfolio.png" alt="Milleis portfolio performance, invest universe" loading="lazy" style="width:64%;margin:auto auto 0;border-radius:16px 16px 0 0;box-shadow:0 -8px 44px -20px rgba(0,0,0,.9);">
+        </div>
+      </div></div>
+  </section>
 
-    <!-- ════════ CONTEXT / TENSION ════════ -->
-    <section class="block" style="border-top:none; padding-top:8px;">
-      <div class="shell">
-        <div class="split">
-          <div class="read r">
-            <span class="kicker"><span class="dot"></span>Context</span>
-            <h2>One app, two worlds.</h2>
-            <p>Milleis's app only did everyday banking. The bank was expanding into investment and wanted the full portfolio on the phone, without alienating its historical clients, and while attracting a newer, more financial profile.</p>
-            <p>The hard part wasn't features. It was serving <span class="accent" style="font-weight:600">two opposite mental models</span> inside a single, coherent product.</p>
-          </div>
-          <div class="audiences r r-d1">
-            <div class="aud">
-              <div class="who">Historical clients</div>
-              <div class="desc">Older, less digital, deeply loyal. They open the app to check balances and reassure themselves.</div>
-              <span class="need">needs · clarity &amp; trust</span>
-            </div>
-            <div class="aud">
-              <div class="who">New wealth clients</div>
-              <div class="desc">Younger, finance-savvy, performance-driven. They want positions, performance and markets, fast.</div>
-              <span class="need">needs · depth &amp; control</span>
-            </div>
-          </div>
+  <section style="padding:70px 0 12px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-top:1px solid var(--hair);padding-top:46px;margin-bottom:34px;"><div style="max-width:74ch;">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span><span style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);">Design system</span></div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px;">One system, the whole app.</h2>
+        <p style="font-size:1.08rem;line-height:1.56;color:var(--ink2);margin-bottom:14px;">I built a solid design system, then worked design-to-cost with engineering: reusing it to ship every feature of the app in just a few months.</p>
         </div>
       </div>
-    </section>
+      <div data-reveal data-reveal-delay="80" style="border-radius:22px;background:linear-gradient(150deg,#eaf0fc,#dbe5f9);padding:40px 44px;">
+        <img src="assets/milleis-universes.png" alt="Milleis design system applied across both universes" loading="lazy" style="width:100%;height:auto;border-radius:12px;box-shadow:0 26px 54px -26px rgba(20,32,64,.4);">
+      </div></div>
+  </section>
 
-    <!-- ════════ PROCESS TIMELINE ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 38px;">
-          <span class="kicker"><span class="dot"></span>Process · 1 year, embedded in feature teams</span>
-          <h2>How I worked it, end to end.</h2>
-          <p class="lead">A continuous loop, not a waterfall, research and testing ran alongside design the whole way through.</p>
+  <section style="padding:74px 0 20px;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal data-2col style="border-radius:28px;background:var(--accent);padding:clamp(32px,4.5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);align-items:center;">
+        <div>
+          <div style="font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(26,26,26,.5);margin-bottom:18px;">Impact</div>
+          <div style="font-weight:600;font-size:clamp(3rem,7vw,5.6rem);letter-spacing:-.045em;line-height:.9;color:var(--ink);">2.7 <span style="color:rgba(26,26,26,.4);">&rarr;</span> <span data-count data-to="4.7" data-dec="1" data-suffix="★">0★</span></div>
+          <div style="font-size:13.5px;color:rgba(26,26,26,.58);margin-top:14px;margin-bottom:24px;">App Store rating, within months</div>
+          <p style="font-size:1.06rem;line-height:1.55;color:var(--ink);opacity:.8;margin-bottom:28px;max-width:42ch;">Enough trust earned to unlock further work, including AI tools for the private bankers.</p>
+          <a href="https://www.milleis.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:13px 24px;border-radius:var(--pill);transition:gap .25s;" style-hover="gap:14px;">Visit milleis.fr ↗</a>
         </div>
-        <div class="timeline r r-d1">
-          <div class="phase"><div class="dot">01</div><div class="ph-name">User interviews</div><div class="ph-note">Both audiences, in their own words.</div><span class="ph-tag">Discover</span></div>
-          <div class="phase"><div class="dot">02</div><div class="ph-name">Priority personas</div><div class="ph-note">Two profiles, one product to serve them.</div><span class="ph-tag">Discover</span></div>
-          <div class="phase"><div class="dot">03</div><div class="ph-name">Navigation maps</div><div class="ph-note">Mapped every screen, end to end.</div><span class="ph-tag">Structure</span></div>
-          <div class="phase"><div class="dot">04</div><div class="ph-name">Visual territories</div><div class="ph-note">Two worlds, one identity.</div><span class="ph-tag">Define</span></div>
-          <div class="phase"><div class="dot">05</div><div class="ph-name">Design system</div><div class="ph-note">Components scaled across the app.</div><span class="ph-tag">Systemize</span></div>
-          <div class="phase"><div class="dot">06</div><div class="ph-name">Screen redesign</div><div class="ph-note">Screen by screen, in feature teams.</div><span class="ph-tag">Design</span></div>
-          <div class="phase"><div class="dot">07</div><div class="ph-name">User testing</div><div class="ph-note">Validated continuously to launch.</div><span class="ph-tag">Validate</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:rgba(255,255,255,.62);border-radius:16px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);">User testing strong throughout</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.42);white-space:nowrap;">Research</span></div>
+            <div style="background:rgba(255,255,255,.62);border-radius:16px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);">AI tools unlocked</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.42);white-space:nowrap;">Next</span></div>
+            <div style="background:rgba(255,255,255,.62);border-radius:16px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><span style="font-size:1.02rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);">Private banking</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,26,26,.42);white-space:nowrap;">Scope</span></div>
         </div>
+      </div></div>
+  </section>
+
+  <section style="padding:60px 0 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><a href="verso.html" data-hover data-label="case study" style="display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--hair);padding:44px 0 54px;transition:opacity .3s;" style-hover="opacity:.62;">
+        <span><span style="display:block;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;">Next project</span><span style="display:block;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;letter-spacing:-.04em;line-height:1;">Verso</span></span>
+        <span style="font-size:2rem;">→</span>
+      </a></div>
+  </section>
+  <footer style="border-top:1px solid var(--hair);padding:34px 0;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <span style="font-size:12.5px;color:var(--ink3);">© 2026 Nelly Seiglan · Lead Product Designer</span>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover aria-label="LinkedIn" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" data-hover aria-label="Substack" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px;"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"/></svg></a>
+        <a href="mailto:nelly.sgn@gmail.com" data-hover aria-label="Email" style="color:var(--ink3);transition:color .25s;" style-hover="color:var(--ink);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
       </div>
-    </section>
-
-    <!-- ════════ NAVIGATION, THE CRAFT ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>Navigation · the technical core</span>
-          <h2>I rebuilt how the whole app is navigated.</h2>
-          <p>I mapped every screen and tested several navigation systems with real users. The breakthrough was organising the entire app by <span class="accent" style="font-weight:600">interaction depth</span>, ranking information by how much it matters, and how fast it has to be reachable.</p>
-        </div>
-
-        <!-- the IA depth principle -->
-        <div class="depth r r-d1">
-          <div class="tier t1">
-            <div class="lvl">No click</div>
-            <div class="what">The essential</div>
-            <div class="ex">Total assets, accounts, the one number each client opens the app for.</div>
-          </div>
-          <div class="tier t2">
-            <div class="lvl">1 click</div>
-            <div class="what">Everyday actions</div>
-            <div class="ex">Transfers, cards, beneficiaries, placed in the thumb zone, not a burger menu.</div>
-          </div>
-          <div class="tier t3">
-            <div class="lvl">2 clicks</div>
-            <div class="what">The depth</div>
-            <div class="ex">Account detail, portfolio performance, positions and allocation.</div>
-          </div>
-          <div class="tier t4">
-            <div class="lvl">3 clicks</div>
-            <div class="what">The rare</div>
-            <div class="ex">Edge settings and one-off operations, kept out of the way.</div>
-          </div>
-        </div>
-
-        <!-- the navmap artifact -->
-        <figure class="artifact wide r r-d2" style="margin-top: 32px;">
-          <span class="zoom-hint">Real artifact · full app flow</span>
-          <img src="assets/milleis-navmap.png" alt="Navigation map of the full Milleis app, organised by interaction depth: no click, 1 click, 2 clicks, 3 clicks" loading="lazy">
-          <figcaption class="artifact-cap">Navigation map · the full app mapped end to end, by depth</figcaption>
-        </figure>
-
-        <p class="pull r" style="margin-top: 46px;">Then I ran a workshop with the Comex and the CEO to win buy-in on a <span class="accent">bold navigation call</span>.</p>
-      </div>
-    </section>
-
-    <!-- ════════ THE BET, TWO UNIVERSES ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 32px;">
-          <span class="kicker"><span class="dot"></span>The bet</span>
-          <h2>Two universes in one app.</h2>
-          <p>Rather than averaging the two audiences into one bland middle, I split the app into two visual worlds that share a single navigation and identity, so each client feels at home without fragmenting the product.</p>
-        </div>
-        <div class="universes r r-d1">
-          <div class="uni uni--day">
-            <span class="tag">Banque au quotidien</span>
-            <h3>Everyday</h3>
-            <p>Warm and beige, the codes of luxury and Milleis's heritage. Familiar and reassuring for historical clients.</p>
-          </div>
-          <div class="uni uni--invest">
-            <span class="tag">Invest</span>
-            <h3>Wealth &amp; markets</h3>
-            <p>Darker and focused, with a blue accent I introduced. Built for the new, more financial client.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ VISUAL TERRITORIES + REAL SCREENS ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>Craft · the screens</span>
-          <h2>Two territories, made real.</h2>
-          <p>Same components, same grid, two atmospheres. The shift in colour, contrast and imagery does the work of signalling “which world am I in”, with zero added navigation cost.</p>
-        </div>
-        <div class="territories r r-d1">
-          <div class="terr terr--day">
-            <div class="terr-head">
-              <div class="swatches"><span class="sw" style="background:#efe8da"></span><span class="sw" style="background:#c89a5b"></span><span class="sw" style="background:#2b2317"></span></div>
-              <div class="terr-name">Everyday</div>
-              <div class="terr-desc">Beige, warmth, generous serif headlines. Balances and accounts at a glance.</div>
-            </div>
-            <div class="terr-shots">
-              <div class="mini-phone"><img src="assets/milleis-home.png" alt="Milleis everyday home dashboard" loading="lazy"></div>
-            </div>
-          </div>
-          <div class="terr terr--invest">
-            <div class="terr-head">
-              <div class="swatches"><span class="sw" style="background:#0b0c10"></span><span class="sw" style="background:#3b82f6"></span><span class="sw" style="background:#c89a5b"></span></div>
-              <div class="terr-name">Invest</div>
-              <div class="terr-desc">Cool, focused, data-forward. Portfolio performance and markets.</div>
-            </div>
-            <div class="terr-shots">
-              <div class="mini-phone"><img src="assets/milleis-portfolio.png" alt="Milleis portfolio performance, invest universe" loading="lazy"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ DESIGN SYSTEM + LEADERSHIP ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 36px;">
-          <span class="kicker"><span class="dot"></span>Design system</span>
-          <h2>One system, the whole app.</h2>
-          <p>I built a solid design system, then worked design-to-cost with engineering: reusing it to ship every feature of the app in just a few months.</p>
-        </div>
-        <div class="features-stage r r-d1" role="img" aria-label="The full Milleis app: every feature built from one design system">
-          <div class="feat-track">
-            <div class="feat-group">
-              <div class="feat-phone"><img src="assets/milleis-home.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-accounts.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-portfolio.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-banker.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-messages.png" alt="" loading="lazy"></div>
-            </div>
-            <div class="feat-group" aria-hidden="true">
-              <div class="feat-phone"><img src="assets/milleis-home.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-accounts.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-portfolio.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-banker.png" alt="" loading="lazy"></div>
-              <div class="feat-phone"><img src="assets/milleis-messages.png" alt="" loading="lazy"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ IMPACT ════════ -->
-    <section class="block">
-      <div class="shell">
-        <div class="read r" style="margin-bottom: 30px;">
-          <span class="kicker"><span class="dot"></span>Impact</span>
-        </div>
-        <div class="impact-row r r-d1">
-          <div class="stat">2.7 <span class="from">→</span> <span class="accent" data-to="4.7" data-dec="1" data-suffix="★">0★</span></div>
-          <div class="impact-text">
-            <p>App Store ratings climbed within a few months of launch, with user testing strong all the way through.</p>
-            <p>The redesign earned enough trust to unlock further work, including AI tools for Milleis's private bankers to cut compliance risk.</p>
-            <a href="https://www.milleis.fr/" target="_blank" rel="noopener" class="web-link" data-cursor="visit">Visit milleis.fr ↗</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════ NEXT ════════ -->
-    <section class="next">
-      <div class="shell">
-        <a href="verso.html" data-cursor="case study">
-          <span><span class="lab">Next project</span><span class="nm">Verso</span></span>
-          <span class="arr">→</span>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="shell">
-        <div class="footer-row">
-          <span class="left">© 2026 Nelly Seiglan · Lead Product Designer</span>
-          <div class="footer-social">
-            <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" aria-label="LinkedIn" data-cursor="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a href="https://nellyseiglan.substack.com/" target="_blank" rel="noopener" aria-label="Substack" data-cursor="read"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v3h20V4zM2 9.5V22l10-5.5L22 22V9.5H2z"></path></svg></a>
-            <a href="mailto:nelly.sgn@gmail.com" aria-label="Email" data-cursor="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a>
-          </div>
-          <div class="footer-meta">v2.0 · Designed &amp; built with Claude<br>Continuously shipping</div>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <div id="lightbox" class="video-lightbox" aria-hidden="true">
-    <div class="video-lightbox-content">
-      <button type="button" class="video-lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-      <video class="video-lightbox-player" id="lightbox-video" controls="" loop="" playsinline=""></video>
     </div>
-  </div>
+  </footer>
 
-  
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll('[style-hover]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){el.setAttribute('data-sh-base',el.getAttribute('style')||'');el.setAttribute('style',(el.getAttribute('style')||'')+';'+el.getAttribute('style-hover'));});
+    el.addEventListener('mouseleave',function(){el.setAttribute('style',el.getAttribute('data-sh-base')||'');});
+  });
 
 
-  <script src="assets/app.js"></script>
-</body></html>
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target, d = +el.dataset.revealDelay || 0;
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+    const cio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        const el = e.target;
+        if (!e.isIntersecting) { el.dataset.counting = '0'; return; }
+        if (el.dataset.counting === '1') return;
+        el.dataset.counting = '1';
+        const to = parseFloat(el.dataset.to) || 0, dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '';
+        const dur = 1500; let s = null;
+        const step = (t) => {
+          if (!s) s = t;
+          const p = Math.min((t - s) / dur, 1), e2 = 1 - Math.pow(1 - p, 3);
+          el.textContent = (to * e2).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + suf;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+
+    // restart looping demo iframes / videos from the top when you scroll back to them
+    const dio = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        const el = e.target;
+        if (e.isIntersecting) {
+          if (el.dataset.wasOut === '1') {
+            el.dataset.wasOut = '0';
+            if (el.tagName === 'IFRAME') { el.src = el.src; }
+            else if (el.tagName === 'VIDEO') { try { el.currentTime = 0; el.play().catch(() => {}); } catch (e2) {} }
+          }
+        } else { el.dataset.wasOut = '1'; }
+      });
+    }, { threshold: 0.25 });
+
+    const wired = new WeakSet();
+    const scan = () => {
+      $$('[data-reveal]').forEach(el => io.observe(el));
+      $$('[data-count]').forEach(el => cio.observe(el));
+      $$('iframe:not([data-wt-screen]), video').forEach(el => { if (wired.has(el)) return; wired.add(el); dio.observe(el); });
+
+      $$('[data-wt]').forEach(wt => {
+        if (wired.has(wt)) return; wired.add(wt);
+        const screens = $$('[data-wt-screen]', wt), dots = $$('[data-wt-dot]', wt), cap = $('[data-wt-cap]', wt);
+        if (!screens.length) return;
+        let i = 0, timer = null;
+        const go = (n) => {
+          i = (n + screens.length) % screens.length;
+          screens.forEach((s, j) => { s.style.opacity = j === i ? '1' : '0'; });
+          dots.forEach((d, j) => {
+            d.style.background = j === i ? 'var(--ink)' : 'rgba(26,26,26,.22)';
+            d.style.width = j === i ? '26px' : '14px';
+          });
+          if (cap) cap.textContent = screens[i].dataset.wtCapText || '';
+        };
+        const play = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
+        dots.forEach((d, j) => d.addEventListener('click', () => { go(j); play(); }));
+        const vio = new IntersectionObserver((es) => {
+          es.forEach(e => { if (e.isIntersecting) play(); else clearInterval(timer); });
+        }, { threshold: 0.25 });
+        vio.observe(wt);
+        go(0);
+      });
+
+      const ivStream = $('[data-iv-stream]');
+      if (ivStream && !wired.has(ivStream)) {
+        wired.add(ivStream);
+        const Q = 'You mentioned that the seat looks super comfortable and that the backpack looks good. Is there anything in particular about its design or feature that stands out to you, either positively or negatively?';
+        let running = false;
+        const play = () => {
+          if (running) return; running = true;
+          let k = 0;
+          const type = () => {
+            ivStream.textContent = Q.slice(0, k); k++;
+            if (k <= Q.length) setTimeout(type, 28);
+            else setTimeout(() => { ivStream.textContent = ''; running = false; setTimeout(play, 600); }, 2600);
+          };
+          type();
+        };
+        const qio = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) play(); }); }, { threshold: 0.4 });
+        qio.observe(ivStream);
+      }
+
+      $$('[data-magnet]').forEach(el => {
+        if (wired.has(el)) return; wired.add(el);
+        el.style.transition = 'transform .3s cubic-bezier(.22,1,.36,1), background .25s ease';
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * 0.08 + 'px,' + (e.clientY - r.top - r.height / 2) * 0.12 + 'px)';
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+      });
+
+      const ring = $('[data-cursor]');
+      if (ring) {
+        $$('[data-hover]').forEach(el => {
+          if (wired.has(el)) return; wired.add(el);
+          el.addEventListener('mouseenter', () => {
+            const l = el.dataset.label || '';
+            ring.style.width = l ? '58px' : '30px';
+            ring.style.height = l ? '58px' : '30px';
+            ring.style.background = 'transparent';
+            ring.style.boxShadow = 'inset 0 0 0 1.5px rgba(26,26,26,.55)';
+            ring.textContent = l;
+          });
+          el.addEventListener('mouseleave', () => {
+            ring.style.width = '9px'; ring.style.height = '9px';
+            ring.style.background = 'var(--ink)'; ring.style.boxShadow = 'none'; ring.textContent = '';
+          });
+        });
+      }
+
+      const dd = $('[data-dd]');
+      if (dd && !wired.has(dd)) {
+        wired.add(dd);
+        const menu = $('[data-dd-menu]', dd), chev = $('[data-chev]', dd);
+        const open = () => { menu.style.opacity = '1'; menu.style.visibility = 'visible'; menu.style.pointerEvents = 'auto'; menu.style.transform = 'translateX(-50%) translateY(0)'; if (chev) chev.style.transform = 'rotate(180deg)'; };
+        const close = () => { menu.style.opacity = '0'; menu.style.visibility = 'hidden'; menu.style.pointerEvents = 'none'; menu.style.transform = 'translateX(-50%) translateY(-6px)'; if (chev) chev.style.transform = 'rotate(0)'; };
+        dd.addEventListener('mouseenter', open);
+        dd.addEventListener('mouseleave', close);
+      }
+    };
+
+    scan();
+    [250, 900, 2200].forEach(t => setTimeout(scan, t));
+
+    const ring = $('[data-cursor]');
+    if (ring && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      document.documentElement.style.cursor = 'none';
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+      const loop = () => {
+        rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
+        ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
+
+    const prog = $('[data-progress]'), nav = $('[data-nav]');
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog) prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      if (nav) nav.style.boxShadow = window.scrollY > 30 ? '0 14px 34px -24px rgba(26,26,26,.35)' : 'none';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VERSO — Research assistant · Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAFA; --card:#FFFFFF; --ink:#1A1A1A; --ink-2:#3A3A3A;
+  --muted:#8A8A8A; --muted-2:#B4B4B4; --line:#ECECEC; --line-2:#E3E3E3;
+  --purple:#6237F0; --purple-2:#7559F9; --purple-3:#AE98F5; --purple-soft:#EFEBFE;
+  --hl:#E7E5FB;
+  --live:#C6E9FF; --live-ink:#2C6A8F; --draft:#FFF0B5; --draft-ink:#8A6D14;
+  --done:#E3FFBA; --done-ink:#4C7A17;
+  --serif:'Bodoni Moda', Georgia, serif;
+  --sans:'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow-card:0 1px 2px rgba(16,16,32,.04), 0 6px 20px rgba(16,16,32,.05);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(1200px 700px at 15% -10%, #f3f0ff 0%, transparent 55%),
+    radial-gradient(1100px 800px at 110% 120%, #eef3ff 0%, transparent 50%),
+    #EDECEF;
+  color:var(--ink);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+svg{display:block}
+
+/* ---------- Stage / scale-to-fit ---------- */
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{
+  position:relative;width:1512px;height:982px;flex:0 0 auto;
+  transform-origin:center center;
+  border-radius:22px;overflow:hidden;background:var(--bg);
+  box-shadow:0 40px 120px -30px rgba(30,24,60,.45), 0 0 0 1px rgba(255,255,255,.6);
+}
+
+/* ---------- Screens ---------- */
+.screen{
+  position:absolute;inset:0;background:var(--bg);
+  opacity:0;visibility:hidden;transform:translateY(10px) scale(.995);
+  transition:opacity .5s ease, transform .55s cubic-bezier(.22,.7,.2,1), visibility .5s;
+  display:flex;
+}
+.screen.active{opacity:1;visibility:visible;transform:none;z-index:2}
+
+/* ---------- Sidebar ---------- */
+.side{width:225px;flex:0 0 225px;background:var(--card);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;padding:20px 14px;transition:width .45s cubic-bezier(.22,.7,.2,1),flex-basis .45s cubic-bezier(.22,.7,.2,1)}
+.brand{display:flex;align-items:center;gap:9px;padding:6px 8px 22px}
+.brand .mark{width:26px;height:26px;flex:0 0 26px}
+.brand .name{font-weight:700;letter-spacing:.14em;font-size:16px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav .sep{height:1px;background:var(--line);margin:12px 6px}
+.nav a{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:11px;color:#4b4b4b;font-size:14.5px;font-weight:500;white-space:nowrap}
+.nav a svg{width:17px;height:17px;flex:0 0 17px;color:#6b6b6b}
+.nav a.active{background:#F2F2F3;color:#111}
+.nav a.active svg{color:#111}
+.nav a:hover:not(.active){background:#F7F7F8}
+.side .foot{margin-top:auto;display:flex;flex-direction:column;gap:14px;padding:8px}
+.collapse{display:flex;align-items:center;gap:10px;color:#6b6b6b;font-size:14px;font-weight:500}
+.collapse svg{width:17px;height:17px}
+.bcg{font-weight:800;letter-spacing:.06em;color:#2f5d3a;font-size:13px}
+.back-studies{display:flex;align-items:center;gap:8px;color:#4b4b4b;font-size:14px;font-weight:500;padding:6px 8px 18px}
+.back-studies svg{width:16px;height:16px}
+.brand-foot{margin-top:auto;display:flex;align-items:center;gap:8px;padding:10px 8px}
+.brand-foot .mark{width:22px;height:22px}
+.brand-foot .name{font-weight:700;letter-spacing:.14em;font-size:14px}
+
+/* icon-only collapsed rail (chat answered) */
+.side.rail{width:66px;flex-basis:66px;align-items:center;padding:20px 8px}
+.side.rail .brand .name,.side.rail .nav a span,.side.rail .collapse span,
+.side.rail .back-studies span,.side.rail .brand-foot .name,.side.rail .bcg{display:none}
+.side.rail .nav a{justify-content:center;padding:11px}
+.side.rail .brand{justify-content:center;padding:6px 0 22px}
+.side.rail .back-studies{justify-content:center}
+
+/* ---------- Main / header ---------- */
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{height:64px;flex:0 0 64px;border-bottom:1px solid var(--line);display:flex;align-items:center;
+  justify-content:space-between;padding:0 26px;background:var(--bg)}
+.topbar .t-left{display:flex;align-items:center;gap:12px;font-weight:600;font-size:17px}
+.topbar .t-right{display:flex;align-items:center;gap:18px}
+.topbar .link-ic{display:flex;align-items:center;gap:7px;color:#5a5a5a;font-size:14.5px;font-weight:500}
+.topbar .link-ic svg{width:16px;height:16px}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;line-height:1}
+.badge.live{background:var(--live);color:var(--live-ink)}
+.badge.draft{background:var(--draft);color:var(--draft-ink)}
+.badge.done{background:var(--done);color:var(--done-ink)}
+.btn-primary{background:var(--purple);color:#fff;font-weight:600;font-size:14.5px;padding:10px 16px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 16px -6px rgba(98,55,240,.7)}
+.btn-primary svg{width:15px;height:15px}
+.btn-primary:hover{filter:brightness(1.06)}
+
+/* ---------- HOME ---------- */
+.home-body{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:60px 40px}
+.home-hero{font-family:var(--serif);font-weight:600;font-size:40px;letter-spacing:-.01em;text-align:center}
+.home-sub{color:var(--muted);font-size:16px;margin-top:12px;text-align:center}
+.ask{width:715px;max-width:100%;margin-top:34px;background:#fff;border:1.5px solid var(--purple-3);border-radius:16px;
+  padding:22px 22px 16px;box-shadow:0 10px 30px -18px rgba(98,55,240,.35);position:relative}
+.ask .ph{color:#9a9a9a;font-size:16px}
+.ask .ask-foot{display:flex;align-items:center;gap:8px;color:#9a9a9a;font-size:13.5px;margin-top:34px}
+.ask .ask-foot svg{width:15px;height:15px}
+.ask .send{position:absolute;right:16px;bottom:14px;width:38px;height:38px;border-radius:50%;background:var(--purple);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -6px rgba(98,55,240,.8)}
+.ask .send svg{width:18px;height:18px;color:#fff}
+.chips{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+.chip{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:9px 15px;font-size:13.5px;color:#4b4b4b;
+  display:inline-flex;align-items:center;gap:7px}
+.chip svg{width:13px;height:13px;color:var(--purple)}
+.recent{width:1052px;max-width:100%;margin-top:56px}
+.recent-head{display:flex;align-items:center;justify-content:between;justify-content:space-between;margin-bottom:18px}
+.recent-head h3{font-family:var(--serif);font-weight:600;font-size:22px}
+.recent-head .all{color:var(--purple);font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
+.recent-head .all svg{width:14px;height:14px}
+.study-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.study{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px 16px;min-height:150px;
+  display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease;position:relative}
+.study:hover{transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.study .s-top{display:flex;align-items:center;justify-content:space-between}
+.study .fmt{display:flex;align-items:center;gap:6px;color:#8a8a8a;font-size:13px}
+.study .fmt svg{width:14px;height:14px}
+.study h4{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.25;margin-top:16px}
+.study .s-meta{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:16px;color:#9a9a9a;font-size:12.5px;
+  border-top:1px solid var(--line);}
+.study .s-meta .pp{display:flex;align-items:center;gap:6px}
+.study .s-meta svg{width:14px;height:14px}
+.study.new{border:1.5px dashed var(--line-2);align-items:center;justify-content:center;text-align:center;background:#fcfcfc}
+.study.new .plus{width:42px;height:42px;border-radius:50%;background:var(--purple-soft);display:flex;align-items:center;justify-content:center;color:var(--purple);margin-bottom:12px}
+.study.new .plus svg{width:20px;height:20px}
+.study.new .nt{font-weight:600;font-size:15px}
+.study.new .nd{color:#9a9a9a;font-size:12.5px;margin-top:5px}
+
+/* ---------- REPORT ---------- */
+.report-body{flex:1;overflow:auto;padding:0}
+.report-inner{max-width:885px;margin:0 auto;padding:44px 20px 120px}
+.metabar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.metapill{display:flex;align-items:center;gap:9px;border:1px solid var(--line-2);border-radius:12px;padding:11px 16px;font-size:14px;color:#3a3a3a;background:#fff}
+.metapill .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#c9b8ff,#8f74e6)}
+.metapill svg{width:15px;height:15px;color:#c07}
+.sec-label{font-size:13px;font-weight:600;color:#9a9a9a;letter-spacing:.02em}
+.h-block{font-weight:700;font-size:19px;margin:0 0 14px}
+.report-inner .exec p{color:#3a3a3a;font-size:14.5px;line-height:1.62;margin-bottom:16px}
+.tldr{margin-top:6px}
+.tldr .row{margin-bottom:14px}
+.tldr .row b{display:block;font-size:14.5px;color:#1a1a1a;margin-bottom:3px}
+.tldr .row span{color:#4b4b4b;font-size:14px;line-height:1.55}
+.divider{height:1px;background:var(--line);margin:40px 0}
+.learning .ll{font-size:13px;font-weight:600;color:#9a9a9a;margin-bottom:8px}
+.learning h2{font-weight:700;font-size:24px;line-height:1.28;letter-spacing:-.01em}
+.learning .lsub{color:#8a8a8a;font-size:14.5px;margin-top:10px}
+.finding-row{display:grid;grid-template-columns:1fr 265px;gap:48px;align-items:center;padding:28px 0;border-top:1px solid var(--line);cursor:pointer;position:relative;transition:background .2s ease}
+.finding-row:first-of-type{border-top:1px solid var(--line)}
+.finding-row:hover{background:#fff}
+.finding-row .fr-pad{padding:0 10px}
+.finding-row h3{font-weight:700;font-size:17px;line-height:1.35;margin-bottom:10px}
+.finding-row p{color:#4b4b4b;font-size:14px;line-height:1.55}
+.finding-row .quotes{display:inline-flex;align-items:center;gap:8px;margin-top:16px;border:1px solid var(--line-2);border-radius:999px;padding:6px 12px 6px 6px;font-size:13px;color:#5a5a5a}
+.finding-row .quotes .av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#c9b8ff,#8f74e6)}
+.finding-row .go{position:absolute;right:14px;top:50%;transform:translateY(-50%);opacity:0;color:var(--purple);transition:opacity .2s}
+.finding-row:hover .go{opacity:1}
+.vthumb{border-radius:12px;overflow:hidden;position:relative;aspect-ratio:265/200;background:linear-gradient(160deg,#3a3a44,#20202a);box-shadow:var(--shadow-card)}
+.vthumb .play{position:absolute;inset:0;margin:auto;width:52px;height:52px}
+.vthumb .cnt{position:absolute;left:12px;bottom:34px;color:#fff;font-size:12px;opacity:.9}
+.vthumb .ctrls{position:absolute;left:0;right:0;bottom:0;height:30px;background:rgba(0,0,0,.28);display:flex;align-items:center;gap:14px;padding:0 12px;color:#fff}
+.vthumb .ctrls svg{width:13px;height:13px;opacity:.9}
+
+/* ---------- FINDING ---------- */
+.finding-main{flex:1;display:flex;min-width:0}
+.finding-col{flex:1;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
+.finding-toolbar{height:64px;flex:0 0 64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.ft-left{display:flex;align-items:center;gap:14px;font-weight:600;font-size:15.5px}
+.ft-left .arrow{width:20px;height:20px;color:#5a5a5a;cursor:pointer}
+.ft-left .ro{color:#8a8a8a;font-weight:500}
+.pager{display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);border-radius:999px;padding:4px 10px;font-size:13px;color:#5a5a5a}
+.pager svg{width:14px;height:14px}
+.ft-right{display:flex;align-items:center;gap:16px}
+.ft-right .ic{color:#7a7a7a}.ft-right .ic svg{width:18px;height:18px}
+.finding-scroll{flex:1;overflow:auto;padding:36px 44px 60px}
+.finding-scroll .q-parent{color:#9a9a9a;font-size:14.5px;margin-bottom:14px}
+.finding-scroll h1{font-family:var(--serif);font-weight:600;font-size:32px;line-height:1.18;letter-spacing:-.01em;margin-bottom:22px}
+.finding-scroll p{color:#3a3a3a;font-size:15px;line-height:1.62;margin-bottom:16px}
+.pullquote{border-left:3px solid var(--purple-3);padding:4px 0 4px 16px;font-style:italic;color:#2a2a2a;font-size:15px;margin:6px 0 18px;
+  cursor:pointer;border-radius:0 6px 6px 0;transition:background .2s ease}
+.pullquote:hover{background:#f5f2ff}
+.wordcard{border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-top:18px;background:#fff}
+.wordcard h4{font-weight:700;font-size:16px;margin-bottom:22px}
+.bar-row{margin-bottom:18px}
+.bar-row .bl{display:flex;justify-content:space-between;font-size:14px;color:#333;margin-bottom:8px}
+.bar-track{height:12px;border-radius:999px;background:#ECEAF1;overflow:hidden}
+.bar-fill{display:block;height:100%;border-radius:999px;background:var(--purple-2);width:0;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+
+.finding-aside{width:445px;flex:0 0 445px;display:flex;flex-direction:column;background:#fff}
+.player{margin:0}
+.player .vid{aspect-ratio:445/250;background:linear-gradient(160deg,#3c3c46,#1e1e28);position:relative}
+.player .vid .play{position:absolute;inset:0;margin:auto;width:56px;height:56px}
+.scrub{padding:14px 18px;border-bottom:1px solid var(--line)}
+.scrub .bar{height:4px;border-radius:999px;background:#e6e6e6;position:relative;margin-bottom:12px}
+.scrub .bar i{position:absolute;left:0;top:0;height:100%;width:32%;background:var(--purple);border-radius:999px}
+.scrub .row{display:flex;align-items:center;justify-content:space-between;color:#6a6a6a}
+.scrub .row .l{display:flex;align-items:center;gap:16px}
+.scrub .row .l svg{width:16px;height:16px}
+.scrub .row .t{font-size:13px;margin-left:6px}
+.scrub .row .r{display:flex;align-items:center;gap:16px;font-size:13px}
+.scrub .row .r svg{width:16px;height:16px}
+.aside-quotes{flex:1;overflow:auto;padding:6px 18px 20px}
+.qt{padding:18px 0;border-bottom:1px solid var(--line)}
+.qt .head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.qt .head .av{width:26px;height:26px;border-radius:50%;background:#EDEBF6;color:#6b5bbd;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.qt .head .who{font-size:13.5px;color:#4b4b4b}
+.qt p{font-size:13.5px;line-height:1.55;color:#333;cursor:pointer;border-radius:6px;transition:background .2s}
+.qt p:hover{background:#f5f2ff}
+
+/* ---------- INTERVIEW ---------- */
+.iv-main{flex:1;display:flex;flex-direction:column}
+.iv-top{height:64px;flex:0 0 64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.iv-top .l{display:flex;align-items:center;gap:14px}
+.iv-top .arrow{width:20px;height:20px;color:#5a5a5a;cursor:pointer}
+.iv-top .who{font-weight:600;font-size:17px}
+.iv-top .r{display:flex;align-items:center;gap:14px;color:#8a8a8a;font-size:14px}
+.iv-top .r .nav-ar{width:32px;height:32px;border-radius:9px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center}
+.iv-top .r .nav-ar svg{width:15px;height:15px}
+.iv-cols{flex:1;display:flex;min-height:0}
+.iv-left{flex:1;overflow:auto;padding:34px 40px;border-right:1px solid var(--line)}
+.iv-left h3{font-weight:700;font-size:17px;margin-bottom:18px}
+.aisum p{display:flex;gap:10px;color:#333;font-size:14.5px;line-height:1.6;margin-bottom:16px}
+.aisum p .ar{color:var(--purple);flex:0 0 auto;font-weight:700}
+.iv-left .sub-sep{height:1px;background:var(--line);margin:24px 0}
+.iv-left .iq{border-left:3px solid var(--purple-3);padding:2px 0 2px 14px;font-style:italic;color:#333;font-size:14.5px;margin-bottom:16px}
+.topics{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.topic{font-size:12.5px;padding:6px 12px;border-radius:999px}
+.t-green{background:#E3FFBA;color:#4c7a17}.t-peach{background:#FFE3CF;color:#9a5a22}
+.t-pink{background:#F3D9F6;color:#8f3a99}.t-blue{background:#D6E4FF;color:#2f5aa8}
+.iv-right{width:520px;flex:0 0 520px;display:flex;flex-direction:column;background:#fff}
+.iv-right .vid{aspect-ratio:520/300;background:linear-gradient(160deg,#3c3c46,#1e1e28);position:relative}
+.iv-right .vid .play{position:absolute;inset:0;margin:auto;width:64px;height:64px}
+.transcript{flex:1;overflow:auto;padding:0}
+.tr-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+.tr-head svg{width:16px;height:16px;color:#8a8a8a}
+.tr-q{padding:18px 22px;border-bottom:1px solid var(--line)}
+.tr-q .q{color:#9a9a9a;font-size:13.5px;margin-bottom:8px}
+.tr-q .a{color:#333;font-size:14px;line-height:1.6}
+
+/* ---------- INTERVIEWS LIST ---------- */
+.list-body{flex:1;display:flex;flex-direction:column;min-height:0}
+.list-toolbar{display:flex;align-items:center;gap:14px;padding:22px 26px 6px}
+.searchbox{flex:0 0 320px;display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);border-radius:11px;padding:10px 14px;color:#9a9a9a;font-size:14px}
+.searchbox svg{width:16px;height:16px}
+.dd{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:11px;padding:10px 14px;font-size:14px;color:#3a3a3a}
+.dd svg{width:15px;height:15px}
+.dd.right{margin-left:auto}
+.tabs{display:flex;gap:26px;padding:14px 26px 0;border-bottom:1px solid var(--line)}
+.tabs .tab{padding-bottom:14px;font-size:15px;color:#9a9a9a;font-weight:500;border-bottom:2px solid transparent}
+.tabs .tab.active{color:#111;font-weight:600;border-bottom-color:#111}
+.table-wrap{flex:1;overflow:auto}
+table.iv-table{width:100%;border-collapse:collapse}
+.iv-table thead th{position:sticky;top:0;background:var(--bg);text-align:left;color:#8a8a8a;font-weight:500;font-size:14px;padding:16px 26px;border-bottom:1px solid var(--line)}
+.iv-table thead th .so{display:inline-flex;gap:5px;align-items:center}
+.iv-table thead th svg{width:13px;height:13px;opacity:.6}
+.iv-table td{padding:18px 26px;border-bottom:1px solid var(--line);font-size:14.5px;color:#2a2a2a;vertical-align:middle}
+.iv-table tbody tr{transition:background .18s ease;cursor:pointer}
+.iv-table tbody tr:hover{background:#fff}
+.iv-table tbody tr.hot{background:#FBF1FF}
+.iv-table tbody tr.hot:hover{background:#F8E9FF}
+.pill-user{border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;font-size:13px;color:#3a3a3a;background:#fff}
+.tagcell{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;max-width:280px;margin-left:auto}
+.tg{font-size:12px;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.tg-green{background:#E3FFBA;color:#4c7a17}.tg-peach{background:#FFE3CF;color:#9a5a22}
+.tg-pink{background:#F3D9F6;color:#8f3a99}.tg-blue{background:#D6E4FF;color:#2f5aa8}
+
+/* ---------- CHAT ---------- */
+.chat-main{flex:1;display:flex;flex-direction:column;min-width:0}
+.chat-top{height:64px;flex:0 0 64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.chat-top .l{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16px}
+.chat-top .r{display:flex;align-items:center;gap:20px;color:#5a5a5a;font-size:14.5px;font-weight:500}
+.chat-top .r .link-ic{display:flex;align-items:center;gap:7px}
+.chat-top .r svg{width:16px;height:16px}
+.chat-cols{flex:1;display:flex;min-height:0}
+.chat-conv{flex:1;display:flex;flex-direction:column;min-width:0;transition:flex-basis .5s}
+.chat-scroll{flex:1;overflow:auto;padding:40px 0}
+.chat-scroll .wrap{max-width:720px;margin:0 auto;padding:0 30px}
+
+/* empty state */
+.chat-empty{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:90px}
+.chat-empty h1{font-family:var(--serif);font-weight:600;font-size:30px;margin-bottom:34px}
+.chat-input-big{width:715px;max-width:100%;background:#F7F7F8;border:1.5px solid var(--purple-3);border-radius:16px;height:118px;position:relative;padding:20px 22px}
+.chat-input-big .cursor{width:1px;height:20px;background:#333;display:inline-block;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.chat-input-big .send{position:absolute;right:16px;bottom:16px;width:38px;height:38px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center}
+.chat-input-big .send svg{width:18px;height:18px;color:#fff}
+.suggests{width:715px;max-width:100%;margin-top:22px;display:flex;flex-direction:column;gap:14px}
+.suggest{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:14.5px;color:#333;
+  box-shadow:0 1px 2px rgba(16,16,32,.03);transition:transform .2s ease, box-shadow .2s ease}
+.suggest:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+.suggest .sp{width:30px;height:30px;border-radius:8px;background:var(--purple-soft);display:flex;align-items:center;justify-content:center;flex:0 0 30px}
+.suggest .sp svg{width:16px;height:16px;color:var(--purple)}
+.suggest .go{margin-left:auto;color:#b4b4b4}.suggest .go svg{width:16px;height:16px}
+
+/* answered */
+.userbubble{background:var(--purple);color:#fff;font-weight:600;font-size:15px;padding:14px 20px;border-radius:16px;
+  max-width:70%;margin:0 auto 28px;text-align:center;width:fit-content}
+.aimsg>*{opacity:0;transform:translateY(8px);animation:rise .5s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.aimsg p{color:#2a2a2a;font-size:15px;line-height:1.62;margin-bottom:16px}
+.aimsg ul{list-style:none;margin:0 0 16px}
+.aimsg li{position:relative;padding-left:20px;color:#2a2a2a;font-size:15px;line-height:1.6;margin-bottom:14px}
+.aimsg li:before{content:"";position:absolute;left:4px;top:9px;width:6px;height:6px;border-radius:50%;background:#333}
+.cite{color:var(--purple-2);font-weight:700;font-style:italic;cursor:pointer}
+.cite:hover{text-decoration:underline}
+.aiquote{border-left:3px solid var(--purple-3);padding-left:14px;margin-bottom:6px}
+.aiquote .qt-t{font-style:italic;color:#2a2a2a;font-size:15px}
+.aiquote .qt-a{color:#9a9a9a;font-size:13.5px;margin-top:4px}
+.chartcard{border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:6px 0 22px;background:#fff}
+.chartcard .cc-head{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:15px;margin-bottom:18px}
+.chartcard .cc-head svg{width:16px;height:16px;color:#9a9a9a}
+.hbar{display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:14px;margin-bottom:14px}
+.hbar .lb{font-size:14px;color:#333}
+.hbar .tk{height:16px;background:transparent;border-radius:999px;position:relative}
+.hbar .tk i{position:absolute;left:0;top:0;height:100%;background:#B4A5F2;border-radius:999px;width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hbar .vv{font-size:13.5px;color:#6a6a6a}
+.chat-inbar{border-top:1px solid var(--line);padding:16px 30px}
+.chat-inbar .box{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px;border:1.5px solid var(--purple-3);border-radius:999px;padding:12px 18px;background:#fff}
+.chat-inbar .box .ph{flex:1;color:#9a9a9a;font-size:14.5px}
+.chat-inbar .box input{flex:1;border:none;outline:none;font-size:14.5px;font-family:inherit;background:transparent}
+.chat-inbar .box .send{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:#9a9a9a}
+.chat-inbar .box .send svg{width:16px;height:16px}
+
+/* right transcript panel (chat) */
+.chat-panel{width:520px;flex:0 0 520px;border-left:1px solid var(--line);background:#fff;display:flex;flex-direction:column;
+  transform:translateX(100%);opacity:0;transition:transform .55s cubic-bezier(.22,.7,.2,1),opacity .4s}
+.chat-panel.open{transform:none;opacity:1}
+.cp-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px}
+.cp-head .l{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px}
+.cp-head .l .c{color:var(--purple-2);font-weight:700;font-style:italic}
+.cp-head .x{color:#9a9a9a;cursor:pointer}.cp-head .x svg{width:18px;height:18px}
+.cp-vid{margin:0 16px;border-radius:12px;overflow:hidden;aspect-ratio:488/260;background:linear-gradient(160deg,#3c3c46,#1e1e28);position:relative}
+.cp-vid .play{position:absolute;inset:0;margin:auto;width:56px;height:56px}
+.cp-scroll{flex:1;overflow:auto;padding:0 4px}
+.cp-scroll .tr-q .a mark{background:var(--hl);color:inherit;padding:1px 2px;border-radius:3px}
+.cp-scroll .tr-q .a mark.flash{animation:hlflash 1.4s ease}
+@keyframes hlflash{0%{background:#cfc6fb}100%{background:var(--hl)}}
+
+/* ---------- shared icons/players ---------- */
+.playcircle{border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.playcircle svg{width:38%;height:38%;color:#222;margin-left:8%}
+
+/* ---------- demo hint ---------- */
+.demo-hint{position:relative;z-index:5}
+.demo-hint::after{content:"";position:absolute;inset:-6px;border-radius:inherit;pointer-events:none;
+  box-shadow:0 0 0 2px var(--purple), 0 0 0 6px rgba(98,55,240,.18);animation:hintpulse 1.6s ease-in-out infinite}
+@keyframes hintpulse{0%,100%{box-shadow:0 0 0 2px rgba(98,55,240,.9),0 0 0 5px rgba(98,55,240,.16)}
+  50%{box-shadow:0 0 0 2px rgba(98,55,240,.9),0 0 0 12px rgba(98,55,240,0)}}
+.scroll-nudge{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:#111;color:#fff;font-size:13px;
+  padding:9px 16px;border-radius:999px;display:flex;align-items:center;gap:8px;z-index:6;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  animation:floaty 1.6s ease-in-out infinite;opacity:0;transition:opacity .4s}
+.scroll-nudge.show{opacity:1}
+.scroll-nudge svg{width:15px;height:15px}
+@keyframes floaty{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,5px)}}
+
+/* ---------- auto-play cursor ---------- */
+#cursor{position:absolute;left:0;top:0;z-index:45;pointer-events:none;opacity:0;
+  transition:left .9s cubic-bezier(.45,.05,.2,1), top .9s cubic-bezier(.45,.05,.2,1), opacity .35s;
+  filter:drop-shadow(0 4px 7px rgba(20,16,40,.4))}
+#cursor.show{opacity:1}
+#cursor .arw{width:30px;height:30px;display:block}
+#cursor .rip{position:absolute;left:5px;top:4px;width:16px;height:16px;border-radius:50%;
+  background:rgba(98,55,240,.5);transform:scale(0);opacity:0}
+#cursor.click .rip{animation:rip .55s ease-out}
+@keyframes rip{0%{transform:scale(0);opacity:.75}100%{transform:scale(5);opacity:0}}
+#cursor.press .arw{transform:scale(.82);transition:transform .12s}
+
+/* ---------- demo controller (outside stage) ---------- */
+#ctl{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;
+  background:rgba(20,18,32,.82);backdrop-filter:blur(10px);border-radius:999px;padding:7px 8px;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  color:#fff;font-size:13px;font-family:var(--sans)}
+#ctl button{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff}
+#ctl button:hover{background:rgba(255,255,255,.14)}
+#ctl button svg{width:16px;height:16px}
+#ctl .steplabel{padding:0 10px;min-width:150px;text-align:center;font-weight:500;opacity:.92}
+#ctl .dots{display:flex;gap:5px;padding:0 8px}
+#ctl .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28)}
+#ctl .dots i.on{background:#fff}
+#hintbadge{position:fixed;left:20px;bottom:22px;z-index:50;background:rgba(20,18,32,.82);backdrop-filter:blur(10px);color:#fff;
+  font-size:12.5px;padding:9px 14px;border-radius:12px;max-width:240px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#hintbadge b{color:#c9baff}
+@media (max-width:720px){#hintbadge{display:none}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- ============ SCREEN 1 · HOME ============ -->
+<section class="screen" data-screen="home">
+  <aside class="side">
+    <div class="brand"><span class="mark" data-logo></span><span class="name">VERSO</span></div>
+    <nav class="nav">
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>All studies</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M19 12a7 7 0 0 0-.1-1.3l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.2-1.3L14 2h-4l-.3 2.2A7 7 0 0 0 7.5 5.5l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .9.1 1.3l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2.2 1.3L10 22h4l.3-2.2a7 7 0 0 0 2.2-1.3l2.3 1 2-3.4-2-1.5c.1-.4.1-.9.1-1.3Z"/></svg><span>Settings</span></a>
+    </nav>
+    <div class="foot">
+      <div class="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg><span>Collapse</span></div>
+      <div class="bcg">BCG</div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="t-left">Home</div>
+      <div class="t-right">
+        <span class="link-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Conversations</span>
+        <button class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New study</button>
+      </div>
+    </div>
+    <div class="home-body">
+      <h1 class="home-hero">Welcome to our research assistant</h1>
+      <p class="home-sub">Ask across every study, or jump back into one.</p>
+      <div class="ask">
+        <div class="ph">Ask me anything across your studies</div>
+        <div class="ask-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Across 4 studies</div>
+        <div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></div>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Recurring themes</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Compare studies</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Start a new study</span>
+      </div>
+      <div class="recent">
+        <div class="recent-head">
+          <h3>Recent studies</h3>
+          <span class="all">All studies <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <div class="study-grid">
+          <div class="study" data-go="report" title="Ouvrir l'étude">
+            <div class="s-top"><span class="badge live">Live</span><span class="fmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Audio</span></div>
+            <h4>Étude partenaires &amp; prospects</h4>
+            <div class="s-meta"><span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>19 participants</span><span>Updated 2 days ago</span></div>
+          </div>
+          <div class="study">
+            <div class="s-top"><span class="badge live">Live</span><span class="fmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Audio</span></div>
+            <h4>Étude partenaires existants</h4>
+            <div class="s-meta"><span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>41 participants</span><span>Updated 5 days ago</span></div>
+          </div>
+          <div class="study">
+            <div class="s-top"><span class="badge draft">Draft</span><span class="fmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>Video</span></div>
+            <h4>[V8] Perception de marque et parcours client</h4>
+            <div class="s-meta"><span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>30 participants</span><span>Updated 1 hour ago</span></div>
+          </div>
+          <div class="study">
+            <div class="s-top"><span class="badge done">Completed</span><span class="fmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>Video</span></div>
+            <h4>Perception de marque et parcours de réservation</h4>
+            <div class="s-meta"><span class="pp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>30 participants</span><span>Updated 3 weeks ago</span></div>
+          </div>
+          <div class="study new">
+            <div class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="nt">New study</div>
+            <div class="nd">Or describe it to the assistant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2 · REPORT (STUDY) ============ -->
+<section class="screen" data-screen="report">
+  <aside class="side">
+    <div class="brand"><span class="mark" data-logo></span><span class="name">VERSO</span></div>
+    <nav class="nav">
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Report</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Question Analysis</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.7 7.7 11 15M16.3 7.7 13 15"/></svg><span>Coding</span></a>
+      <div class="sep"></div>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg><span>Interviews</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 3z"/></svg><span>Chat with AI</span></a>
+      <div class="sep"></div>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg><span>Demographics</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span>Study Settings</span></a>
+    </nav>
+    <div class="foot">
+      <div class="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg><span>Collapse</span></div>
+      <div class="bcg">BCG</div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="t-left">Thalasseo — Étude partenaires &amp; prospects <span class="badge done">Completed</span></div>
+    </div>
+    <div class="report-body" id="reportScroll">
+      <div class="report-inner">
+        <div class="metabar">
+          <span class="metapill"><span class="av"></span>350 participants</span>
+          <span class="metapill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>4 countries</span>
+          <span class="metapill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>20 to 68 yo</span>
+          <span class="metapill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>For 20 to 75% of brand users</span>
+        </div>
+
+        <div class="exec">
+          <h2 class="h-block">Executive summary</h2>
+          <p>Les consommateurs français ne recherchent pas d'abord un séjour bien-être pour se transformer ou se dépasser : ils y cherchent une suspension temporaire du quotidien, un espace où l'on cesse de décider, d'organiser et de porter la charge ordinaire. Cette attente traverse une grande diversité de profils, mais elle ne se convertit pas de la même façon : chez les habitués, la réservation répond à un rythme déjà intériorisé ; chez les autres, elle a encore besoin d'une permission, d'un cadeau ou d'un signal opportuniste. Thalasseo est aujourd'hui perçu comme un acteur utile, fiable et spécialisé, mais pas comme une marque désirable ou inspirante.</p>
+          <div class="tldr">
+            <div class="row"><b>Le séjour bien-être est d'abord une bulle de décharge, pas une quête de performance.</b><span>Des profils très différents décrivent une parenthèse où l'on suspend le monde ; seuls les mots changent selon l'âge, du "repos" fonctionnel à l'expérience sensorielle recherchée.</span></div>
+            <div class="row"><b>La fréquence d'usage sépare deux mondes : le cycle intériorisé et la permission externe.</b><span>Les pratiquants réguliers réservent quand le corps le réclame, là où les occasionnels ont besoin d'un anniversaire, d'un cadeau ou d'une promotion pour légitimer le départ.</span></div>
+            <div class="row"><b>Le vrai critère n'est pas le spa seul, c'est l'absence de friction autour du spa.</b><span>Le tout-inclus, l'accès illimité, la propreté et la qualité humaine du soin ne font pas toujours choisir au départ, mais ce sont eux qui construisent ou détruisent la fidélité.</span></div>
+            <div class="row"><b>Thalasseo rassure, mais n'occupe encore aucun territoire de désir.</b><span>La marque est lue comme un agrégateur spécialisé crédible, alors que la préférence émotionnelle se joue ailleurs, notamment chez les plus jeunes et dans les parcours émergents pilotés par l'IA et les réseaux sociaux.</span></div>
+          </div>
+        </div>
+
+        <!-- Learning 01 -->
+        <div class="divider"></div>
+        <div class="learning">
+          <div class="ll">Learning 01</div>
+          <h2>Quelles aspirations et émotions les consommateurs français associent-ils au bien-être et aux séjours bien-être ?</h2>
+          <div class="lsub">Le séjour bien-être est avant tout un lâcher-prise</div>
+          <div style="margin-top:8px">
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>La "bulle" : un mot qui revient spontanément d'un entretien à l'autre</h3>
+                <p>Le mot « bulle » (ou « cocon ») revient spontanément chez des profils très différents — actifs, retraités, hommes, femmes, fidèles, prospects — pour décrire l'état recherché au séjour bien-être : une parenthèse coupée du monde, plutôt qu'une transformation de soi.</p>
+                <span class="quotes"><span class="av"></span>36 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Deux générations, deux langages : "repos" pour les uns, "expérience sensorielle" pour les autres</h3>
+                <p>Les 50 ans et plus mobilisent un vocabulaire épuré et fonctionnel (massage, détente, repos) ; les moins de 50 ans décrivent une immersion multi-sensorielle et exigent une expérience qualitativement différente de leur quotidien.</p>
+                <span class="quotes"><span class="av"></span>46 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Le séjour bien-être est un anti-voyage</h3>
+                <p>Le séjour bien-être est décrit comme l'inverse exact du voyage classique — être pris en charge plutôt qu'organiser, suspendre l'effort plutôt que découvrir. Cette aspiration est partagée quel que soit le format (destination unique ou parenthèse insérée dans un voyage plus large).</p>
+                <span class="quotes"><span class="av"></span>37 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning 02 -->
+        <div class="divider"></div>
+        <div class="learning">
+          <div class="ll">Learning 02</div>
+          <h2>Qu'est-ce qui déclenche la réservation d'un séjour bien-être, et comment la décision se prend-elle ?</h2>
+          <div class="lsub">Les habitués ont plus besoin de raison. Les autres en cherchent encore une.</div>
+          <div style="margin-top:8px">
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Le cycle intériorisé : quand le corps commande la réservation</h3>
+                <p>Les pratiquants réguliers n'ont besoin d'aucun déclencheur externe — leur réservation est un rythme intériorisé qui se déclenche « quand le corps le réclame », sans occasion ni cadeau pour la justifier.</p>
+                <span class="quotes"><span class="av"></span>19 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Le cadeau et l'occasion : la permission de se faire du bien</h3>
+                <p>Chez les réservateurs occasionnels, la réservation a besoin d'une justification extérieure — anniversaire, Saint-Valentin, Noël, fête des mères, vacances — ou passe par l'intermédiaire d'un cadeau offert à un proche.</p>
+                <span class="quotes"><span class="av"></span>11 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>La promotion ne réveille pas l'envie. Elle la crée.</h3>
+                <p>Une promotion agit rarement seule : elle transforme une intention diffuse en décision, en donnant la légitimité et l'urgence qui manquaient. Sans envie latente, la remise ne déclenche rien.</p>
+                <span class="quotes"><span class="av"></span>18 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 3</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning 03 -->
+        <div class="divider"></div>
+        <div class="learning">
+          <div class="ll">Learning 03</div>
+          <h2>Quels sont les critères déterminants dans le choix d'un prestataire de séjour bien-être ?</h2>
+          <div class="lsub">Ce qui fait choisir n'est pas ce qui fait revenir.</div>
+          <div style="margin-top:8px">
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>« Ne m'occuper de rien » : le critère transversal que personne ne déclare</h3>
+                <p>Tous les segments, à profils très différents, expriment le même désir : ne plus avoir à décider. À peine formulé pendant le séjour, le tout-inclus traduit cette aspiration à la décharge logistique.</p>
+                <span class="quotes"><span class="av"></span>18 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Les critères fantômes : ils ne font pas choisir, mais leur absence fait fuir</h3>
+                <p>La propreté, l'accès illimité et la qualité humaine n'apparaissent presque jamais comme critères de sélection a priori, mais leur absence provoque des ruptures de confiance durables qui ferment les prestataires pour de bon.</p>
+                <span class="quotes"><span class="av"></span>15 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Le marché du bien-être est un marché de mains, pas d'équipements</h3>
+                <p>Pour les clientes habituées, la qualité du praticien, le geste et les « petites attentions » priment sur les équipements. Une exposition insuffisante à la fidélité décourage aussi vite les équipements les plus vantés.</p>
+                <span class="quotes"><span class="av"></span>20 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning 04 -->
+        <div class="divider"></div>
+        <div class="learning">
+          <div class="ll">Learning 04</div>
+          <h2>Comment Thalasseo est-il perçu face à ses concurrents — et qu'est-ce qui ferait basculer la préférence vers Thalasseo ?</h2>
+          <div class="lsub">On réserve sur Thalasseo. On ne rêve pas de Thalasseo.</div>
+          <div style="margin-top:8px">
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Agrégateur utile, marque invisible : le plafond de la perception fonctionnelle</h3>
+                <p>Cités fidèles comme prospects décrivent Thalasseo en termes strictement fonctionnels (« un site qui regroupe », « on peut réduire par réserver »). Le nom est immédiatement compréhensible mais ne confère aucune préférence générique « thalasso » et avec Thalasseo.</p>
+                <span class="quotes"><span class="av"></span>19 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 2</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Aucune plateforme ne s'impose comme à la fois spécialiste et désirable</h3>
+                <p>Aucun concurrent n'est ni cumule spécialisation bien-être et préférence émotionnelle : Thalasseo est familier mais pas inspirant, Booking est pratique mais pas spécialiste, les petits spas sont désirables mais pas trouvables à grande échelle.</p>
+                <span class="quotes"><span class="av"></span>11 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 3</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="finding-row" data-go="finding">
+              <div class="fr-pad">
+                <h3>Trois murs, trois clés : les prospects forment trois segments, pas un</h3>
+                <p>Les prospects non convertis se divisent en trois sous-groupes aux barrières distinctes : les « inutiles » (n'ont pas encore le besoin), les « inertes » (fidèles à un concurrent par habitude) et les « résistants » (rejettent l'image du grand nombre au profit des petits spas indépendants).</p>
+                <span class="quotes"><span class="av"></span>30 quotes</span>
+              </div>
+              <div class="vthumb"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="cnt">1 of 3</span><div class="ctrls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg></div></div>
+              <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-nudge" id="reportNudge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Scrolle jusqu'aux findings, puis clique-en un</div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3 · FINDING ============ -->
+<section class="screen" data-screen="finding">
+  <aside class="side">
+    <div class="brand"><span class="mark" data-logo></span><span class="name">VERSO</span></div>
+    <nav class="nav">
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Report</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Question Analysis</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.7 7.7 11 15M16.3 7.7 13 15"/></svg><span>Coding</span></a>
+      <div class="sep"></div>
+      <a data-go="interviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg><span>Interviews</span></a>
+      <a data-go="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 3z"/></svg><span>Chat with AI</span></a>
+      <div class="sep"></div>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg><span>Demographics</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span>Study Settings</span></a>
+    </nav>
+    <div class="foot">
+      <div class="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg><span>Collapse</span></div>
+      <div class="bcg">BCG</div>
+    </div>
+  </aside>
+  <div class="finding-main">
+    <div class="finding-col">
+      <div class="finding-toolbar">
+        <div class="ft-left">
+          <svg class="arrow" data-go="report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+          Finding 1 <span class="ro">· RO 1</span>
+          <span class="pager"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>1 / 3<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+        </div>
+        <div class="ft-right">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg></span>
+          <button class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Partager <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="finding-scroll">
+        <div class="q-parent">Comment les partenaires et prospects arbitrent-ils entre les canaux de distribution ?</div>
+        <h1>Les partenaires arbitrent leurs canaux à la marge nette, les prospects à la visibilité</h1>
+        <p>Le clivage le plus net entre les deux cohortes n'est pas leur opinion sur Thalasseo, mais la grille mentale avec laquelle chacune lit la distribution. Les partenaires hiérarchisent leurs canaux par rentabilité nette.</p>
+        <p>Côté prospects, la logique s'inverse : l'enjeu n'est pas tant la commission que la visibilité et l'accès à une clientèle qualifiée qu'ils ne savent pas capter seuls.</p>
+        <div class="pullquote" data-go="interview" title="Ouvrir l'interview">« Je cherche à faire travailler la personne qui me coûte le moins cher au final, commission comprise. »</div>
+        <p>Cette divergence explique pourquoi un même argumentaire commercial ne porte pas de la même façon selon la cohorte visée.</p>
+        <div class="wordcard">
+          <h4>Les mots qui reviennent le plus</h4>
+          <div class="bar-row"><div class="bl"><span>Bulles</span><span>42</span></div><div class="bar-track"><i class="bar-fill" data-w="100"></i></div></div>
+          <div class="bar-row"><div class="bl"><span>Cocon</span><span>28</span></div><div class="bar-track"><i class="bar-fill" data-w="67"></i></div></div>
+          <div class="bar-row"><div class="bl"><span>Bien-être</span><span>19</span></div><div class="bar-track"><i class="bar-fill" data-w="45"></i></div></div>
+          <div class="bar-row"><div class="bl"><span>Spa</span><span>11</span></div><div class="bar-track"><i class="bar-fill" data-w="26"></i></div></div>
+          <div class="bar-row"><div class="bl"><span>Calme</span><span>6</span></div><div class="bar-track"><i class="bar-fill" data-w="15"></i></div></div>
+          <div class="bar-row"><div class="bl"><span>Détente</span><span>4</span></div><div class="bar-track"><i class="bar-fill" data-w="10"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-aside">
+      <div class="player">
+        <div class="vid"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="scrub">
+          <div class="bar"><i></i></div>
+          <div class="row">
+            <div class="l"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg><span class="t">0:24 / 2:18</span></div>
+            <div class="r"><span>1x</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15h4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="aside-quotes">
+        <div class="qt">
+          <div class="head"><span class="av">CR</span><span class="who">camille.roux@mail.com · Lyon, 34 ans</span></div>
+          <p data-go="interview" title="Ouvrir l'interview">Ce bien-être par exemple, j'ai pu le ressentir hier quand j'étais avec des amis en soirée jeux de société. J'étais pleinement dans ma bulle, connecté avec mes amis, nous jouons à des jeux, donc il y avait un côté en plus immersif. Et je ne pensais vraiment plus à mon travail ou au stress de mon quotidien sur certains sujets. Je me sentais connecté avec les autres, bien. En plus, ce qui était sympa, c'est qu'il y avait même une séduction avec une personne. Je me sens à ma place, c'est important. Et ce côté immersif et…</p>
+        </div>
+        <div class="qt">
+          <div class="head"><span class="av">JM</span><span class="who">julien.mercier@mail.com · Bordeaux, 41 ans</span></div>
+          <p data-go="interview" title="Ouvrir l'interview">Ce qui est incontournable, c'est le spa. C'est un endroit qui est pour moi le plus relaxant. On y est bien, on se détend, on est ensemble, en cocon. C'est vraiment l'essentiel, le spa.</p>
+        </div>
+        <div class="qt">
+          <div class="head"><span class="av">SL</span><span class="who">sophie.laurent@mail.com · Nantes, 52 ans</span></div>
+          <p data-go="interview" title="Ouvrir l'interview">Oui, euh, quand je fais des séances de yoga, euh, c'est euh-- vraiment, euh, ça crée une bulle en fait où, euh, quand on se met à respirer, euh, voilà, calmement, qu'on se concentre en fait sur ses mouvements. Euh, c'est vraiment un moment à soi en fait qui, euh, beh qui donne beaucoup de bien-être.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4 · INTERVIEW ============ -->
+<section class="screen" data-screen="interview">
+  <div class="iv-main">
+    <div class="iv-top">
+      <div class="l">
+        <svg class="arrow" data-go="interviews" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+        <span class="who">Isabelle@mail.com</span>
+        <span class="badge done">completed</span>
+      </div>
+      <div class="r">
+        Interview 12 on 239
+        <span class="nav-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+        <span class="nav-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
+      </div>
+    </div>
+    <div class="iv-cols">
+      <div class="iv-left">
+        <h3>AI Summary</h3>
+        <div class="aisum">
+          <p><span class="ar">→</span><span>The participant, <b>a dedicated daily runner</b>, primarily uses Adidas and Nike for running apparel due to their convenience and neutral color options.</span></p>
+          <p><span class="ar">→</span><span>For underwear, she opts for <b>breathable fabrics like Hanes</b> and occasionally uses Victoria's Secret PINK period underwear, which she finds absorbent and comfortable but desires more color options and coverage. During her period, she often <b>reduces running intensity</b> and prefers indoor activities to manage potential accidents.</span></p>
+          <p><span class="ar">→</span><span>She expresses a need for <b>high absorbency</b> in period-proof products to handle both blood and sweat, emphasizing that <b>effective sweat management is non-negotiable</b>. While she hasn't experienced issues with bulkiness, she notes that excessive bulk could feel like a diaper.</span></p>
+          <p><span class="ar">→</span><span>She prefers period-proof products <b>integrated into standard running lines</b>, advocating for seamless, easy-to-wash designs that enhance comfort and movement.</span></p>
+          <p><span class="ar">→</span><span>Although she trusts Victoria's Secret for period products, she believes credible studies and user feedback could establish trust if brands like Nike or Adidas entered the period-proof market. <b>Athlete endorsements are seen as less impactful in influencing her trust</b>.</span></p>
+        </div>
+        <div class="sub-sep"></div>
+        <h3>Interesting quotes</h3>
+        <div class="iq">"On y est bien, on se détend, on est ensemble, en cocon. C'est vraiment l'essentiel"</div>
+        <div class="iq">"On y est bien, on se détend, on est ensemble, en cocon. C'est vraiment l'essentiel"</div>
+        <div class="sub-sep"></div>
+        <h3>Linked Topics</h3>
+        <div class="topics">
+          <span class="topic t-green">Cozy Cozy promoter</span>
+          <span class="topic t-peach">Perfume over scent</span>
+          <span class="topic t-pink">Pink</span>
+          <span class="topic t-blue">Strong user</span>
+        </div>
+      </div>
+      <div class="iv-right">
+        <div class="vid"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="scrub">
+          <div class="bar"><i></i></div>
+          <div class="row">
+            <div class="l"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg><span class="t">0:24 / 2:18</span></div>
+            <div class="r"><span>1x</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15h4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></div>
+          </div>
+        </div>
+        <div class="transcript">
+          <div class="tr-head">Full transcript <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg></div>
+          <div class="tr-q"><div class="q">Question</div><div class="a">25 ans</div></div>
+          <div class="tr-q"><div class="q">Question</div><div class="a">Yeah, so it's mostly what I've heard from people. On my side, I've defaulted to Claude Code because I think it's doing the job for what I need. But I've heard that some people prefer Codex because it's a bit more blunt and might be more accurate in some use cases. So yeah, on my side, for simplicity purposes, I use Claude Code, but I know that some people are, for example, using Codex to critique Claude Code or vice versa. And for the strengths and weaknesses, I can…</div></div>
+          <div class="tr-q"><div class="q">Question</div><div class="a">Yeah, so it's mostly what I've heard from people. On my side, I've defaulted to Claude Code because I think it's doing the job for what I need. But I've heard that some people prefer Codex because it's a bit more blunt and might be more accurate in some use cases.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5 · INTERVIEWS LIST ============ -->
+<section class="screen" data-screen="interviews">
+  <aside class="side">
+    <div class="brand"><span class="mark" data-logo></span><span class="name">VERSO</span></div>
+    <nav class="nav">
+      <a data-go="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Report</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Question Analysis</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.7 7.7 11 15M16.3 7.7 13 15"/></svg><span>Coding</span></a>
+      <div class="sep"></div>
+      <a data-go="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 3z"/></svg><span>Chat with AI</span></a>
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg><span>Interviews</span></a>
+      <div class="sep"></div>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg><span>Demographics</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span>Study Setting</span></a>
+    </nav>
+    <div class="foot">
+      <div class="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg><span>Collapse</span></div>
+      <div class="bcg">BCG</div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="t-left">Period-Proof Running Underwear for Female Runners (panel: Terac) <span class="badge live">Live</span></div>
+    </div>
+    <div class="list-body">
+      <div class="list-toolbar">
+        <div class="searchbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>Search transcrips</div>
+        <div class="dd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Demographics <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="dd">Tags <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="dd right">Columns <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="tabs">
+        <div class="tab active">Interviews (61)</div>
+        <div class="tab">Answers (1457)</div>
+      </div>
+      <div class="table-wrap">
+        <table class="iv-table">
+          <thead><tr>
+            <th>Participant</th>
+            <th><span class="so">Age range <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg></span></th>
+            <th><span class="so">Country <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg></span></th>
+            <th>Brand user</th>
+            <th>Duration</th>
+            <th style="text-align:right">Tags</th>
+          </tr></thead>
+          <tbody id="ivRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 6/7 · CHAT ============ -->
+<section class="screen" data-screen="chat">
+  <aside class="side" id="chatSide">
+    <a class="back-studies" data-go="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><span>back to studies</span></a>
+    <nav class="nav">
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Report</span></a>
+      <a data-go="interviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg><span>Interviews</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg><span>Personas</span></a>
+      <div class="sep"></div>
+      <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 3z"/></svg><span>Chat with AI</span></a>
+      <div class="sep"></div>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg><span>Demographics</span></a>
+      <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span>Study Setting</span></a>
+    </nav>
+    <div class="brand-foot"><span class="mark" data-logo></span><span class="name">VERSO</span></div>
+  </aside>
+  <div class="chat-main">
+    <div class="chat-top">
+      <div class="l">Period-Proof Running Underwear for Female Runners (panel: Terac) <span class="badge done" id="chatBadge">Completed</span></div>
+      <div class="r">
+        <span class="link-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Conversations</span>
+        <span class="link-ic" id="newConv" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New conversation</span>
+      </div>
+    </div>
+    <div class="chat-cols">
+      <div class="chat-conv">
+        <!-- EMPTY STATE -->
+        <div class="chat-scroll" id="chatEmpty">
+          <div class="chat-empty">
+            <h1>Welcome to our research assistant</h1>
+            <div class="chat-input-big"><span class="cursor"></span><div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></div></div>
+            <div class="suggests">
+              <button class="suggest" data-q="0"><span class="sp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>What are the biggest pain points with current period products during runs?<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+              <button class="suggest" data-q="1"><span class="sp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>What would make a runner switch from pads/cups to period-proof underwear?<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+              <button class="suggest" data-q="2"><span class="sp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>How do younger runners (18-25) differ from older ones (35+) in expectations?<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <!-- ANSWERED STATE -->
+        <div class="chat-scroll" id="chatAnswered" style="display:none">
+          <div class="wrap">
+            <div class="userbubble">What are the biggest pain points with current period products during runs?</div>
+            <div class="aimsg" id="aimsg"></div>
+          </div>
+        </div>
+        <div class="chat-inbar">
+          <div class="box">
+            <input id="chatInput" placeholder="Ask me anything about your study">
+            <button class="send" id="chatSend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT TRANSCRIPT PANEL -->
+      <aside class="chat-panel" id="chatPanel">
+        <div class="cp-head">
+          <div class="l"><span class="c">[3]</span> Lea, 28, marathon · Full interview</div>
+          <span class="x" id="closePanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+        </div>
+        <div class="cp-vid"><span class="playcircle play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="scrub">
+          <div class="bar"><i></i></div>
+          <div class="row">
+            <div class="l"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l8-6v12z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM14 12L6 6v12z"/></svg><span class="t">0:24 / 2:18</span></div>
+            <div class="r"><span>1x</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15h4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg></div>
+          </div>
+        </div>
+        <div class="cp-scroll">
+          <div class="tr-head" style="border-top:none">Transcript</div>
+          <div class="tr-q"><div class="q">How do you usually prepare for a long run when you're on your period?</div><div class="a">Yeah so honestly the prep is half the run for me. I wake up at like 5:30 and the first thing I do is check what day I'm on. <mark id="hlSentence">If it's day one or two I won't even try a tampon for a 25k. Using a cup before a 6am long run feels like a major leak risk</mark>: if it shifts I'm basically done. So I layer a tampon plus a liner, and dark shorts always. It's mental more than physical at that point.</div></div>
+          <div class="tr-q"><div class="q">Can you describe a moment during a run when you really noticed your period?</div><div class="a">It was during a half last fall. Like km 14, I started thinking "did I feel something?" and for the next 3k I couldn't think about anything else. I wasn't even tired, I was doing the math in my head — when did I change last, how much further, is my pace giving me away. I cut the run short and went home to check. It was fine. But the run was ruined.</div></div>
+          <div class="tr-q"><div class="q">If a period-proof underwear existed that you fully trusted, what would change?</div><div class="a">The biggest change is I'd stop planning my training around my cycle. Right now I move my long runs to weeks 2 and 3, which is not how you build for a marathon.</div></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<!-- controller -->
+<div id="ctl">
+  <button id="btnPlay" title="Lecture / Pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  <button id="btnPrev" title="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <span class="steplabel" id="stepLabel">1 / 7 · Home</span>
+  <div class="dots" id="dots"></div>
+  <button id="btnNext" title="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button id="btnRestart" title="Recommencer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 10a8 8 0 0 0-14-4M4 14a8 8 0 0 0 14 4"/></svg></button>
+</div>
+<div id="hintbadge"></div>
+
+<script>
+/* ---------- scale-to-fit ---------- */
+var stage=document.getElementById('stage');
+var SCALE=1;
+function fit(){
+  var pad=64, vw=window.innerWidth-pad, vh=window.innerHeight-pad-70;
+  var s=Math.min(vw/1512, vh/982);
+  if(!isFinite(s) || s<=0) s=0.2;      /* never zero/negative (hidden iframe, 0-height host) */
+  SCALE=Math.max(0.2, s);
+  stage.style.transform='scale('+SCALE+')';
+}
+window.addEventListener('resize',fit); fit();
+
+/* ---------- VERSO logo mark ---------- */
+var logoSVG='<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7l7 18 3-7-4-11zM19 7l-3 8 3 10 7-18z" fill="#6237F0"/></svg>';
+document.querySelectorAll('[data-logo]').forEach(function(e){e.innerHTML=logoSVG});
+
+/* ---------- interviews rows ---------- */
+(function(){
+  var tb=document.getElementById('ivRows');
+  var names=['Isabelle','Camille','Léa','Sophie','Manon','Chloé','Emma','Julie','Sarah'];
+  var ages=['40 to 50 yo','25 to 35 yo','18 to 25 yo','35 to 45 yo'];
+  var countries=['France','France','France','Belgium'];
+  var durations=['7min45','9min12','6min30','8min02'];
+  var hot=[0,2,4,6];
+  for(var i=0;i<9;i++){
+    var tr=document.createElement('tr');
+    if(hot.indexOf(i)>=0) tr.className='hot';
+    tr.setAttribute('data-go','interview');
+    tr.innerHTML='<td>'+names[i%names.length]+'@mail.com</td>'+
+      '<td>'+ages[i%ages.length]+'</td>'+
+      '<td>'+countries[i%countries.length]+'</td>'+
+      '<td><span class="pill-user">Strong user</span></td>'+
+      '<td>'+durations[i%durations.length]+'</td>'+
+      '<td><div class="tagcell"><span class="tg tg-green">Cozy Cozy promoter</span><span class="tg tg-peach">Perfume over scent</span><span class="tg tg-pink">Link sentence insight 1</span><span class="tg tg-blue">Strong user</span></div></td>';
+    tb.appendChild(tr);
+  }
+})();
+
+/* ---------- navigation ---------- */
+var ORDER=['home','report','finding','interview','interviews','chat'];
+var LABELS={home:'Home',report:'Study report',finding:'Finding',interview:'Interview',interviews:'All interviews',chat:'Chat with AI'};
+var HINTS={
+  home:'Clique sur l\'étude <b>« Étude partenaires &amp; prospects »</b>.',
+  report:'Scrolle, puis clique sur un <b>finding</b> pour l\'ouvrir.',
+  finding:'Clique sur une <b>citation</b> (le verbatim en italique ou un extrait à droite).',
+  interview:'Reviens en arrière (flèche ↖) pour voir <b>toutes les interviews</b>.',
+  interviews:'Les <b>lignes liées</b> sont surlignées. Ouvre <b>Chat with AI</b> à gauche.',
+  chat:'Clique sur une <b>question suggérée</b> — ou écris et envoie.'
+};
+var screens={};
+document.querySelectorAll('.screen').forEach(function(s){screens[s.dataset.screen]=s});
+var current=null, navStack=[];
+var playing=false, tourToken=0;
+
+function setControls(name){
+  var idx=ORDER.indexOf(name);
+  document.getElementById('stepLabel').textContent=(idx+1)+' / '+ORDER.length+' · '+LABELS[name];
+  var dots=document.getElementById('dots'); dots.innerHTML='';
+  ORDER.forEach(function(_,i){var d=document.createElement('i'); if(i<=idx)d.className='on'; dots.appendChild(d)});
+  if(!playing){ document.getElementById('hintbadge').innerHTML=HINTS[name]||''; }
+}
+
+function clearHints(){document.querySelectorAll('.demo-hint').forEach(function(e){e.classList.remove('demo-hint')})}
+
+function applyHints(name){
+  clearHints();
+  if(playing) return; /* the moving cursor is the guide during autoplay */
+  if(name==='home') mark(screens.home.querySelector('[data-go="report"]'));
+  else if(name==='report'){ /* hinted after scroll */ }
+  else if(name==='finding') mark(screens.finding.querySelector('.pullquote'));
+  else if(name==='interview') mark(screens.interview.querySelector('.iv-top .arrow'));
+  else if(name==='interviews') mark(screens.interviews.querySelector('[data-go="chat"]'));
+  else if(name==='chat' && !chatAnswered) mark(screens.chat.querySelector('.suggest[data-q="0"]'));
+}
+function mark(el){if(el)el.classList.add('demo-hint')}
+
+function go(name,fromHistory){
+  if(name===current) return;
+  if(current && !fromHistory) navStack.push(current);
+  var prev=screens[current]; var next=screens[name];
+  if(prev) prev.classList.remove('active');
+  next.classList.add('active');
+  current=name;
+  setControls(name);
+  // per-screen setup
+  if(name==='report'){resetReport();}
+  if(name==='finding'){animateBars();}
+  if(name==='chat'){resetChat();}
+  if(name==='interview'){var l=screens.interview.querySelector('.iv-left'); if(l)l.scrollTop=0;}
+  setTimeout(function(){applyHints(name)},60);
+}
+
+/* click routing */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-go]');
+  if(t && t.dataset.go){ go(t.dataset.go); }
+});
+
+/* ---------- report scroll behaviour ---------- */
+var reportScroll=document.getElementById('reportScroll');
+var reportNudge=document.getElementById('reportNudge');
+function resetReport(){
+  reportScroll.scrollTop=0;
+  reportNudge.classList.add('show');
+  clearHints();
+}
+reportScroll.addEventListener('scroll',function(){
+  if(reportScroll.scrollTop>120){
+    reportNudge.classList.remove('show');
+    var first=screens.report.querySelector('.finding-row');
+    if(first && !first.classList.contains('demo-hint')) mark(first);
+  }
+});
+
+/* ---------- finding bars ---------- */
+function animateBars(){
+  var bars=screens.finding.querySelectorAll('.bar-fill');
+  bars.forEach(function(b){b.style.transition='none';b.style.width='0'});
+  screens.finding.offsetHeight; /* force reflow so the 0-width commits */
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    bars.forEach(function(b){b.style.transition='';b.style.width=b.dataset.w+'%'});
+  })});
+}
+
+/* ---------- chat interaction ---------- */
+var chatAnswered=false;
+var chatEmpty=document.getElementById('chatEmpty');
+var chatAns=document.getElementById('chatAnswered');
+var aimsg=document.getElementById('aimsg');
+var chatPanel=document.getElementById('chatPanel');
+var chatSide=document.getElementById('chatSide');
+
+function resetChat(){
+  chatAnswered=false;
+  chatEmpty.style.display='';
+  chatAns.style.display='none';
+  aimsg.innerHTML='';
+  chatPanel.classList.remove('open');
+  chatSide.classList.remove('rail');
+  document.getElementById('newConv').style.display='none';
+  chatAns.scrollTop=0;
+}
+
+var ANSWER_BLOCKS=[
+  '<p>Across the 24 runners we interviewed, two main frustrations come up again and again with current options (pads, tampons, cups):</p>',
+  '<ul><li><b>The biggest one is leak anxiety</b> — even when nothing actually leaks, the mental load of "checking" mid-run kills the flow. <span class="cite" data-cite>[1]</span></li>'+
+  '<li>Then comes <b>physical discomfort</b>: chafing from pads on long runs, and tampons drying out during 90+ minute sessions. Cups solve the leak issue for some, but are not fully satisfying for long runs. <span class="cite" data-cite>[2]</span></li></ul>',
+  '<div class="aiquote"><div class="qt-t">" Using a cup before a 6am long run cup feels like a major leak risk" <span class="cite" data-cite>[3]</span></div><div class="qt-a">- Lea, 28, marathon</div></div>',
+  '<div class="chartcard"><div class="cc-head">Pain points by order of importance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></div>'+
+  '<div class="hbar"><span class="lb">Leak anxiety</span><span class="tk"><i data-w="75"></i></span><span class="vv">18/24</span></div>'+
+  '<div class="hbar"><span class="lb">Physical discomfort</span><span class="tk"><i data-w="46"></i></span><span class="vv">11/24</span></div>'+
+  '<div class="hbar"><span class="lb">Long runs</span><span class="tk"><i data-w="29"></i></span><span class="vv">7/24</span></div>'+
+  '<div class="hbar"><span class="lb">Others</span><span class="tk"><i data-w="21"></i></span><span class="vv">5/24</span></div></div>',
+  '<p>I find some other <b>quotes that could be interesting for you:</b></p>'+
+  '<div class="aiquote"><div class="qt-t">"I plan my long runs around my cycle. That\'s the level we\'re at." <span class="cite" data-cite>[4]</span></div><div class="qt-a">- Sarah, 32, half-marathon</div></div>'
+];
+
+function runChatAnswer(){
+  if(chatAnswered) return;
+  chatAnswered=true;
+  clearHints();
+  chatEmpty.style.display='none';
+  chatAns.style.display='';
+  document.getElementById('newConv').style.display='';
+  aimsg.innerHTML='<p id="thinking" style="color:#9a9a9a">●●●</p>';
+  var dots=document.getElementById('thinking'); var n=0;
+  var ti=setInterval(function(){n=(n+1)%4; dots.textContent='●'.repeat(n||1)},280);
+
+  setTimeout(function(){
+    clearInterval(ti);
+    aimsg.innerHTML='';
+    var i=0;
+    (function next(){
+      if(i>=ANSWER_BLOCKS.length){ afterAnswer(); return; }
+      var div=document.createElement('div');
+      div.innerHTML=ANSWER_BLOCKS[i];
+      while(div.firstChild){ var node=div.firstChild; aimsg.appendChild(node);
+        if(node.style){node.style.animationDelay=(0)+'ms';}
+      }
+      // animate chart bars if present
+      aimsg.querySelectorAll('.hbar i').forEach(function(b){ if(!b.dataset.done){b.dataset.done=1; setTimeout(function(){b.style.width=b.dataset.w+'%'},200);} });
+      chatAns.scrollTop=chatAns.scrollHeight;
+      i++;
+      setTimeout(next,620);
+    })();
+  },900);
+}
+
+function afterAnswer(){
+  // open right panel + collapse sidebar, highlight sentence
+  chatSide.classList.add('rail');
+  setTimeout(function(){
+    chatPanel.classList.add('open');
+    setTimeout(function(){
+      var s=document.getElementById('hlSentence');
+      s.classList.add('flash');
+      chatPanel.querySelector('.cp-scroll').scrollTop=Math.max(0, s.offsetTop-160);
+    },400);
+  },250);
+  // wire citations
+  document.querySelectorAll('[data-cite]').forEach(function(c){
+    c.addEventListener('click',function(){
+      if(!chatPanel.classList.contains('open')){chatSide.classList.add('rail');chatPanel.classList.add('open');}
+      var s=document.getElementById('hlSentence'); s.classList.remove('flash'); void s.offsetWidth; s.classList.add('flash');
+      chatPanel.querySelector('.cp-scroll').scrollTop=Math.max(0, s.offsetTop-160);
+    });
+  });
+  var idx=ORDER.indexOf('chat');
+  document.getElementById('stepLabel').textContent='7 / 7 · Chat — réponse & verbatim lié';
+}
+
+document.querySelectorAll('.suggest').forEach(function(b){b.addEventListener('click',runChatAnswer)});
+document.getElementById('chatSend').addEventListener('click',function(){var v=document.getElementById('chatInput').value.trim(); runChatAnswer();});
+document.getElementById('chatInput').addEventListener('keydown',function(e){if(e.key==='Enter'){runChatAnswer();}});
+document.getElementById('closePanel').addEventListener('click',function(){chatPanel.classList.remove('open');chatSide.classList.remove('rail');});
+
+/* ---------- auto-play engine ---------- */
+var cursor=document.createElement('div');
+cursor.id='cursor';
+cursor.innerHTML='<svg class="arw" viewBox="0 0 24 24" fill="#ffffff" stroke="#241d47" stroke-width="1.3" stroke-linejoin="round"><path d="M5 3l14.5 8.6-6.3 1.4L9.6 20 5 3z"/></svg><span class="rip"></span>';
+stage.appendChild(cursor);
+
+function centerOf(el){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();
+  return {x:(r.left+r.width/2 - s.left)/SCALE, y:(r.top+r.height/2 - s.top)/SCALE};}
+function moveCursorTo(el){var c=centerOf(el);cursor.style.left=c.x+'px';cursor.style.top=c.y+'px';}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)});}
+function caption(html){document.getElementById('hintbadge').innerHTML=html;}
+function updatePlayBtn(){
+  document.getElementById('btnPlay').innerHTML = playing
+    ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+}
+function pauseTour(){ if(!playing) return; playing=false; tourToken++; cursor.classList.remove('show'); updatePlayBtn(); applyHints(current); }
+
+async function point(el, travel, hold){
+  if(!el) return;
+  moveCursorTo(el);
+  await sleep(travel||950);
+  cursor.classList.add('click','press');
+  await sleep(150);
+  cursor.classList.remove('press');
+  el.dispatchEvent(new MouseEvent('click',{bubbles:true}));
+  setTimeout(function(){cursor.classList.remove('click')},550);
+  await sleep(hold||760);
+}
+
+async function startTour(){
+  var my=++tourToken; playing=true; updatePlayBtn(); clearHints();
+  cursor.classList.add('show');
+  var A=function(){return my===tourToken && playing}; /* still ours? */
+  while(A()){
+    go('home'); caption('▶︎ <b>Lecture auto</b> — on ouvre une étude');
+    cursor.style.left='150px'; cursor.style.top='150px';
+    await sleep(1100); if(!A())break;
+    await point(screens.home.querySelector('.study[data-go="report"]'), 1050, 850); if(!A())break;
+
+    caption('Le <b>rapport d’étude</b> — on descend vers les findings');
+    await sleep(550); if(!A())break;
+    reportScroll.scrollTo({top:820, behavior:'smooth'});
+    await sleep(1500); if(!A())break;
+    await point(screens.report.querySelector('.finding-row'), 950, 850); if(!A())break;
+
+    caption('Un <b>finding</b> — on ouvre une citation');
+    await sleep(1700); if(!A())break;
+    await point(screens.finding.querySelector('.pullquote'), 1000, 950); if(!A())break;
+
+    caption('L’<b>interview</b> source : résumé IA, verbatims, transcript');
+    await sleep(2500); if(!A())break;
+    await point(screens.interview.querySelector('.iv-top .arrow'), 950, 850); if(!A())break;
+
+    caption('Toutes les <b>interviews</b> — les lignes liées sont surlignées');
+    await sleep(2100); if(!A())break;
+    await point(screens.interviews.querySelector('[data-go="chat"]'), 950, 750); if(!A())break;
+
+    caption('<b>Chat with AI</b> — on pose une question');
+    await sleep(950); if(!A())break;
+    await point(screens.chat.querySelector('.suggest[data-q="0"]'), 1050, 450); if(!A())break;
+    caption('Réponse générée, sourcée, avec le <b>verbatim lié</b> à droite');
+    cursor.classList.remove('show');
+    await sleep(7600); if(!A())break;   /* streaming + transcript panel */
+    await sleep(3400); if(!A())break;   /* hold on the result */
+    cursor.classList.add('show');
+  }
+}
+
+/* ---------- controller ---------- */
+document.getElementById('btnPlay').addEventListener('click',function(){ playing ? pauseTour() : startTour(); });
+document.getElementById('btnNext').addEventListener('click',function(){
+  pauseTour();
+  if(current==='chat' && !chatAnswered){ runChatAnswer(); return; }
+  var idx=ORDER.indexOf(current);
+  if(idx<ORDER.length-1) go(ORDER[idx+1]);
+});
+document.getElementById('btnPrev').addEventListener('click',function(){
+  pauseTour();
+  if(navStack.length){ var p=navStack.pop(); go(p,true); }
+  else { var idx=ORDER.indexOf(current); if(idx>0) go(ORDER[idx-1],true); }
+});
+document.getElementById('btnRestart').addEventListener('click',function(){ pauseTour(); navStack=[]; go('home'); });
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight') document.getElementById('btnNext').click();
+  if(e.key==='ArrowLeft') document.getElementById('btnPrev').click();
+  if(e.key===' '){ e.preventDefault(); document.getElementById('btnPlay').click(); }
+});
+/* any real user click hands control back to manual */
+document.addEventListener('click',function(e){
+  if(e.isTrusted && playing && !e.target.closest('#btnPlay')) pauseTour();
+}, true);
+
+/* ---------- start ---------- */
+go('home');
+if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  updatePlayBtn(); applyHints('home');
+}else{
+  startTour();
+}
+</script>
+</body>
+</html>

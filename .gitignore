@@ -1,6 +1,9 @@
 # OS
 .DS_Store
 
+# Local tooling (preview server config, agent settings)
+.claude/
+
 # Large local video sources (keep out of the repo — GitHub rejects >100MB)
 *.mov
 
@@ -8,3 +11,6 @@
 home-refined.html
 home-wow.html
 .vercel
+
+# Temp: incoming Claude Design import (local only)
+_incoming/
