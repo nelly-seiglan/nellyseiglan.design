@@ -166,9 +166,9 @@
       </div>
       <div data-reveal data-reveal-delay="80" data-wt style="border-radius:22px;background:linear-gradient(150deg,#efe6d2,#f6efdd);padding:36px 40px 26px;">
         <div style="position:relative;border-radius:14px;overflow:hidden;background:#fff;aspect-ratio:16/10;box-shadow:0 26px 54px -26px rgba(26,26,26,.45);">
-          <iframe data-wt-screen data-wt-cap-text="Dashboard · what the traffic says" src="rose-dashboard/Home.dc.html" title="Rose admin — Home" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;opacity:1;transition:opacity .6s var(--ease);"></iframe>
-          <iframe data-wt-screen data-wt-cap-text="Playground · test the agent" src="rose-dashboard/Playground.dc.html" title="Rose admin — Playground" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
-          <iframe data-wt-screen data-wt-cap-text="Config Studio · tune the behaviour" src="rose-dashboard/ConfigStudio.dc.html" title="Rose admin — Config Studio" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+          <iframe data-wt-screen data-wt-cap-text="Dashboard · what the traffic says" src="rose-dashboard/Home.dc.html" title="Rose admin — Home" loading="lazy" style="position:absolute;top:0;left:0;width:1512px;height:945px;transform-origin:top left;border:0;opacity:1;transition:opacity .6s var(--ease);"></iframe>
+          <iframe data-wt-screen data-wt-cap-text="Playground · test the agent" src="rose-dashboard/Playground.dc.html" title="Rose admin — Playground" loading="lazy" style="position:absolute;top:0;left:0;width:1512px;height:945px;transform-origin:top left;border:0;"></iframe>
+          <iframe data-wt-screen data-wt-cap-text="Config Studio · tune the behaviour" src="rose-dashboard/ConfigStudio.dc.html" title="Rose admin — Config Studio" loading="lazy" style="position:absolute;top:0;left:0;width:1512px;height:945px;transform-origin:top left;border:0;"></iframe>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:16px;">
           <div style="display:flex;gap:7px;">
@@ -440,6 +440,9 @@ document.addEventListener("DOMContentLoaded",function(){
   }, { threshold: 0.3 });
   obs.observe(field);
 })();
+</script>
+<script data-wt-fit>
+(function(){function fit(){document.querySelectorAll("[data-wt-screen]").forEach(function(f){var c=f.parentNode;if(!c)return;var s=c.clientWidth/1512;f.style.transform="scale("+s+")";});}window.addEventListener("resize",fit);window.addEventListener("load",fit);setTimeout(fit,60);fit();})();
 </script>
 </body>
 </html>
