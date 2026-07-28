@@ -22,7 +22,7 @@ body{
 }
 
 /* chrome */
-#chrome{position:absolute;top:0;left:0;right:0;height:44px;z-index:60;display:flex;align-items:center;gap:16px;
+#chrome{display:none!important;position:absolute;top:0;left:0;right:0;height:44px;z-index:60;display:flex;align-items:center;gap:16px;
   padding:0 18px;background:linear-gradient(#fdfdfe,#f3f4f8);border-bottom:1px solid rgba(15,23,40,.08)}
 #chrome .dots{display:flex;gap:8px}
 #chrome .dots i{width:11px;height:11px;border-radius:50%;display:block}
@@ -37,8 +37,8 @@ body{
 #chrome .spacer{width:52px;flex:0 0 auto}
 
 /* screen holds the iframes */
-#screen{position:absolute;top:44px;left:0;right:0;bottom:0;overflow:hidden;background:#faf9f5}
-.pane{position:absolute;inset:0;border:0;width:1280px;height:800px;opacity:0;visibility:hidden;
+#screen{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;background:#faf9f5}
+.pane{position:absolute;inset:0;border:0;width:1280px;height:844px;opacity:0;visibility:hidden;
   transition:opacity .6s ease,visibility .6s;z-index:1;background:#faf9f5}
 .pane.on{opacity:1;visibility:visible;z-index:2}
 
