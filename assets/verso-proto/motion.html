@@ -123,8 +123,8 @@ var STEPS=[
   {key:'home',       label:'Home'},
   {key:'report',     label:'Study report'},
   {key:'finding',    label:'Finding'},
-  {key:'interview',  label:'Interview'},
   {key:'interviews', label:'All interviews'},
+  {key:'interview',  label:'Interview'},
   {key:'chatEmpty',  label:'Chat'},
   {key:'chatFull',   label:'Chat — answer'}
 ];
@@ -181,20 +181,20 @@ async function tour(){
     await sleep(1700); if(!A())break;
     await clickAt(620,430); if(!A())break;
 
-    // 3 FINDING -> click a quote
-    goTo(2); cap('Un <b>finding</b> — on ouvre une citation');
-    await sleep(1500); if(!A())break;
+    // 3 FINDING -> open the interviews
+    goTo(2); cap('');
+    await sleep(1700); if(!A())break;
     await clickAt(600,352); if(!A())break;
 
-    // 4 INTERVIEW -> back
-    goTo(3); cap('L’<b>interview</b> source : résumé IA, verbatims, transcript');
-    await sleep(2500); if(!A())break;
-    await clickAt(70,40); if(!A())break;
+    // 4 ALL INTERVIEWS -> open one interview
+    goTo(3); cap('');
+    await sleep(2000); if(!A())break;
+    await clickAt(430,300); if(!A())break;
 
-    // 5 INTERVIEWS -> open chat
-    goTo(4); cap('Toutes les <b>interviews</b> — les lignes liées sont surlignées');
-    await sleep(2200); if(!A())break;
-    await clickAt(95,375); if(!A())break;
+    // 5 INTERVIEW detail -> open the chat
+    goTo(4); cap('');
+    await sleep(2500); if(!A())break;
+    await clickAt(120,400); if(!A())break;
 
     // 6 CHAT empty -> ask a suggested question
     goTo(5); cap('<b>Chat with AI</b> — on pose une question');
