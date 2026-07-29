@@ -294,19 +294,29 @@ setChapter(0); show('onb');
    first frame is ALWAYS the screen (never a grey/blank load state).
    The 3 heavier chapters load lazily so onboarding gets the bandwidth first. */
 var poster=document.getElementById('poster');
-function hidePoster(){ if(!poster)return; var p=poster; poster=null; p.style.opacity='0'; setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); },650); }
-function loadRest(){ [fHome,fConfig,fPlay].forEach(function(f){ if(f.getAttribute('data-src')){ f.src=f.getAttribute('data-src'); f.removeAttribute('data-src'); } }); }
-function onbReady(){ hidePoster(); setTimeout(loadRest,300); }
+function hidePoster(){ if(!poster)return; var p=poster; poster=null; p.style.opacity='0'; setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); },700); }
+function loadRest(){ [fHome,fConfig,fPlay].forEach(function(f){ var d=f.getAttribute('data-src'); if(d){ f.src=d; f.removeAttribute('data-src'); } }); }
 
-if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  updatePlay();
-  if(fOnb.contentDocument && fOnb.contentDocument.readyState==='complete'){ onbReady(); }
-  else{ fOnb.addEventListener('load',onbReady,{once:true}); setTimeout(onbReady,4000); }
-}else{
-  var kick=function(){ onbReady(); if(!playing) tour(); };
-  if(fOnb.contentDocument && fOnb.contentDocument.readyState==='complete'){ kick(); }
-  else{ fOnb.addEventListener('load',kick,{once:true}); setTimeout(kick,3500); }
+/* Only reveal the live screen once the onboarding SPA has actually PAINTED its
+   landing — not merely fired 'load'. The poster (same landing) stays until then,
+   so the handoff is a seamless crossfade with no grey cut. */
+function whenOnbPainted(cb){
+  var tries=0;
+  (function poll(){
+    tries++;
+    var ok=false;
+    try{ var d=fOnb.contentDocument; ok = !!(d && d.body && (btn(/try in rose/i) || d.body.scrollHeight>320)); }catch(e){ ok=false; }
+    if(ok || tries>80){ cb(); } else setTimeout(poll,120);   // ~9.6s safety cap
+  })();
 }
+
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduced) updatePlay();
+whenOnbPainted(function(){
+  hidePoster();
+  setTimeout(loadRest,200);
+  if(!reduced && !playing) tour();
+});
 </script>
 </body>
 </html>
