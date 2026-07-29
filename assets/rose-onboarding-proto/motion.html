@@ -88,9 +88,9 @@ body{
 
   <div id="screen">
     <iframe id="fOnb"    class="pane"    src="src/onboarding.html"></iframe>
-    <iframe id="fHome"   class="pane"    src="src/home.html"></iframe>
-    <iframe id="fConfig" class="pane"    src="src/config.html"></iframe>
-    <iframe id="fPlay"   class="pane"    src="src/playground.html"></iframe>
+    <iframe id="fHome"   class="pane"    data-src="src/home.html"></iframe>
+    <iframe id="fConfig" class="pane"    data-src="src/config.html"></iframe>
+    <iframe id="fPlay"   class="pane"    data-src="src/playground.html"></iframe>
   </div>
 
 </div></div>
@@ -286,13 +286,30 @@ document.addEventListener('keydown',function(e){
   if(e.key===' '){e.preventDefault();document.getElementById('btnPlay').click();}
 });
 
-/* ---------- start once the onboarding frame is ready ---------- */
-setChapter(0); show('onb');
-if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ updatePlay(); }
-else{
-  if(fOnb.contentDocument && fOnb.contentDocument.readyState==='complete'){ tour(); }
-  else{ fOnb.addEventListener('load',function(){ if(!playing) tour(); },{once:true}); setTimeout(function(){ if(!playing) tour(); },2500); }
+/* ---------- start once the onboarding screen is ready ---------- */
+setChapter(0);   // show NOTHING yet — the stage stays a clean cream card while loading
+
+function loadRest(){ [fHome,fConfig,fPlay].forEach(function(f){ var d=f.getAttribute('data-src'); if(d){ f.src=d; f.removeAttribute('data-src'); } }); }
+
+/* Reveal only once the onboarding has actually rendered its screen, so the very
+   first thing shown is the screen — never a blank/grey loading frame. */
+function whenReady(cb){
+  var n=0;
+  (function poll(){
+    n++;
+    var ok=false;
+    try{ var d=fOnb.contentDocument; ok = !!(d && d.body && (btn(/try in rose/i) || d.body.scrollHeight>320)); }catch(e){ ok=false; }
+    if(ok || n>90){ cb(); } else setTimeout(poll,120);   // ~11s safety cap
+  })();
 }
+
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduced) updatePlay();
+whenReady(function(){
+  show('onb');                 // first visible frame = the loaded onboarding screen
+  setTimeout(loadRest,200);
+  if(!reduced && !playing) tour();
+});
 </script>
 </body>
 </html>
