@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2288%27%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 <title>Nelly Seiglan · Lead Product Designer</title>
 <meta name="description" content="Nelly Seiglan, Lead Product Designer. Designing products people trust and love.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,9 +42,29 @@
   @supports (animation-timeline: view()){[data-reveal],[data-slide]{animation-timeline:view();animation-range:entry 0% cover 20%;}}
   @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
   @media (hover:none){[data-cursor]{display:none!important;}}
-  @media (max-width:900px){[data-hero-grid]{grid-template-columns:1fr!important;}[data-2col]{grid-template-columns:1fr!important;}[data-hide-sm]{display:none!important;}[data-hero-vis]{max-width:330px;margin:4px auto 0!important;}[data-phones]{grid-template-columns:repeat(3,1fr)!important;height:auto!important;}[data-g6]{grid-template-columns:repeat(2,1fr)!important;}[data-g12]>*{grid-column:span 6!important;}}
+  @media (max-width:900px){[data-hero-grid]{grid-template-columns:1fr!important;}[data-2col]{grid-template-columns:1fr!important;flex-direction:column!important;align-items:flex-start!important;gap:16px!important;}[data-hide-sm]{display:none!important;}[data-hero-vis]{max-width:330px;margin:4px auto 0!important;}[data-phones]{grid-template-columns:repeat(3,1fr)!important;height:auto!important;}[data-g6]{grid-template-columns:repeat(2,1fr)!important;}[data-g12]>*{grid-column:span 6!important;}}
 
   @media (max-width:760px){[data-navburger]{display:inline-flex!important;}[data-navlinks]{position:absolute;top:60px;right:14px;left:auto;min-width:232px;max-width:calc(100vw - 28px);flex-direction:column;align-items:stretch!important;gap:2px!important;background:var(--white);border:1px solid var(--hair);border-radius:18px;padding:10px;box-shadow:0 24px 60px -28px rgba(26,26,26,.45);display:none!important;}[data-navlinks].open{display:flex!important;}[data-navlinks]>a,[data-navlinks] [data-dd-trigger]{width:100%;padding:12px 14px!important;border-radius:12px!important;font-size:15px!important;margin:0!important;}[data-navlinks] [data-dd]{width:100%;}[data-navlinks] [data-dd-trigger]{justify-content:space-between;}[data-navlinks] [data-dd-menu]{position:static!important;inset:auto!important;transform:none!important;width:100%!important;max-width:100%!important;box-shadow:none!important;border:none!important;padding:2px 0 2px 8px!important;min-width:0!important;background:transparent!important;display:none!important;visibility:visible!important;opacity:1!important;}[data-navlinks] [data-dd]:hover [data-dd-menu],[data-navlinks] [data-dd]:focus-within [data-dd-menu]{display:flex!important;transform:none!important;left:auto!important;}}
+  @media (max-width:600px){
+    [style*="padding:0 36px"]{padding-left:20px!important;padding-right:20px!important;}
+    [style*="text-align:right;white-space:nowrap"]{text-align:left!important;}
+    [style*="border-radius:var(--pill);padding:6px 13px"]{white-space:nowrap!important;}
+    [style*="align-items:center;gap:14px;margin-bottom:16px"]{flex-wrap:wrap!important;}
+    [style*="padding:40px 44px"]{padding:8px!important;}
+    [style*="padding:44px 30px"]{padding:8px!important;}
+    [style*="padding:12%"]{padding:44px!important;}
+    [style*="padding:46px"]{padding:44px!important;}
+    [style*="border-radius:var(--r-lg);padding:44px"]{padding:20px!important;}
+    [data-somm]{padding:18px!important;}
+    [data-idx]{padding:16px 6px!important;}
+    [data-g6]>div{padding:12px!important;}
+    [data-g6] img{max-height:74%!important;max-width:80%!important;}
+    [data-zoom="assets/milleis-navmap.png"]{display:none!important;}
+    [data-phones]{display:flex!important;grid-template-columns:none!important;overflow-x:auto!important;gap:12px!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
+    [data-phones]>div{flex:0 0 60%!important;scroll-snap-align:center;}
+    [style*="justify-content:flex-end;gap:12px;margin-top:24px"]{justify-content:stretch!important;}
+    [style*="justify-content:flex-end;gap:12px;margin-top:24px"]>a{flex:1!important;justify-content:center!important;padding:13px 12px!important;}
+  }
 </style>
 </head>
 <body>
@@ -95,7 +116,7 @@
             <span data-skill style="font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--white);border:1px solid var(--hair);border-radius:var(--pill);padding:8px 15px;transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);">Design leadership</span>
           </div>
           <div data-reveal data-reveal-delay="1000" style="">
-            <a href="#work" data-hover style="display:inline-flex;align-items:center;gap:15px;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--ink2);transition:color .25s;" style-hover="color:var(--ink);">
+            <a href="#work" data-hover data-hide-sm style="display:inline-flex;align-items:center;gap:15px;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--ink2);transition:color .25s;" style-hover="color:var(--ink);">
               <span style="font-size:20px;animation:nudge 1.9s var(--ease) infinite;">↓</span>
               Scroll to discover
             </a>
@@ -125,27 +146,27 @@
         <span style="flex:1;height:1px;background:var(--hair);"></span>
       </div>
 
-      <div data-reveal style="background:var(--cream);border-radius:var(--r-lg);padding:clamp(18px,2.2vw,28px) clamp(28px,3.4vw,44px);margin-bottom:52px;">
+      <div data-reveal data-somm style="background:var(--cream);border-radius:var(--r-lg);padding:clamp(18px,2.2vw,28px) clamp(28px,3.4vw,44px);margin-bottom:52px;">
         <div>
-        <a href="#verso" data-hover style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:20px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
-          <span style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);min-width:20px;">01</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Verso</span><span style="font-size:.98rem;color:var(--ink3);">Founding Designer</span></span>
-          <span style="display:flex;align-items:center;gap:16px;justify-content:flex-end;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#cbb6ef;border-radius:100px;padding:6px 13px;white-space:nowrap;">AI Research</span><span style="font-size:17px;color:var(--ink3);">↓</span></span>
+        <a href="#verso" data-hover data-idx style="display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:18px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;"><span style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">01</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Verso</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#cbb6ef;border-radius:100px;padding:6px 13px;white-space:nowrap;">AI Research</span></span><span style="font-size:.98rem;color:var(--ink3);">Founding Designer</span></span>
+          <span style="justify-self:end;font-size:17px;color:var(--ink3);">↓</span>
         </a>
-        <a href="#rose" data-hover style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:20px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
-          <span style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);min-width:20px;">02</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Rose</span><span style="font-size:.98rem;color:var(--ink3);">Founding Designer</span></span>
-          <span style="display:flex;align-items:center;gap:16px;justify-content:flex-end;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#cfe0fb;border-radius:100px;padding:6px 13px;white-space:nowrap;">AI Assistant</span><span style="font-size:17px;color:var(--ink3);">↓</span></span>
+        <a href="#rose" data-hover data-idx style="display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:18px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;"><span style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">02</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Rose</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#cfe0fb;border-radius:100px;padding:6px 13px;white-space:nowrap;">AI Assistant</span></span><span style="font-size:.98rem;color:var(--ink3);">Founding Designer</span></span>
+          <span style="justify-self:end;font-size:17px;color:var(--ink3);">↓</span>
         </a>
-        <a href="#kolecto" data-hover style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:20px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
-          <span style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);min-width:20px;">03</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Kolecto</span><span style="font-size:.98rem;color:var(--ink3);">Design Manager</span></span>
-          <span style="display:flex;align-items:center;gap:16px;justify-content:flex-end;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#f6b56a;border-radius:100px;padding:6px 13px;white-space:nowrap;">Fintech SaaS</span><span style="font-size:17px;color:var(--ink3);">↓</span></span>
+        <a href="#kolecto" data-hover data-idx style="display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:18px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;"><span style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">03</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Kolecto</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#f6b56a;border-radius:100px;padding:6px 13px;white-space:nowrap;">Fintech SaaS</span></span><span style="font-size:.98rem;color:var(--ink3);">Design Manager</span></span>
+          <span style="justify-self:end;font-size:17px;color:var(--ink3);">↓</span>
         </a>
-        <a href="#milleis" data-hover style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:20px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
-          <span style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);min-width:20px;">04</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Milleis</span><span style="font-size:.98rem;color:var(--ink3);">Lead Product Designer</span></span>
-          <span style="display:flex;align-items:center;gap:16px;justify-content:flex-end;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#b2c8f4;border-radius:100px;padding:6px 13px;white-space:nowrap;">Private banking</span><span style="font-size:17px;color:var(--ink3);">↓</span></span>
+        <a href="#milleis" data-hover data-idx style="display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:18px 12px;border-bottom:1px solid var(--hair);transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;"><span style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">04</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Milleis</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:#b2c8f4;border-radius:100px;padding:6px 13px;white-space:nowrap;">Private banking</span></span><span style="font-size:.98rem;color:var(--ink3);">Lead Product Designer</span></span>
+          <span style="justify-self:end;font-size:17px;color:var(--ink3);">↓</span>
         </a>
-        <a href="#theodo" data-hover style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:20px 12px;transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
-          <span style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);min-width:20px;">05</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Theodo</span><span style="font-size:.98rem;color:var(--ink3);">Designer → Lead</span></span>
-          <span style="display:flex;align-items:center;gap:16px;justify-content:flex-end;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:var(--lime);border-radius:100px;padding:6px 13px;white-space:nowrap;">Consulting</span><span style="font-size:17px;color:var(--ink3);">↓</span></span>
+        <a href="#theodo" data-hover data-idx style="display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:18px 12px;transition:background .25s;" style-hover="background:rgba(255,255,255,.55);">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;"><span style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;font-weight:600;color:var(--ink3);">05</span><span style="font-size:1.3rem;font-weight:600;letter-spacing:-.03em;">Theodo</span><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1A1A1A;background:var(--lime);border-radius:100px;padding:6px 13px;white-space:nowrap;">Consulting</span></span><span style="font-size:.98rem;color:var(--ink3);">Designer → Lead</span></span>
+          <span style="justify-self:end;font-size:17px;color:var(--ink3);">↓</span>
         </a>
         </div>
       </div>
@@ -171,7 +192,7 @@
           </div>
         </div>
         <div data-reveal style="border-radius:22px;overflow:hidden;margin-bottom:16px;aspect-ratio:16/9;background:linear-gradient(150deg,#c9b6ef,#b49ce8);position:relative;"><iframe src="verso-ds.html" title="Verso · design system (animated)" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div>
-        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="verso.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Verso case study →</a><a href="https://www.askverso.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="verso.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the case study →</a><a href="https://www.askverso.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
       </article>
 
       <!-- ROSE -->
@@ -190,7 +211,7 @@
           <div data-reveal data-reveal-delay="180" style="min-height:148px;border-radius:20px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:26px;"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(252,251,244,.55);margin-bottom:8px;">03 · Convert</span><span style="font-size:1.24rem;font-weight:600;letter-spacing:-.025em;">Intent into action</span></div>
         </div>
         <div data-reveal style="border-radius:22px;background:var(--beige);overflow:hidden;margin-top:16px;padding:40px 44px;position:relative;"><div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.45);aspect-ratio:1280/844;background:#faf9f5;"><iframe src="assets/rose-onboarding-proto/motion.html" title="Rose · onboarding, live walkthrough" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div></div>
-        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="rose.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Rose case study →</a><a href="https://userose.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="rose.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the case study →</a><a href="https://userose.ai/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
       </article>
 
       <!-- KOLECTO -->
@@ -240,7 +261,7 @@
             </div>
           </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="kolecto.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Kolecto case study →</a><a href="https://www.kolecto.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="kolecto.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the case study →</a><a href="https://www.kolecto.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--butter-soft);">Visit site ↗</a></div>
       </article>
 
       <!-- MILLEIS -->
@@ -266,7 +287,7 @@
           <div data-reveal data-reveal-delay="120" style="aspect-ratio:5/4;border-radius:24px;background:linear-gradient(155deg,#5b8fd4,#3f6cb8);display:flex;flex-direction:column;gap:16px;padding:46px;overflow:hidden;"><div style="flex:1;width:100%;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 34px 70px -30px rgba(16,24,52,.55);"><img src="assets/milleis-stairs.png" alt="Milleis" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><img src="assets/milleis-logo.png" alt="Milleis" style="width:42%;height:auto;animation:zoomloop 7s ease-in-out infinite;"></div></div></div>
         </div>
         <div data-reveal style="aspect-ratio:24/9;border-radius:24px;background:#e4e9f7;background-image:radial-gradient(circle,rgba(111,127,180,.22) 1.5px,transparent 1.6px);background-size:22px 22px;display:flex;align-items:center;justify-content:center;padding:30px;position:relative;overflow:hidden;cursor:zoom-in;" data-zoom="assets/milleis-navmap.png"><div style="width:74%;height:100%;border-radius:16px;overflow:hidden;box-shadow:0 22px 46px -22px rgba(16,24,52,.5);"><img src="assets/milleis-navmap.png" data-hover data-label="Zoom" style="width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform .9s var(--ease);" style-hover="transform:scale(1.16)"></div><span style="position:absolute;left:22px;bottom:18px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.85);border-radius:var(--pill);padding:7px 14px;">User flow &amp; navigation</span></div>
-        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="milleis.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the Milleis case study →</a><a href="https://www.milleis.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:rgba(255,255,255,.7);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--white);">Visit site ↗</a></div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;"><a href="milleis.html" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:11px 20px;border-radius:var(--pill);transition:background .25s,transform .2s var(--ease);" style-hover="background:#000;">Read the case study →</a><a href="https://www.milleis.fr/" target="_blank" rel="noopener" data-hover style="display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;background:rgba(255,255,255,.7);border:1px solid var(--hair);padding:11px 20px;border-radius:var(--pill);transition:gap .25s,background .25s;" style-hover="gap:14px;background:var(--white);">Visit site ↗</a></div>
         <div data-zoom-modal style="position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:40px;overflow:auto;background:rgba(20,26,48,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);visibility:hidden;">
           <button type="button" data-zoom-close aria-label="Close" data-hover style="position:absolute;top:26px;right:30px;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,.9);cursor:pointer;font-size:20px;line-height:1;color:var(--ink);display:flex;align-items:center;justify-content:center;">✕</button>
           <img data-zoom-img alt="" style="max-width:min(1100px,92vw);max-height:88vh;width:auto;height:auto;border-radius:26px;box-shadow:0 40px 90px -30px rgba(16,24,52,.7);transform:scale(.92);transition:transform .45s var(--ease);">
@@ -326,9 +347,8 @@
       <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:34px;"><span style="width:9px;height:9px;border-radius:50%;background:var(--lime);"></span><span style="font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);">About &amp; background</span><span style="flex:1;height:1px;background:var(--hair);"></span></div>
       <div data-reveal style="display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;" data-2col>
         <div>
-          <p style="font-size:1.7rem;font-weight:500;color:var(--ink);line-height:1.25;letter-spacing:-.025em;max-width:20ch;margin-bottom:24px;">Six years, one obsession: products that feel effortless and earn trust.</p>
-          <p style="font-size:1.02rem;color:var(--ink2);line-height:1.55;max-width:38ch;margin-bottom:28px;">Whether that's an AI interviewer, a private-banking app, or the design team behind it.</p>
-          <a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover data-magnet style="display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:13px 22px;border-radius:var(--pill);">LinkedIn ↗</a>
+          <p style="font-size:1.7rem;font-weight:500;color:var(--ink);line-height:1.25;letter-spacing:-.025em;max-width:26ch;margin-bottom:24px;">7 years at the intersection of product strategy and design craft.</p>
+          <p style="font-size:1.02rem;color:var(--ink2);line-height:1.55;max-width:44ch;margin-bottom:28px;">From defining the right problem to refining the last interaction, I like staying close to both the product vision and the pixels.</p>
         </div>
         <div style="background:var(--white);border:1px solid var(--hair);border-radius:var(--r-lg);padding:12px 30px;box-shadow:var(--shadow-sm);">
           <ul style="list-style:none;">
@@ -339,6 +359,7 @@
           </ul>
         </div>
       </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:28px;"><a href="https://www.linkedin.com/in/nelly-seiglan/" target="_blank" rel="noopener" data-hover data-magnet style="display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);padding:13px 22px;border-radius:var(--pill);">LinkedIn ↗</a></div>
     </div>
   </section>
 
