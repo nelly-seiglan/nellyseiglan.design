@@ -30,6 +30,10 @@
   @media (prefers-reduced-motion:reduce){[data-reveal],[data-slide]{animation:none;opacity:1;transform:none;}}
   @media (hover:none){[data-cursor]{display:none!important;}}
   @media (max-width:900px){[data-2col]{grid-template-columns:1fr!important;}[data-3col]{grid-template-columns:1fr!important;}[data-4col]{grid-template-columns:repeat(2,1fr)!important;}[data-hide-sm]{display:none!important;}[data-meta]>div:nth-child(3){padding-left:0!important;}}
+  @media (max-width:600px){
+    [style*="padding:0 36px"]{padding-left:20px!important;padding-right:20px!important;}
+    [data-pad="tight"]{padding:8px!important;}
+  }
 
   @media (max-width:760px){[data-navburger]{display:inline-flex!important;}[data-navlinks]{position:absolute;top:60px;right:14px;left:auto;min-width:232px;max-width:calc(100vw - 28px);flex-direction:column;align-items:stretch!important;gap:2px!important;background:var(--white);border:1px solid var(--hair);border-radius:18px;padding:10px;box-shadow:0 24px 60px -28px rgba(26,26,26,.45);display:none!important;}[data-navlinks].open{display:flex!important;}[data-navlinks]>a,[data-navlinks] [data-dd-trigger]{width:100%;padding:12px 14px!important;border-radius:12px!important;font-size:15px!important;margin:0!important;}[data-navlinks] [data-dd]{width:100%;}[data-navlinks] [data-dd-trigger]{justify-content:space-between;}[data-navlinks] [data-dd-menu]{position:static!important;inset:auto!important;transform:none!important;width:100%!important;max-width:100%!important;box-shadow:none!important;border:none!important;padding:2px 0 2px 8px!important;min-width:0!important;background:transparent!important;display:none!important;visibility:visible!important;opacity:1!important;}[data-navlinks] [data-dd]:hover [data-dd-menu],[data-navlinks] [data-dd]:focus-within [data-dd-menu]{display:flex!important;transform:none!important;left:auto!important;}}
 </style>
@@ -74,7 +78,7 @@
   </section>
 
   <section style="padding:16px 0 12px;">
-    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-reveal style="border-radius:22px;background:linear-gradient(150deg,#f6b56a,#f4d78a);overflow:hidden;padding:40px 44px;position:relative;">
+    <div style="max-width:1320px;margin:0 auto;padding:0 36px;"><div data-pad="tight" data-reveal style="border-radius:22px;background:linear-gradient(150deg,#f6b56a,#f4d78a);overflow:hidden;padding:40px 44px;position:relative;">
         <div style="border-radius:14px;overflow:hidden;box-shadow:0 26px 54px -26px rgba(26,26,26,.5);aspect-ratio:1512/874;background:#ecebf3;"><iframe src="kolecto-demo.html" title="Kolecto · live product demo" loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe></div>
         
       </div></div>
